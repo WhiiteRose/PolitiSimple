@@ -1,0 +1,1761 @@
+[
+  {
+    "id": "jordan-bardella",
+    "name": "Jordan Bardella",
+    "party": "Rassemblement National (RN)",
+    "partyColor": "#004494",
+    "image": "/bardella.jpg",
+    "bio": "Député européen et président du Rassemblement National.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Pouvoir d'achat",
+        "points": [
+          "Baisse de la TVA sur les énergies (carburants, électricité, gaz) de 20% à 5,5%.",
+          "Exonération de cotisations patronales pour les hausses de salaires jusqu'à 10%.",
+          "Suppression de l'impôt sur le revenu pour les moins de 30 ans."
+        ]
+      },
+      {
+        "category": "Immigration & Sécurité",
+        "points": [
+          "Suppression du droit du sol et durcissement du regroupement familial.",
+          "Priorité nationale pour l'accès au logement social et à l'emploi.",
+          "Peines planchers pour les récidivistes et suspension des allocations pour les parents de mineurs délinquants."
+        ]
+      },
+      {
+        "category": "Retraites",
+        "points": [
+          "Abrogation de la réforme des 64 ans.",
+          "Départ à 60 ans pour ceux ayant commencé à travailler avant 20 ans avec 40 annuités."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Priorité à la sécurité des femmes dans l'espace public.",
+          "Aides fiscales ciblées pour les mères de familles.",
+          "Lutte contre le fondamentalisme religieux sexiste."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Respect du cadre légal du mariage civil actuel.",
+          "Fermeté pénale contre toutes les agressions physiques.",
+          "Neutralité idéologique dans les institutions publiques."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Défense du 'Made in France' et circuits courts territoriaux.",
+          "Moratoire sur l'éolien terrestre pour protéger les paysages.",
+          "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation pénale à ce jour.",
+      "details": [
+        "Cité dans l'affaire des assistants parlementaires du RN au Parlement européen, mais non mis en examen.",
+        "A perdu un procès en diffamation contre Libération en 2025 concernant ces allégations."
+      ],
+      "sources": [
+        "Le Monde",
+        "Libération",
+        "La Provence"
+      ]
+    }
+  },
+  {
+    "id": "emmanuel-macron",
+    "name": "Emmanuel Macron",
+    "party": "Renaissance / Ensemble",
+    "partyColor": "#0055A4",
+    "image": "/macron.jpg",
+    "bio": "Président de la République Française depuis 2017.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Économie & Travail",
+        "points": [
+          "Poursuite de la politique de plein emploi et baisse des impôts de production.",
+          "Indexation des retraites sur l'inflation.",
+          "Réforme territoriale pour supprimer un échelon administratif."
+        ]
+      },
+      {
+        "category": "Énergie & Climat",
+        "points": [
+          "Construction de 8 nouveaux réacteurs nucléaires EPR2.",
+          "Accélération du déploiement de l'éolien et du solaire en mer.",
+          "Planification écologique pour réduire les émissions de CO2 de 55% d'ici 2030."
+        ]
+      },
+      {
+        "category": "Éducation",
+        "points": [
+          "Régulation de l'accès aux écrans pour les mineurs.",
+          "Refondation de l'Aide Sociale à l'Enfance.",
+          "Poursuite des dédoublements de classes en zone prioritaire."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Constitutionnalisation de l'IVG (Protection renforcée).",
+          "Renforcement de l'index égalité professionnelle.",
+          "Prévention massive contre les violences sexistes."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Défense du mariage pour tous et de la PMA.",
+          "Plan de lutte contre les haines anti-LGBT+ 2026.",
+          "Soutien aux centres d'accueil spécialisés."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Relance du nucléaire (EPR2) et mix électrique stable.",
+          "Accélération du déploiement de l'éolien en mer.",
+          "Soutien à l'hydrogène vert et décarbonation de l'industrie."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation pénale.",
+      "details": [
+        "Bénéficie de l'immunité présidentielle durant son mandat.",
+        "Plusieurs membres de son entourage et ministres ont fait l'objet d'enquêtes ou de condamnations pour favoritisme ou prise illégale d'intérêts."
+      ],
+      "sources": [
+        "HATVP",
+        "Le Monde",
+        "Public Sénat"
+      ]
+    }
+  },
+  {
+    "id": "jean-luc-melenchon",
+    "name": "Jean-Luc Mélenchon",
+    "party": "La France Insoumise (LFI) / NFP",
+    "partyColor": "#CC2443",
+    "image": "/melenchon.jpg",
+    "bio": "Fondateur de La France Insoumise, ancien député et candidat à la présidentielle.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Social & Pouvoir d'achat",
+        "points": [
+          "Blocage des prix des produits de première nécessité par décret.",
+          "SMIC net à 1600 euros et revalorisation du point d'indice des fonctionnaires.",
+          "Rétablissement de l'ISF et renforcement de la progressivité de l'impôt."
+        ]
+      },
+      {
+        "category": "Institutions & Énergie",
+        "points": [
+          "Passage à la 6ème République par une Assemblée Constituante.",
+          "Sortie du nucléaire et passage au 100% énergies renouvelables.",
+          "Reconnaissance du crime d'écocide."
+        ]
+      },
+      {
+        "category": "International",
+        "points": [
+          "Reconnaissance immédiate de l'État de Palestine.",
+          "Sortie de l'OTAN et diplomatie non-alignée.",
+          "Soutien à la souveraineté de l'Ukraine tout en prônant la désescalade."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Condamné en 2019 et 2021.",
+      "details": [
+        "Condamné en 2019 à 3 mois de prison avec sursis pour 'actes d'intimidation' lors de la perquisition au siège de LFI.",
+        "Condamné en 2021 pour diffamation envers un ancien journaliste du Monde."
+      ],
+      "sources": [
+        "Cour de Cassation",
+        "LCP",
+        "Le Parisien"
+      ]
+    }
+  },
+  {
+    "id": "marine-le-pen",
+    "name": "Marine Le Pen",
+    "party": "Rassemblement National (RN)",
+    "partyColor": "#004494",
+    "image": "/marine.jpg",
+    "bio": "Triple candidate à la présidentielle et figure centrale de l'opposition.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Pouvoir d'achat",
+        "points": [
+          "Baisse de la TVA de 20% à 5,5% sur les produits énergétiques.",
+          "Suppression de la TVA sur 100 produits de première nécessité.",
+          "Soutien aux familles par le rétablissement de l'universalité des allocations familiales."
+        ]
+      },
+      {
+        "category": "Immigration",
+        "points": [
+          "Mise en place de la priorité nationale pour le logement et les aides sociales.",
+          "Expulsion systématique des délinquants et criminels étrangers.",
+          "Transformation de l'aide médicale d'État (AME) en aide d'urgence vitale."
+        ]
+      },
+      {
+        "category": "Retraites",
+        "points": [
+          "Retour à l'âge légal de départ à 62 ans maximum.",
+          "Départ dès 60 ans pour les carrières longues (40 annuités)."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Priorité à la sécurité des femmes dans l'espace public.",
+          "Aides fiscales ciblées pour les mères de familles.",
+          "Lutte contre le fondamentalisme religieux sexiste."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Respect du cadre légal du mariage civil actuel.",
+          "Fermeté pénale contre toutes les agressions physiques.",
+          "Neutralité idéologique dans les institutions publiques."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Défense du 'Made in France' et circuits courts territoriaux.",
+          "Moratoire sur l'éolien terrestre pour protéger les paysages.",
+          "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Inéligibilité requise en appel (2026).",
+      "details": [
+        "En attente du verdict en appel (2026) pour l'affaire des assistants parlementaires du FN.",
+        "Peine fixée en 1ère instance à 5 ans d'inéligibilité et 2 ans de prison ferme aménageables."
+      ],
+      "sources": [
+        "Public Sénat",
+        "Le Monde",
+        "Libération"
+      ]
+    }
+  },
+  {
+    "id": "gabriel-attal",
+    "name": "Gabriel Attal",
+    "party": "Renaissance / Ensemble",
+    "partyColor": "#0055A4",
+    "image": "/attal.jpg",
+    "bio": "Ancien Premier ministre et figure de la majorité présidentielle.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Travail & Économie",
+        "points": [
+          "Incitations au travail avec le conditionnement du RSA à 15h d'activité.",
+          "Baisse de la fiscalité sur les classes moyennes pour 'désmicardiser' la France.",
+          "Accélération de la simplification administrative pour les entreprises."
+        ]
+      },
+      {
+        "category": "Éducation & Jeunesse",
+        "points": [
+          "Généralisation du Service National Universel (SNU) à l'horizon 2026.",
+          "Renforcement de l'autorité à l'école et expérimentation de l'uniforme.",
+          "Soutien à la santé mentale des jeunes via le Pass Santé Jeunes."
+        ]
+      },
+      {
+        "category": "Sécurité",
+        "points": [
+          "Création de 'travaux d'intérêt éducatif' pour les mineurs délinquants dès 13 ans.",
+          "Renforcement de la présence policière dans les quartiers prioritaires."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Constitutionnalisation de l'IVG (Protection renforcée).",
+          "Renforcement de l'index égalité professionnelle.",
+          "Prévention massive contre les violences sexistes."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Défense du mariage pour tous et de la PMA.",
+          "Plan de lutte contre les haines anti-LGBT+ 2026.",
+          "Soutien aux centres d'accueil spécialisés."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Relance du nucléaire (EPR2) et mix électrique stable.",
+          "Accélération du déploiement de l'éolien en mer.",
+          "Soutien à l'hydrogène vert et décarbonation de l'industrie."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation pénale.",
+      "details": [
+        "Non impliqué dans des dossiers judiciaires personnels à ce jour en 2026.",
+        "Ses réformes sur la justice des mineurs ont fait l'objet de vifs débats parlementaires."
+      ],
+      "sources": [
+        "Renaissance Portal",
+        "Le Figaro",
+        "BFMTV"
+      ]
+    }
+  },
+  {
+    "id": "raphael-glucksmann",
+    "name": "Raphaël Glucksmann",
+    "party": "Place Publique / Parti Socialiste (PS)",
+    "partyColor": "#E61D36",
+    "image": "/glucksmann.jpg",
+    "bio": "Député européen et fondateur de Place Publique.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Écologie Europe",
+        "points": [
+          "Planification écologique coordonnée à l'échelle européenne.",
+          "Création d'une taxe européenne sur les superprofits des multinationales.",
+          "Amélioration des transports ferroviaires transfrontaliers."
+        ]
+      },
+      {
+        "category": "Social & Institutions",
+        "points": [
+          "Défense d'un revenu de dignité européen.",
+          "Renforcement de la lutte contre les lobbys au Parlement européen.",
+          "Protection des droits fondamentaux et lutte contre les discriminations."
+        ]
+      },
+      {
+        "category": "Géopolitique",
+        "points": [
+          "Soutien indéfectible à l'Ukraine et à l'adhésion européenne.",
+          "Indépendance stratégique de l'Europe face aux régimes autoritaires."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune mise en cause judiciaire.",
+      "details": [
+        "Cible régulière de campagnes de désinformation étrangères liées à ses engagements.",
+        "Défenseur d'une ligne éthique stricte dans la politique européenne."
+      ],
+      "sources": [
+        "Europarl",
+        "Fonds de dotation PP",
+        "France Inter"
+      ]
+    }
+  },
+  {
+    "id": "fabien-roussel",
+    "name": "Fabien Roussel",
+    "party": "Parti Communiste Français (PCF)",
+    "partyColor": "#CE0015",
+    "image": "/roussel.jpg",
+    "bio": "Député et Secrétaire national du Parti Communiste Français.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Travail & Salaires",
+        "points": [
+          "Augmentation du SMIC net à 1600 euros et indexation de tous les salaires.",
+          "Réduction du temps de travail à 32 heures sans perte de salaire.",
+          "Conditionnalité totale des aides publiques aux entreprises."
+        ]
+      },
+      {
+        "category": "Énergie & Services",
+        "points": [
+          "Renationalisation du secteur de l'énergie (poursuite du plan EDF).",
+          "Gratuité des premiers kWh et baisse drastique de la facture d'électricité.",
+          "Grand plan d'embauches dans les hôpitaux et les écoles."
+        ]
+      },
+      {
+        "category": "Écologie Populaire",
+        "points": [
+          "Soutien massif au mix énergétique Nucléaire + Renouvelables.",
+          "Plan de fret ferroviaire pour sortir les camions des routes."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation.",
+      "details": [
+        "L'enquête du PNF (2022) sur un soupçon d'emploi fictif n'a pas abouti à une mise en cause en 2026.",
+        "A été relaxé ou non poursuivi dans les dossiers de financement de parti."
+      ],
+      "sources": [
+        "L'Humanité",
+        "Le Parisien",
+        "PNF Reports"
+      ]
+    }
+  },
+  {
+    "id": "emmanuel-gregoire",
+    "name": "Emmanuel Grégoire",
+    "party": "Maire de Paris (PS / Union Gauche)",
+    "partyColor": "#E61D36",
+    "image": "/gregoire.jpg",
+    "bio": "Maire de Paris élu en Mars 2026, succédant à Anne Hidalgo.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Paris Populaire",
+        "points": [
+          "Priorité absolue à la protection de l'enfance dans le secteur périscolaire.",
+          "Création de 5000 nouveaux logements sociaux par an.",
+          "Renforcement de la gratuité des services publics de proximité."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Plainte classée sans suite.",
+      "details": [
+        "Une plainte pour atteinte à la vie privée durant la campagne a été classée sans suite en Février 2026.",
+        "Sa gestion en tant qu'ancien 1er adjoint reste scrutée par l'opposition."
+      ],
+      "sources": [
+        "La Croix",
+        "Le Parisien",
+        "Libération"
+      ]
+    }
+  },
+  {
+    "id": "benoit-payan",
+    "name": "Benoît Payan",
+    "party": "Maire de Marseille (DVG)",
+    "partyColor": "#DE1B4E",
+    "image": "/payan.jpg",
+    "bio": "Réélu maire de Marseille en Mars 2026 avec le Printemps Marseillais.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Bouclier Social",
+        "points": [
+          "Création d'une mutuelle municipale à tarifs négociés pour tous les marseillais.",
+          "Plan de rénovation sans précédent de toutes les écoles de la ville.",
+          "Maintien de la gratuité des cantines pour les familles les plus modestes."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Enquête préliminaire en cours.",
+      "details": [
+        "Visé par une enquête en Janvier 2026 pour 'prise illégale d'intérêts' suite à un vote administratif.",
+        "L'affaire porte sur une erreur technique lors d'un vote sur sa protection fonctionnelle."
+      ],
+      "sources": [
+        "Marsactu",
+        "Anticor",
+        "La Provence"
+      ]
+    }
+  },
+  {
+    "id": "eric-ciotti",
+    "name": "Éric Ciotti",
+    "party": "Maire de Nice (UXD / RN Ally)",
+    "partyColor": "#004494",
+    "image": "/ciotti.jpg",
+    "bio": "Maire de Nice élu en Mars 2026, renversant le sortant Christian Estrosi.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Sécurité Maximale",
+        "points": [
+          "Doublement des effectifs de la police municipale armée sur le terrain.",
+          "Installation de caméras à reconnaissance faciale et drones de surveillance.",
+          "Refus systématique des subventions aux associations pro-migrants."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Priorité à la sécurité des femmes dans l'espace public.",
+          "Aides fiscales ciblées pour les mères de familles.",
+          "Lutte contre le fondamentalisme religieux sexiste."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Respect du cadre légal du mariage civil actuel.",
+          "Fermeté pénale contre toutes les agressions physiques.",
+          "Neutralité idéologique dans les institutions publiques."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Défense du 'Made in France' et circuits courts territoriaux.",
+          "Moratoire sur l'éolien terrestre pour protéger les paysages.",
+          "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Audition libre en 2026.",
+      "details": [
+        "Entendu en Janvier 2026 pour soupçons de 'fichage illégal' de personnalités locales.",
+        "Plusieurs enquêtes en cours concernant des détournements de fonds publics (ex-épouse, parking)."
+      ],
+      "sources": [
+        "Le Parisien",
+        "Libération",
+        "Anticor"
+      ]
+    }
+  },
+  {
+    "id": "jean-luc-moudenc",
+    "name": "Jean-Luc Moudenc",
+    "party": "Maire de Toulouse (DVD)",
+    "partyColor": "#0055A4",
+    "image": "/moudenc.jpg",
+    "bio": "Réélu maire de Toulouse en Mars 2026 pour un troisième mandat.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Transports & Économie",
+        "points": [
+          "Finalisation de la 3ème ligne de métro 'Toulouse Aerospace Express'.",
+          "Défense de la filière aéronautique et spatiale face aux crises.",
+          "Maintien de la pression fiscale basse pour attirer les entreprises."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Boutons d'alerte pour les femmes victimes de violences.",
+          "Promotion de la méritocratie féminine en entreprise.",
+          "Revalorisation des pensions de réversion pour les veuves."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Maintien de l'égalité devant la loi pour tous.",
+          "Refus du militantisme de genre dans les écoles.",
+          "Fermeté contre toute agression, sans distinction."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Souveraineté énergétique via le parc nucléaire existant.",
+          "Écologie pragmatique sans hausse de la fiscalité.",
+          "Soutien au transport ferroviaire et fret national."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Enquête ouverte en 2025.",
+      "details": [
+        "Visé par une enquête pour détournement de fonds publics suite à une plainte d'Anticor.",
+        "Soupçonné d'avoir utilisé son cabinet municipal pour sa campagne de 2020."
+      ],
+      "sources": [
+        "Mediacités",
+        "Sud Ouest",
+        "Le Journal Toulousain"
+      ]
+    }
+  },
+  {
+    "id": "gregory-doucet",
+    "name": "Grégory Doucet",
+    "party": "Maire de Lyon (EELV)",
+    "partyColor": "#4DAE47",
+    "image": "/doucet.jpg",
+    "bio": "Réélu maire de Lyon en Mars 2026 pour un second mandat écologiste.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Révolution Écologique",
+        "points": [
+          "Poursuite de la piétonnisation massive du centre-ville et de la Presqu'île.",
+          "Végétalisation totale des cours d'écoles (écoles 'nature').",
+          "Interdiction des publicités lumineuses et limitation de la voiture en ville."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation.",
+      "details": [
+        "Gestion municipale souvent critiquée par l'opposition pour son radicalisme.",
+        "Pas d'affaire pénale majeure identifiée en ce début 2026."
+      ],
+      "sources": [
+        "Le Progrès",
+        "Vert éco",
+        "Lyon Mag"
+      ]
+    }
+  },
+  {
+    "id": "david-guiraud",
+    "name": "David Guiraud",
+    "party": "Maire de Roubaix (LFI)",
+    "partyColor": "#CC2443",
+    "image": "/guiraud.jpg",
+    "bio": "Élu maire de Roubaix en Mars 2026 avec 53% des voix.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Bouclier Populaire",
+        "points": [
+          "Cantine 100% gratuite et bio pour tous les élèves roubaisiens.",
+          "Plan massif de rénovation des logements insalubres (lutte contre les marchands de sommeil).",
+          "Création de centres de santé municipaux avec médecins salariés."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation.",
+      "details": [
+        "Personnage clivant pour ses positions nationales, mais pas d'affaire judiciaire locale.",
+        "Succède à une municipalité de droite marquée par des inéligibilités."
+      ],
+      "sources": [
+        "La Croix",
+        "Datan",
+        "Libération"
+      ]
+    }
+  },
+  {
+    "id": "bally-bagayoko",
+    "name": "Bally Bagayoko",
+    "party": "Maire de Saint-Denis (LFI / PCF)",
+    "partyColor": "#CC2443",
+    "image": "/bagayoko.jpg",
+    "bio": "Élu maire de Saint-Denis au 1er tour en Mars 2026 avec 50,7%.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Service Public",
+        "points": [
+          "Retour en régie publique de l'eau et de la gestion des déchets.",
+          "Plan de recrutement de 200 agents pour les services municipaux.",
+          "Gratuité des transports pour les jeunes dyonisiens."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Statut éthique propre.",
+      "details": [
+        "Inscrit son mandat dans le refus des politiques de sécurité 'répressives'.",
+        "Visé par des critiques politiques virulentes de l'opposition sortante."
+      ],
+      "sources": [
+        "Le Media TV",
+        "Actu.fr",
+        "Vert éco"
+      ]
+    }
+  },
+  {
+    "id": "rachida-dati",
+    "name": "Rachida Dati",
+    "party": "Paris Liberté ! / LR",
+    "partyColor": "#0055A4",
+    "image": "/rachida-dati.jpg",
+    "bio": "Chef de l'opposition à Paris (Groupe Paris Liberté!) et ancienne ministre.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Paris Liberté",
+        "points": [
+          "Rétablissement de la fluidité du trafic par la suppression de certaines pistes cyclables jugées inutiles.",
+          "Plan de propreté massif avec privatisation de certains secteurs.",
+          "Baisse de la pression fiscale locale pour les commerçants parisiens."
+        ]
+      },
+      {
+        "category": "Sécurité",
+        "points": [
+          "Armement systématique de la police municipale parisienne.",
+          "Mise en place de la reconnaissance faciale pour les auteurs de délits récurrents.",
+          "Renforcement de la vidéo-protection dans tous les quartiers."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Boutons d'alerte pour les femmes victimes de violences.",
+          "Promotion de la méritocratie féminine en entreprise.",
+          "Revalorisation des pensions de réversion pour les veuves."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Maintien de l'égalité devant la loi pour tous.",
+          "Refus du militantisme de genre dans les écoles.",
+          "Fermeté contre toute agression, sans distinction."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Souveraineté énergétique via le parc nucléaire existant.",
+          "Écologie pragmatique sans hausse de la fiscalité.",
+          "Soutien au transport ferroviaire et fret national."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Mise en examen.",
+      "details": [
+        "Prévue en septembre 2026 pour un procès pour 'corruption' et 'trafic d'influence' dans l'affaire Renault-Nissan.",
+        "Conteste fermement les accusations et dénonce un calendrier politique."
+      ],
+      "sources": [
+        "Le Monde",
+        "Anticor",
+        "Public Sénat"
+      ]
+    }
+  },
+  {
+    "id": "francois-ruffin",
+    "name": "François Ruffin",
+    "party": "Picardie Debout ! / LFI Ally",
+    "partyColor": "#CC2443",
+    "image": "/francois-ruffin.jpg",
+    "bio": "Député de la Somme, fondateur de Picardie Debout et figure de la gauche sociale.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Social & Travail",
+        "points": [
+          "Indexation automatique des salaires sur l'inflation.",
+          "Garantie d'un emploi digne pour tous (Territoires Zéro Chômeur).",
+          "Soutien massif aux métiers du soin et du lien (AESH, aides à domicile)."
+        ]
+      },
+      {
+        "category": "Écologie Populaire",
+        "points": [
+          "Rénovation thermique intégrale et gratuite des passoires thermiques.",
+          "Souveraineté alimentaire avec soutien aux circuits courts et au bio populaire.",
+          "Taxation massive des super-profits pour financer la transition."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Statut éthique intègre.",
+      "details": [
+        "A reversé une partie de ses indemnités parlementaires à des associations.",
+        "Très critique sur les dérives déontologiques du personnel politique."
+      ],
+      "sources": [
+        "Reporterre",
+        "Blast",
+        "Le Média"
+      ]
+    }
+  },
+  {
+    "id": "sandrine-rousseau",
+    "name": "Sandrine Rousseau",
+    "party": "Les Écologistes (EELV)",
+    "partyColor": "#4DAE47",
+    "image": "/sandrine-rousseau.jpg",
+    "bio": "Députée écologiste et figure de l'écoféminisme.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Écoféminisme",
+        "points": [
+          "Instauration d'un 'délit d'écocide' radical au niveau national.",
+          "Mise en place d'un revenu d'émancipation pour les femmes victimes de violences.",
+          "Socialisation des soins et reconnaissance du travail domestique."
+        ]
+      },
+      {
+        "category": "Radicalité Écolo",
+        "points": [
+          "Sortie immédiate du nucléaire et arrêt de tous les projets autoroutiers.",
+          "Instauration d'un quota carbone individuel pour limiter les déplacements polluants.",
+          "Interdiction totale de la publicité pour les produits climaticides."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation.",
+      "details": [
+        "Souvent visée par des campagnes de cyber-harcèlement pour ses positions radicales.",
+        "A gagné plusieurs procès pour diffamation."
+      ],
+      "sources": [
+        "Vert éco",
+        "Mediapart",
+        "Elle"
+      ]
+    }
+  },
+  {
+    "id": "eric-zemmour",
+    "name": "Éric Zemmour",
+    "party": "Reconquête !",
+    "partyColor": "#1A2542",
+    "image": "/eric-zemmour.jpg",
+    "bio": "Président de Reconquête ! et ancien candidat à la présidentielle.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Identité",
+        "points": [
+          "Mise en place de la Remigration pour les étrangers délinquants et clandestins.",
+          "Suppression définitive du droit du sol et du regroupement familial.",
+          "Interdiction des prénoms non-français pour les nouveaux-nés parisiens."
+        ]
+      },
+      {
+        "category": "Civilisation",
+        "points": [
+          "Retour à l'uniforme et à la sélection dès l'entrée au collège.",
+          "Défense systématique du patrimoine chrétien de la France.",
+          "Sortie de la Convention Européenne des Droits de l'Homme."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Priorité à la sécurité des femmes dans l'espace public.",
+          "Aides fiscales ciblées pour les mères de familles.",
+          "Lutte contre le fondamentalisme religieux sexiste."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Respect du cadre légal du mariage civil actuel.",
+          "Fermeté pénale contre toutes les agressions physiques.",
+          "Neutralité idéologique dans les institutions publiques."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Défense du 'Made in France' et circuits courts territoriaux.",
+          "Moratoire sur l'éolien terrestre pour protéger les paysages.",
+          "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Plusieurs condamnations.",
+      "details": [
+        "Multiples condamnations pour incitation à la haine raciale ou religieuse.",
+        "Un nouveau procès pour diffamation publique ouvert en Mars 2026."
+      ],
+      "sources": [
+        "La Croix",
+        "Le Monde",
+        "HuffPost"
+      ]
+    }
+  },
+  {
+    "id": "bruno-le-maire",
+    "name": "Bruno Le Maire",
+    "party": "Renaissance",
+    "partyColor": "#0055A4",
+    "image": "/bruno-le-maire.jpg",
+    "bio": "Figure de la majorité, ancien ministre de l'Économie et écrivain.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Rigueur Budgétaire",
+        "points": [
+          "Réduction drastique de la dette publique avec un plan d'économies de 50 Mds€.",
+          "Poursuite de la politique de l'offre et baisse des impôts de production.",
+          "Réforme de l'État pour supprimer les doublons administratifs."
+        ]
+      },
+      {
+        "category": "Souveraineté",
+        "points": [
+          "Plan massif d'investissement dans l'Intelligence Artificielle en France.",
+          "Indépendance énergétique via le nouveau programme nucléaire EPR2.",
+          "Protection des entreprises stratégiques face aux rachats étrangers."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Constitutionnalisation de l'IVG (Protection renforcée).",
+          "Renforcement de l'index égalité professionnelle.",
+          "Prévention massive contre les violences sexistes."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Défense du mariage pour tous et de la PMA.",
+          "Plan de lutte contre les haines anti-LGBT+ 2026.",
+          "Soutien aux centres d'accueil spécialisés."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Relance du nucléaire (EPR2) et mix électrique stable.",
+          "Accélération du déploiement de l'éolien en mer.",
+          "Soutien à l'hydrogène vert et décarbonation de l'industrie."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune mise en cause personnelle.",
+      "details": [
+        "Sa gestion des finances publiques est régulièrement épinglée par la Cour des Comptes.",
+        "Non cité dans des affaires pénales majeures en 2026."
+      ],
+      "sources": [
+        "Public Sénat",
+        "Les Échos",
+        "La Tribune"
+      ]
+    }
+  },
+  {
+    "id": "prisca-thevenot",
+    "name": "Prisca Thevenot",
+    "party": "Renaissance / Ensemble",
+    "partyColor": "#0055A4",
+    "image": "/prisca-thevenot.jpg",
+    "bio": "Députée de la majorité, ancienne porte-parole du gouvernement.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Vivre Ensemble",
+        "points": [
+          "Renforcement de la lutte contre le séparatisme et défense de la laïcité.",
+          "Plan d'accompagnement pour l'émancipation des femmes dans les quartiers populaires.",
+          "Soutien au service national universel (SNU) obligatoire."
+        ]
+      },
+      {
+        "category": "République",
+        "points": [
+          "Défense du bilan du Président face aux extrêmes.",
+          "Modernisation de la communication publique pour lutter contre les Fake News.",
+          "Poursuite de l'engagement européen de la France."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Constitutionnalisation de l'IVG (Protection renforcée).",
+          "Renforcement de l'index égalité professionnelle.",
+          "Prévention massive contre les violences sexistes."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Défense du mariage pour tous et de la PMA.",
+          "Plan de lutte contre les haines anti-LGBT+ 2026.",
+          "Soutien aux centres d'accueil spécialisés."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Relance du nucléaire (EPR2) et mix électrique stable.",
+          "Accélération du déploiement de l'éolien en mer.",
+          "Soutien à l'hydrogène vert et décarbonation de l'industrie."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Statut éthique intègre.",
+      "details": [
+        "Non impliquée dans des dossiers judiciaires en 2026.",
+        "Figure montante de la majorité présidentielle."
+      ],
+      "sources": [
+        "Le Parisien",
+        "Renaissance France",
+        "CNEWS"
+      ]
+    }
+  },
+  {
+    "id": "yannick-jadot",
+    "name": "Yannick Jadot",
+    "party": "Les Écologistes (EELV)",
+    "partyColor": "#4DAE47",
+    "image": "/yannick-jadot.jpg",
+    "bio": "Sénateur écologiste, ancien député européen et candidat à la présidentielle.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Écologie Réaliste",
+        "points": [
+          "Transformation de l'économie par une fiscalité carbone redistributive.",
+          "Plan massif de rénovation des réseaux ferroviaires régionaux.",
+          "Soutien à l'agriculture paysanne avec sortie des pesticides chimiques."
+        ]
+      },
+      {
+        "category": "Europe",
+        "points": [
+          "Renforcement de la défense européenne intégrée.",
+          "Protectionnisme écologique aux frontières de l'Europe.",
+          "Démocratisation des institutions européennes."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation.",
+      "details": [
+        "Ancien militant Greenpeace, son parcours est marqué par l'activisme écologique pacifique.",
+        "Pas d'affaire judiciaire identifiée en 2026."
+      ],
+      "sources": [
+        "Sud Ouest",
+        "La Croix",
+        "Le Grand Continent"
+      ]
+    }
+  },
+  {
+    "id": "valerie-pecresse",
+    "name": "Valérie Pécresse",
+    "party": "Libres ! / LR",
+    "partyColor": "#0055A4",
+    "image": "/valerie-pecresse.jpg",
+    "bio": "Présidente de la Région Île-de-France et ancienne ministre.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Région Puissante",
+        "points": [
+          "Plan 'Région 100% Sûre' avec déploiement massif de la police régionale des transports.",
+          "Investissement record dans les transports du Grand Paris Express.",
+          "Souveraineté industrielle régionale avec le soutien aux startups technologiques."
+        ]
+      },
+      {
+        "category": "Valeurs",
+        "points": [
+          "Défense d'une droite républicaine indépendante des extrêmes.",
+          "Plan de choc pour la santé avec le recrutement de médecins salariés régionaux.",
+          "Lutte contre le décrochage scolaire via des internats d'excellence."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Boutons d'alerte pour les femmes victimes de violences.",
+          "Promotion de la méritocratie féminine en entreprise.",
+          "Revalorisation des pensions de réversion pour les veuves."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Maintien de l'égalité devant la loi pour tous.",
+          "Refus du militantisme de genre dans les écoles.",
+          "Fermeté contre toute agression, sans distinction."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Souveraineté énergétique via le parc nucléaire existant.",
+          "Écologie pragmatique sans hausse de la fiscalité.",
+          "Soutien au transport ferroviaire et fret national."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Gestion sous contrôle.",
+      "details": [
+        "Enquêtes régulières sur l'usage des fonds régionaux, sans condamnation à ce jour.",
+        "Sa gestion des transports (IDFM) est un sujet de contentieux politique fréquent."
+      ],
+      "sources": [
+        "Politique France",
+        "Sud Radio",
+        "Le Figaro"
+      ]
+    }
+  },
+  {
+    "id": "xavier-bertrand",
+    "name": "Xavier Bertrand",
+    "party": "LR / Hauts-de-France",
+    "partyColor": "#0055A4",
+    "image": "/xavier-bertrand.jpg",
+    "bio": "Président de la Région Hauts-de-France et figure de la droite sociale.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Proximité",
+        "points": [
+          "Plan pour le retour des services publics dans chaque canton rural.",
+          "Assurance emploi régionale pour garantir une formation à chaque chômeur.",
+          "Soutien massif au pouvoir d'achat via l'aide au transport domicile-travail."
+        ]
+      },
+      {
+        "category": "Sécurité",
+        "points": [
+          "Police municipale et régionale armée en coopération avec l'État.",
+          "Sanctions rapides et effectives dès le premier acte de délinquance.",
+          "Mise en place de 'boucliers ruraux' contre les déserts médicaux."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Boutons d'alerte pour les femmes victimes de violences.",
+          "Promotion de la méritocratie féminine en entreprise.",
+          "Revalorisation des pensions de réversion pour les veuves."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Maintien de l'égalité devant la loi pour tous.",
+          "Refus du militantisme de genre dans les écoles.",
+          "Fermeté contre toute agression, sans distinction."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Souveraineté énergétique via le parc nucléaire existant.",
+          "Écologie pragmatique sans hausse de la fiscalité.",
+          "Soutien au transport ferroviaire et fret national."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Statut intègre.",
+      "details": [
+        "Réputé pour sa gestion rigoureuse de sa région.",
+        "Pas de dossiers judiciaires pénaux identifiés en 2026."
+      ],
+      "sources": [
+        "La Voix du Nord",
+        "LCP",
+        "Nous France"
+      ]
+    }
+  },
+  {
+    "id": "laurent-wauquiez",
+    "name": "Laurent Wauquiez",
+    "party": "LR / Auvergne-Rhône-Alpes",
+    "partyColor": "#0055A4",
+    "image": "/laurent-wauquiez.jpg",
+    "bio": "Président de la Région AURA et figure de proue de la droite conservatrice.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Rassemblement Droite",
+        "points": [
+          "Construction d'une offre politique dépassant le cadre des seuls partis.",
+          "Priorité à la défense des valeurs rurales et de la paysannerie française.",
+          "Baisse drastique des subventions aux associations 'politisées'."
+        ]
+      },
+      {
+        "category": "Ordre",
+        "points": [
+          "Instauration d'une aide régionale réservée aux familles respectant les valeurs républicaines.",
+          "Sécurisation totale des lycées par des portails sécurisés et gardiennage.",
+          "Soutien indéfectible aux forces de l'ordre face aux violences."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Boutons d'alerte pour les femmes victimes de violences.",
+          "Promotion de la méritocratie féminine en entreprise.",
+          "Revalorisation des pensions de réversion pour les veuves."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Maintien de l'égalité devant la loi pour tous.",
+          "Refus du militantisme de genre dans les écoles.",
+          "Fermeté contre toute agression, sans distinction."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Souveraineté énergétique via le parc nucléaire existant.",
+          "Écologie pragmatique sans hausse de la fiscalité.",
+          "Soutien au transport ferroviaire et fret national."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Enquêtes en cours.",
+      "details": [
+        "Visé par des enquêtes sur l'usage de fonds régionaux pour certains événements (Dîner des Sommets).",
+        "Fait l'objet de signalements réguliers par l'opposition régionale."
+      ],
+      "sources": [
+        "Le Réveil du Midi",
+        "Le Parisien",
+        "Orange News"
+      ]
+    }
+  },
+  {
+    "id": "manuel-bompard",
+    "name": "Manuel Bompard",
+    "party": "La France Insoumise (LFI)",
+    "partyColor": "#CC2443",
+    "image": "/manuel-bompard.jpg",
+    "bio": "Député et coordinateur national de La France Insoumise.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Rupture Sociale",
+        "points": [
+          "Application intégrale du programme NFP : blocage des prix et SMIC à 1600€.",
+          "Réforme fiscale radicale avec 14 tranches d'impôt sur le revenu.",
+          "Refondation complète de la police avec la suppression de la BAC."
+        ]
+      },
+      {
+        "category": "Stratégie",
+        "points": [
+          "Maintien de la stratégie de conflictualisation face au gouvernement.",
+          "Consolidation de l'ancrage local de LFI suite aux succès de 2026.",
+          "Préparation d'une candidature d'union populaire pour 2027."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation.",
+      "details": [
+        "Architecte de la stratégie électorale de Jean-Luc Mélenchon.",
+        "Pas d'affaire judiciaire personnelle identifiée en 2026."
+      ],
+      "sources": [
+        "Libération",
+        "Orange News",
+        "Parlons Politique"
+      ]
+    }
+  },
+  {
+    "id": "olivier-faure",
+    "name": "Olivier Faure",
+    "party": "Parti Socialiste (PS)",
+    "partyColor": "#E61D36",
+    "image": "/olivier-faure.jpg",
+    "bio": "Premier secrétaire du Parti Socialiste et député.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Équilibre Gauche",
+        "points": [
+          "Refus d'un accord national exclusif avec LFI pour 2027.",
+          "Défense d'une gauche de gouvernement capable de compromis législatifs.",
+          "Plan de relance des services publics de proximité en zones rurales."
+        ]
+      },
+      {
+        "category": "Justice Sociale",
+        "points": [
+          "Renforcement de l'impôt sur la fortune immobilière (IFI).",
+          "Mise en place d'une assurance perte d'autonomie universelle.",
+          "Soutien à la transition écologique juste pour les classes moyennes."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Boutons d'alerte pour les femmes victimes de violences.",
+          "Promotion de la méritocratie féminine en entreprise.",
+          "Revalorisation des pensions de réversion pour les veuves."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Maintien de l'égalité devant la loi pour tous.",
+          "Refus du militantisme de genre dans les écoles.",
+          "Fermeté contre toute agression, sans distinction."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Souveraineté énergétique via le parc nucléaire existant.",
+          "Écologie pragmatique sans hausse de la fiscalité.",
+          "Soutien au transport ferroviaire et fret national."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune mise en cause.",
+      "details": [
+        "Fragilisé en interne par les divisions sur la stratégie d'alliance.",
+        "Statut éthique sans reproche judiciaire connu."
+      ],
+      "sources": [
+        "La Croix",
+        "TV5 Monde",
+        "Public Sénat"
+      ]
+    }
+  },
+  {
+    "id": "carole-delga",
+    "name": "Carole Delga",
+    "party": "PS / Région Occitanie",
+    "partyColor": "#E61D36",
+    "image": "/carole-delga.jpg",
+    "bio": "Présidente de la Région Occitanie, fervente défenseure d'une gauche républicaine.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Gauche Réelle",
+        "points": [
+          "Souveraineté alimentaire et énergétique au niveau régional.",
+          "Transports ferroviaires gratuits pour les moins de 26 ans.",
+          "Bilan rigoureux de gestion pour prouver la capacité de la gauche à gouverner."
+        ]
+      },
+      {
+        "category": "République",
+        "points": [
+          "Rejet catégorique de toute alliance avec LFI jugée trop radicale.",
+          "Défense de la laïcité républicaine sans concession.",
+          "Plan de réindustrialisation verte en Occitanie."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Boutons d'alerte pour les femmes victimes de violences.",
+          "Promotion de la méritocratie féminine en entreprise.",
+          "Revalorisation des pensions de réversion pour les veuves."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Maintien de l'égalité devant la loi pour tous.",
+          "Refus du militantisme de genre dans les écoles.",
+          "Fermeté contre toute agression, sans distinction."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Souveraineté énergétique via le parc nucléaire existant.",
+          "Écologie pragmatique sans hausse de la fiscalité.",
+          "Soutien au transport ferroviaire et fret national."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Statut intègre.",
+      "details": [
+        "Réputée pour sa gestion solide de sa région.",
+        "Pas de dossiers judiciaires identifiés en 2026."
+      ],
+      "sources": [
+        "Ecom News",
+        "La Région Occitanie",
+        "La Croix"
+      ]
+    }
+  },
+  {
+    "id": "robert-menard",
+    "name": "Robert Ménard",
+    "party": "Maire de Béziers (DVD / Soutien LR)",
+    "partyColor": "#0055A4",
+    "image": "/robert-menard.jpg",
+    "bio": "Réélu maire de Béziers au 1er tour en Mars 2026 avec 65,6%.",
+    "lastUpdate": "31 Mars 2026",
+    "program": [
+      {
+        "category": "Béziers Antique",
+        "points": [
+          "Lancement du projet 'Béziers éternelle' : reconstruction de quartiers selon les méthodes romaines.",
+          "Poursuite de la rénovation massive du centre historique.",
+          "Développement touristique basé sur l'histoire bimillénaire de la ville."
+        ]
+      },
+      {
+        "category": "Emploi & Sécurité",
+        "points": [
+          "Installation d'une filière hydrogène verte créatrice de 500 emplois.",
+          "Renforcement des pouvoirs de la police municipale (vidéo-verbalisation accrue).",
+          "Politique de fermeté sur les OQTF et le respect de l'ordre public."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Priorité à la sécurité des femmes dans l'espace public.",
+          "Aides fiscales ciblées pour les mères de familles.",
+          "Lutte contre le fondamentalisme religieux sexiste."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Respect du cadre légal du mariage civil actuel.",
+          "Fermeté pénale contre toutes les agressions physiques.",
+          "Neutralité idéologique dans les institutions publiques."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Défense du 'Made in France' et circuits courts territoriaux.",
+          "Moratoire sur l'éolien terrestre pour protéger les paysages.",
+          "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Procès en cours (2026).",
+      "details": [
+        "Poursuivi pour 'abus de pouvoir' après avoir refusé de célébrer un mariage en 2023.",
+        "Conflits récurrents avec les syndicats locaux (suppression de subventions)."
+      ],
+      "sources": [
+        "Libération",
+        "L'internaute",
+        "Le Parisien"
+      ]
+    }
+  }
+]

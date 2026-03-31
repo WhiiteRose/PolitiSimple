@@ -1,0 +1,12 @@
+/* 
+  Styles de base pour PolitiSimple. 
+  La configuration principale est désormais injectée via index.html et Tailwind CSS.
+*/
+
+:root {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+}
