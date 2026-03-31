@@ -28,6 +28,14 @@ const socialSections = {
         "Rénovation thermique globale des logements publics.",
         "Taxe carbone sur les super-profits industriels."
       ]
+    },
+    {
+      category: "Étudiants",
+      points: [
+        "Revenu d'autonomie pour tous les étudiants (1100€/mois).",
+        "Gratuité totale des transports publics régionaux.",
+        "Garantie du repas à 1€ universel dans tous les RU."
+      ]
     }
   ],
   centre: [
@@ -53,6 +61,14 @@ const socialSections = {
         "Relance du nucléaire (EPR2) et mix électrique stable.",
         "Accélération du déploiement de l'éolien en mer.",
         "Soutien à l'hydrogène vert et décarbonation de l'industrie."
+      ]
+    },
+    {
+      category: "Étudiants",
+      points: [
+        "Réforme des bourses pour inclure davantage de classes moyennes.",
+        "Développement du service national universel (SNU).",
+        "Prêt à taux zéro garanti par l'État pour les projets jeunes."
       ]
     }
   ],
@@ -80,6 +96,14 @@ const socialSections = {
         "Écologie pragmatique sans hausse de la fiscalité.",
         "Soutien au transport ferroviaire et fret national."
       ]
+    },
+    {
+      category: "Étudiants",
+      points: [
+        "Priorité à l'insertion professionnelle et à l'alternance.",
+        "Soutien aux bourses basées sur le mérite et l'effort.",
+        "Plan logement étudiant via la rénovation du parc CROUS."
+      ]
     }
   ],
   extreme_droite: [
@@ -106,6 +130,14 @@ const socialSections = {
         "Moratoire sur l'éolien terrestre pour protéger les paysages.",
         "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
       ]
+    },
+    {
+      category: "Étudiants",
+      points: [
+        "Priorité nationale pour l'accès aux résidences universitaires.",
+        "Rétablissement de l'autorité et de la discipline à l'université.",
+        "Bourse d'excellence liée à l'assiduité et aux résultats."
+      ]
     }
   ]
 };
@@ -127,7 +159,7 @@ const updated = politicians.map(p => {
   
   // Clean potential duplicates or existing new categories to avoid bloat
   const cleanProgram = p.program.filter(s => 
-    !["Droits des Femmes", "Droits LGBT+", "Environnement & Énergie"].includes(s.category)
+    !["Droits des Femmes", "Droits LGBT+", "Environnement & Énergie", "Étudiants"].includes(s.category)
   );
 
   // Re-add them cleanly
@@ -137,4 +169,4 @@ const updated = politicians.map(p => {
 });
 
 fs.writeFileSync(filePath, JSON.stringify(updated, null, 2));
-console.log('Base de données PolitiSimple mise à jour avec 6 catégories par profil.');
+console.log('Base de données PolitiSimple mise à jour avec 7 catégories par profil.');
