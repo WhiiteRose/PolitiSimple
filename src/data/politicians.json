@@ -520,7 +520,31 @@
         "Le Figaro",
         "BFMTV"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "2012",
+        "title": "Conseiller au Ministère de la Santé"
+      },
+      {
+        "year": "2017",
+        "title": "Élu Député",
+        "description": "Hauts-de-Seine."
+      },
+      {
+        "year": "2018",
+        "title": "Secrétaire d’État",
+        "description": "Éducation nationale."
+      },
+      {
+        "year": "2020",
+        "title": "Porte-parole du Gouvernement"
+      },
+      {
+        "year": "2024",
+        "title": "Premier Ministre"
+      }
+    ]
   },
   {
     "id": "raphael-glucksmann",
@@ -598,7 +622,27 @@
         "Fonds de dotation PP",
         "France Inter"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "2004",
+        "title": "Documentariste",
+        "description": "Génocide au Rwanda."
+      },
+      {
+        "year": "2008",
+        "title": "Conseiller International",
+        "description": "Géorgie."
+      },
+      {
+        "year": "2018",
+        "title": "Fondation de Place Publique"
+      },
+      {
+        "year": "2019",
+        "title": "Député Européen"
+      }
+    ]
   },
   {
     "id": "fabien-roussel",
@@ -676,7 +720,22 @@
         "Le Parisien",
         "PNF Reports"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "1997",
+        "title": "Journaliste",
+        "description": "À L'Humanité."
+      },
+      {
+        "year": "2017",
+        "title": "Élu Député du Nord"
+      },
+      {
+        "year": "2018",
+        "title": "Secrétaire National du PCF"
+      }
+    ]
   },
   {
     "id": "emmanuel-gregoire",
@@ -865,7 +924,21 @@
         "Libération",
         "Anticor"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "2007",
+        "title": "Élu Député"
+      },
+      {
+        "year": "2022",
+        "title": "Président des Républicains"
+      },
+      {
+        "year": "2026",
+        "title": "Élu Maire de Nice"
+      }
+    ]
   },
   {
     "id": "jean-luc-moudenc",
@@ -1188,7 +1261,26 @@
         "Anticor",
         "Public Sénat"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "1999",
+        "title": "Magistrate"
+      },
+      {
+        "year": "2007",
+        "title": "Garde des Sceaux",
+        "description": "Ministre de la Justice."
+      },
+      {
+        "year": "2008",
+        "title": "Maire du VIIe"
+      },
+      {
+        "year": "2024",
+        "title": "Ministre de la Culture"
+      }
+    ]
   },
   {
     "id": "francois-ruffin",
@@ -1259,7 +1351,23 @@
         "Blast",
         "Le Média"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "1999",
+        "title": "Journaliste",
+        "description": "Fakir."
+      },
+      {
+        "year": "2016",
+        "title": "Réalisateur",
+        "description": "César pour 'Merci Patron !'"
+      },
+      {
+        "year": "2017",
+        "title": "Élu Député de la Somme"
+      }
+    ]
   },
   {
     "id": "sandrine-rousseau",
