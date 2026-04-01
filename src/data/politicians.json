@@ -75,7 +75,21 @@
         "Libération",
         "La Provence"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "2012",
+        "title": "Adhésion au Front National"
+      },
+      {
+        "year": "2019",
+        "title": "Député européen"
+      },
+      {
+        "year": "2022",
+        "title": "Président du Rassemblement National"
+      }
+    ]
   },
   {
     "id": "emmanuel-macron",
@@ -154,7 +168,21 @@
         "Le Monde",
         "Public Sénat"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "2004",
+        "title": "ENA (Léopold Sédar Senghor)"
+      },
+      {
+        "year": "2014",
+        "title": "Ministre de l'Économie"
+      },
+      {
+        "year": "2017",
+        "title": "Élu Président de la République"
+      }
+    ]
   },
   {
     "id": "jean-luc-melenchon",
@@ -233,7 +261,96 @@
         "LCP",
         "Le Parisien"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "1986",
+        "title": "Sénateur de l'Essonne"
+      },
+      {
+        "year": "2000",
+        "title": "Ministre délégué"
+      },
+      {
+        "year": "2016",
+        "title": "Fondation de LFI"
+      }
+    ]
+  },
+  {
+    "id": "edouard-philippe",
+    "name": "Édouard Philippe",
+    "party": "Horizons",
+    "partyColor": "#00B0FF",
+    "image": "/philippe.jpg",
+    "bio": "Ancien Premier ministre et maire du Havre, fondateur du parti Horizons.",
+    "lastUpdate": "1 Avril 2026",
+    "program": [
+      {
+        "category": "Économie & Travail",
+        "points": [
+          "Allongement de la durée du travail pour financer le modèle social.",
+          "Réduction de la dépense publique et de la dette.",
+          "Soutien à la compétitivité des entreprises par la baisse des charges."
+        ]
+      },
+      {
+        "category": "Énergie & Climat",
+        "points": [
+          "Relance massive du nucléaire civil (nouveaux EPR).",
+          "Transition écologique pragmatique sans écologie punitive.",
+          "Développement de la filière hydrogène vert."
+        ]
+      },
+      {
+        "category": "Sécurité & Justice",
+        "points": [
+          "Rétablissement de l'autorité de l'État sur tout le territoire.",
+          "Construction de nouvelles places de prison.",
+          "Soutien aux forces de l'ordre et simplification des procédures pénales."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation pénale.",
+      "details": [
+        "Visé par des plaintes devant la CJR sur la gestion COVID, classées sans suite.",
+        "Gestion au Havre citée comme exemplaire par ses soutiens."
+      ],
+      "sources": [
+        "Le Monde",
+        "Horizons",
+        "Public Sénat"
+      ]
+    },
+    "timeline": [
+      {
+        "year": "1992",
+        "title": "Diplômé de Sciences Po Paris"
+      },
+      {
+        "year": "1997",
+        "title": "Diplômé de l'ENA (Marc Bloch)"
+      },
+      {
+        "year": "2002",
+        "title": "Fondation de l'UMP",
+        "description": "Conseiller d'Alain Juppé."
+      },
+      {
+        "year": "2010-2017",
+        "title": "Maire du Havre"
+      },
+      {
+        "year": "2017-2020",
+        "title": "Premier Ministre",
+        "description": "Gestion de crises (Gilets Jaunes, COVID)."
+      },
+      {
+        "year": "2021",
+        "title": "Fondation de Horizons"
+      }
+    ]
   },
   {
     "id": "marine-le-pen",
@@ -311,7 +428,21 @@
         "Le Monde",
         "Libération"
       ]
-    }
+    },
+    "timeline": [
+      {
+        "year": "1992",
+        "title": "Avocate au Barreau de Paris"
+      },
+      {
+        "year": "2011",
+        "title": "Présidente du FN"
+      },
+      {
+        "year": "2022",
+        "title": "Présidente du groupe RN"
+      }
+    ]
   },
   {
     "id": "gabriel-attal",

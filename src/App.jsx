@@ -8,7 +8,9 @@ import {
   Gavel, 
   Clock, 
   ChevronRight,
-  Info 
+  Info,
+  GraduationCap,
+  Briefcase
 } from 'lucide-react'
 
 // Utilisation du CDN Tailwind configuré dans index.html
@@ -34,6 +36,7 @@ function App() {
       localStorage.setItem('theme', 'dark')
     } else {
       root.classList.remove('dark')
+      root.classList.add('light') // Ensure light is also there if needed
       localStorage.setItem('theme', 'light')
     }
   }, [isDark])
@@ -160,7 +163,6 @@ function App() {
                 className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 transition-all duration-500 cursor-pointer"
                 onClick={() => handleSelectPolitician(p.id)}
               >
-...
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img 
                     src={p.image} 
@@ -187,7 +189,7 @@ function App() {
                   <h3 className="text-2xl font-black mb-2 group-hover:text-blue-600 transition-colors uppercase tracking-tight leading-tight">{p.name}</h3>
                   <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-8 italic">"{p.bio}"</p>
                   <div className="flex items-center text-blue-600 dark:text-blue-400 font-black text-xs uppercase tracking-widest">
-                    Découvrir le programme <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-2 transition-all" />
+                    Découvrir le profil <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-2 transition-all" />
                   </div>
                 </div>
               </div>
@@ -231,7 +233,7 @@ function App() {
                 <h2 className="text-5xl sm:text-7xl font-black mb-6 tracking-tighter leading-none uppercase">{selectedPolitician.name}</h2>
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
                   <span className="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-black rounded-xl uppercase tracking-widest border border-blue-100 dark:border-blue-900/50">
-                    PROGRAMME DISPONIBLE
+                    DOSSIER COMPLET
                   </span>
                 </div>
               </div>
@@ -274,7 +276,7 @@ function App() {
                   <div className="p-4 bg-red-600 text-white rounded-[1.5rem] shadow-xl shadow-red-500/20">
                     <Gavel className="h-6 w-6" />
                   </div>
-                  <h3 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase">Justice & Parcours</h3>
+                  <h3 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase">Justice & Légalité</h3>
                 </div>
 
                 <div className="bg-red-50/50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/30 p-8 sm:p-12 rounded-[3.5rem] shadow-sm">
@@ -303,6 +305,55 @@ function App() {
                   </div>
                 </div>
               </section>
+
+              {/* Parcours (Timeline) */}
+              {selectedPolitician.timeline && selectedPolitician.timeline.length > 0 && (
+                <section>
+                  <div className="flex items-center gap-4 mb-10">
+                    <div 
+                      className="p-4 text-white rounded-[1.5rem] shadow-xl"
+                      style={{ 
+                        backgroundColor: selectedPolitician.partyColor,
+                        boxShadow: `0 10px 25px -5px ${selectedPolitician.partyColor}33` 
+                      }}
+                    >
+                      <Briefcase className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase">Parcours & Expérience</h3>
+                  </div>
+
+                  <div className="relative pl-8 sm:pl-12 space-y-12 before:absolute before:left-[11px] sm:before:left-[15px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200 dark:before:bg-slate-800">
+                    {selectedPolitician.timeline.map((item, idx) => (
+                      <div key={idx} className="relative group">
+                        {/* Point d'ancrage */}
+                        <div 
+                          className="absolute -left-[30px] sm:-left-[38px] top-1.5 h-4 w-4 rounded-full border-4 border-white dark:border-slate-900 group-hover:scale-150 transition-all duration-300"
+                          style={{ backgroundColor: selectedPolitician.partyColor }}
+                        />
+                        
+                        <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+                          <span 
+                            className="font-black text-lg tracking-tighter uppercase shrink-0 min-w-[100px]"
+                            style={{ color: selectedPolitician.partyColor }}
+                          >
+                            {item.year}
+                          </span>
+                          <div className="space-y-2">
+                            <h4 className="text-xl font-black uppercase tracking-tight leading-none group-hover:opacity-70 transition-opacity">
+                              {item.title}
+                            </h4>
+                            {item.description && (
+                              <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed italic text-sm">
+                                {item.description}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
           </div>
         )}
