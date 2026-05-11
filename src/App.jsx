@@ -482,8 +482,12 @@ function App() {
       root.classList.add('light');
       localStorage.setItem('theme', 'light');
     }
-    const themeMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
+    let themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) themeMeta.remove();
+    themeMeta = document.createElement('meta');
+    themeMeta.name = 'theme-color';
+    themeMeta.content = isDark ? '#0f172a' : '#ffffff';
+    document.head.appendChild(themeMeta);
   }, [isDark]);
 
   useEffect(() => {
@@ -545,7 +549,7 @@ function App() {
 
   return (
     <div className="min-h-screen font-sans antialiased text-slate-900 dark:text-slate-100 transition-colors duration-300">
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="w-1/4">
             <h1
