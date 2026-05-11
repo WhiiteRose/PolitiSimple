@@ -1,0 +1,31 @@
+{
+  "year": 2024,
+  "source": {
+    "name": "Commission nationale des comptes de campagne et des financements politiques",
+    "url": "https://www.cnccfp.fr",
+    "date": "2026-02"
+  },
+  "surplus": [
+    { "name": "PCF", "amount": 34503143 },
+    { "name": "PS", "amount": 33435409 },
+    { "name": "Les Écologistes", "amount": 10562465 },
+    { "name": "Reconquête !", "amount": 5135926 },
+    { "name": "Lutte ouvrière", "amount": 4195534 },
+    { "name": "Les Patriotes", "amount": 2983846 },
+    { "name": "LFI", "amount": 1048538 },
+    { "name": "Régions et peuples solidaires", "amount": 194792 },
+    { "name": "Parti radical de gauche", "amount": 92031 },
+    { "name": "Union des démocrates européens, centristes et indépendants", "amount": 3801 },
+    { "name": "Ensemble !", "amount": 3173 },
+    { "name": "Gauche républicaine et socialiste", "amount": 1353 }
+  ],
+  "deficit": [
+    { "name": "Parti animaliste", "amount": -13850 },
+    { "name": "Les Écologistes – mouvement écologiste indépendant", "amount": -22802 },
+    { "name": "Alliance centriste", "amount": -86751 },
+    { "name": "Debout la France", "amount": -582746 },
+    { "name": "Les Républicains", "amount": -3643380 },
+    { "name": "Écologie au centre", "amount": -4461808 },
+    { "name": "RN", "amount": -11002866 }
+  ]
+}

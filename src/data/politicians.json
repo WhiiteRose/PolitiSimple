@@ -1,104 +1,12 @@
 [
   {
-    "id": "jordan-bardella",
-    "name": "Jordan Bardella",
-    "party": "Rassemblement National (RN)",
-    "partyColor": "#004494",
-    "image": "/bardella.jpg",
-    "bio": "Député européen et président du Rassemblement National.",
-    "lastUpdate": "31 Mars 2026",
-    "program": [
-      {
-        "category": "Pouvoir d'achat",
-        "points": [
-          "Baisse de la TVA sur les énergies (carburants, électricité, gaz) de 20% à 5,5%.",
-          "Exonération de cotisations patronales pour les hausses de salaires jusqu'à 10%.",
-          "Suppression de l'impôt sur le revenu pour les moins de 30 ans."
-        ]
-      },
-      {
-        "category": "Immigration & Sécurité",
-        "points": [
-          "Suppression du droit du sol et durcissement du regroupement familial.",
-          "Priorité nationale pour l'accès au logement social et à l'emploi.",
-          "Peines planchers pour les récidivistes et suspension des allocations pour les parents de mineurs délinquants."
-        ]
-      },
-      {
-        "category": "Retraites",
-        "points": [
-          "Abrogation de la réforme des 64 ans.",
-          "Départ à 60 ans pour ceux ayant commencé à travailler avant 20 ans avec 40 annuités."
-        ]
-      },
-      {
-        "category": "Droits des Femmes",
-        "points": [
-          "Priorité à la sécurité des femmes dans l'espace public.",
-          "Aides fiscales ciblées pour les mères de familles.",
-          "Lutte contre le fondamentalisme religieux sexiste."
-        ]
-      },
-      {
-        "category": "Droits LGBT+",
-        "points": [
-          "Respect du cadre légal du mariage civil actuel.",
-          "Fermeté pénale contre toutes les agressions physiques.",
-          "Neutralité idéologique dans les institutions publiques."
-        ]
-      },
-      {
-        "category": "Environnement & Énergie",
-        "points": [
-          "Défense du 'Made in France' et circuits courts territoriaux.",
-          "Moratoire sur l'éolien terrestre pour protéger les paysages.",
-          "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
-        ]
-      },
-      {
-        "category": "Étudiants",
-        "points": [
-          "Priorité nationale pour l'accès aux résidences universitaires.",
-          "Rétablissement de l'autorité et de la discipline à l'université.",
-          "Bourse d'excellence liée à l'assiduité et aux résultats."
-        ]
-      }
-    ],
-    "legal": {
-      "status": "Aucune condamnation pénale à ce jour.",
-      "details": [
-        "Cité dans l'affaire des assistants parlementaires du RN au Parlement européen, mais non mis en examen.",
-        "A perdu un procès en diffamation contre Libération en 2025 concernant ces allégations."
-      ],
-      "sources": [
-        "Le Monde",
-        "Libération",
-        "La Provence"
-      ]
-    },
-    "timeline": [
-      {
-        "year": "2012",
-        "title": "Adhésion au Front National"
-      },
-      {
-        "year": "2019",
-        "title": "Député européen"
-      },
-      {
-        "year": "2022",
-        "title": "Président du Rassemblement National"
-      }
-    ]
-  },
-  {
     "id": "emmanuel-macron",
     "name": "Emmanuel Macron",
     "party": "Renaissance / Ensemble",
     "partyColor": "#0055A4",
     "image": "/macron.jpg",
     "bio": "Président de la République Française depuis 2017.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Économie & Travail",
@@ -164,10 +72,20 @@
         "Plusieurs membres de son entourage et ministres ont fait l'objet d'enquêtes ou de condamnations pour favoritisme ou prise illégale d'intérêts."
       ],
       "sources": [
-        "HATVP",
-        "Le Monde",
-        "Public Sénat"
-      ]
+        {
+          "name": "HATVP",
+          "url": "https://www.hatvp.fr"
+        },
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "Public Sénat",
+          "url": "https://www.publicsenat.fr"
+        }
+      ],
+      "globalStatus": "clean"
     },
     "timeline": [
       {
@@ -182,7 +100,11 @@
         "year": "2017",
         "title": "Élu Président de la République"
       }
-    ]
+    ],
+    "votes": {
+      "instance": null,
+      "items": []
+    }
   },
   {
     "id": "jean-luc-melenchon",
@@ -191,7 +113,7 @@
     "partyColor": "#CC2443",
     "image": "/melenchon.jpg",
     "bio": "Fondateur de La France Insoumise, ancien député et candidat à la présidentielle.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
         "category": "Social & Pouvoir d'achat",
@@ -257,10 +179,20 @@
         "Condamné en 2021 pour diffamation envers un ancien journaliste du Monde."
       ],
       "sources": [
-        "Cour de Cassation",
-        "LCP",
-        "Le Parisien"
-      ]
+        {
+          "name": "Cour de Cassation",
+          "url": "https://www.courdecassation.fr"
+        },
+        {
+          "name": "LCP",
+          "url": "https://lcp.fr"
+        },
+        {
+          "name": "Le Parisien",
+          "url": "https://www.leparisien.fr"
+        }
+      ],
+      "globalStatus": "convicted"
     },
     "timeline": [
       {
@@ -275,82 +207,512 @@
         "year": "2016",
         "title": "Fondation de LFI"
       }
-    ]
+    ],
+    "votes": {
+      "instance": "Assemblée Nationale (mandat 2017-2022)",
+      "items": [
+        {
+          "date": "2021-06-29",
+          "law": "Loi bioéthique (PMA pour toutes)",
+          "position": "pour",
+          "summary": "Ouverture de la PMA aux couples de femmes et aux femmes seules. La France Insoumise a voté pour à l'unanimité.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2021-06-29"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2021-06-29"
+            }
+          ]
+        },
+        {
+          "date": "2021-04-15",
+          "law": "Loi Sécurité globale (article 24)",
+          "position": "contre",
+          "summary": "Texte encadrant la diffusion d'images des forces de l'ordre, dénoncé par la gauche et la presse comme atteinte à la liberté d'informer. Mélenchon a porté plusieurs motions de rejet.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2021-04-15"
+            },
+            {
+              "name": "Mediapart",
+              "url": "https://www.mediapart.fr",
+              "date": "2021-04-15"
+            }
+          ]
+        },
+        {
+          "date": "2018-04-22",
+          "law": "Loi Asile et Immigration (loi Collomb)",
+          "position": "contre",
+          "summary": "Allongement de la durée de rétention administrative et durcissement des procédures d'asile. La France Insoumise a voté contre.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2018-04-22"
+            },
+            {
+              "name": "Libération",
+              "url": "https://www.liberation.fr",
+              "date": "2018-04-22"
+            }
+          ]
+        }
+      ]
+    }
   },
   {
-    "id": "edouard-philippe",
-    "name": "Édouard Philippe",
-    "party": "Horizons",
-    "partyColor": "#00B0FF",
-    "image": "/philippe.jpg",
-    "bio": "Ancien Premier ministre et maire du Havre, fondateur du parti Horizons.",
-    "lastUpdate": "1 Avril 2026",
+    "id": "jordan-bardella",
+    "name": "Jordan Bardella",
+    "party": "Rassemblement National (RN)",
+    "partyColor": "#004494",
+    "image": "/bardella.jpg",
+    "bio": "Député européen et président du Rassemblement National.",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
-        "category": "Économie & Travail",
+        "category": "Pouvoir d'achat",
         "points": [
-          "Allongement de la durée du travail pour financer le modèle social.",
-          "Réduction de la dépense publique et de la dette.",
-          "Soutien à la compétitivité des entreprises par la baisse des charges."
+          "Baisse de la TVA sur les énergies (carburants, électricité, gaz) de 20% à 5,5%.",
+          "Exonération de cotisations patronales pour les hausses de salaires jusqu'à 10%.",
+          "Suppression de l'impôt sur le revenu pour les moins de 30 ans."
         ]
       },
       {
-        "category": "Énergie & Climat",
+        "category": "Immigration & Sécurité",
         "points": [
-          "Relance massive du nucléaire civil (nouveaux EPR).",
-          "Transition écologique pragmatique sans écologie punitive.",
-          "Développement de la filière hydrogène vert."
+          "Suppression du droit du sol et durcissement du regroupement familial.",
+          "Priorité nationale pour l'accès au logement social et à l'emploi.",
+          "Peines planchers pour les récidivistes et suspension des allocations pour les parents de mineurs délinquants."
         ]
       },
       {
-        "category": "Sécurité & Justice",
+        "category": "Retraites",
         "points": [
-          "Rétablissement de l'autorité de l'État sur tout le territoire.",
-          "Construction de nouvelles places de prison.",
-          "Soutien aux forces de l'ordre et simplification des procédures pénales."
+          "Abrogation de la réforme des 64 ans.",
+          "Départ à 60 ans pour ceux ayant commencé à travailler avant 20 ans avec 40 annuités."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Priorité à la sécurité des femmes dans l'espace public.",
+          "Aides fiscales ciblées pour les mères de familles.",
+          "Lutte contre le fondamentalisme religieux sexiste."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Respect du cadre légal du mariage civil actuel.",
+          "Fermeté pénale contre toutes les agressions physiques.",
+          "Neutralité idéologique dans les institutions publiques."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Défense du 'Made in France' et circuits courts territoriaux.",
+          "Moratoire sur l'éolien terrestre pour protéger les paysages.",
+          "Baisse de la TVA sur l'énergie pour le pouvoir d'achat."
+        ]
+      },
+      {
+        "category": "Étudiants",
+        "points": [
+          "Priorité nationale pour l'accès aux résidences universitaires.",
+          "Rétablissement de l'autorité et de la discipline à l'université.",
+          "Bourse d'excellence liée à l'assiduité et aux résultats."
         ]
       }
     ],
     "legal": {
-      "status": "Aucune condamnation pénale.",
+      "status": "Visé par une enquête européenne (Parquet européen).",
       "details": [
-        "Visé par des plaintes devant la CJR sur la gestion COVID, classées sans suite.",
-        "Gestion au Havre citée comme exemplaire par ses soutiens."
+        "Visé par une enquête du Parquet européen (EPPO) ouverte en 2024 portant sur des soupçons de détournement de fonds publics européens, notamment via des prestations de 'media training' facturées au Parlement européen en 2022.",
+        "Cité dans l'affaire des assistants parlementaires du RN au Parlement européen, mais non mis en examen.",
+        "A perdu un procès en diffamation contre Libération en 2025 concernant ces allégations."
       ],
       "sources": [
-        "Le Monde",
-        "Horizons",
-        "Public Sénat"
-      ]
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        },
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "La Provence",
+          "url": "https://www.laprovence.com"
+        }
+      ],
+      "globalStatus": "investigation"
     },
     "timeline": [
       {
-        "year": "1992",
-        "title": "Diplômé de Sciences Po Paris"
+        "year": "2012",
+        "title": "Adhésion au Front National"
       },
       {
-        "year": "1997",
-        "title": "Diplômé de l'ENA (Marc Bloch)"
+        "year": "2019",
+        "title": "Député européen"
       },
       {
-        "year": "2002",
-        "title": "Fondation de l'UMP",
-        "description": "Conseiller d'Alain Juppé."
-      },
-      {
-        "year": "2010-2017",
-        "title": "Maire du Havre"
-      },
-      {
-        "year": "2017-2020",
-        "title": "Premier Ministre",
-        "description": "Gestion de crises (Gilets Jaunes, COVID)."
-      },
-      {
-        "year": "2021",
-        "title": "Fondation de Horizons"
+        "year": "2022",
+        "title": "Président du Rassemblement National"
       }
-    ]
+    ],
+    "votes": {
+      "instance": "Parlement européen",
+      "items": [
+        {
+          "date": "2024-04-24",
+          "law": "Directive européenne contre la violence faite aux femmes",
+          "position": "contre",
+          "summary": "Texte intégrant des dispositions contre les violences sexistes. La définition du viol fondée sur le consentement a été retirée du texte final sous pression de plusieurs États membres. Bardella a voté contre l'ensemble du paquet.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-04-24"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2024-04-24"
+            }
+          ]
+        },
+        {
+          "date": "2024-04-10",
+          "law": "Pacte européen sur la migration et l'asile",
+          "position": "contre",
+          "summary": "Ensemble de 10 textes réformant la politique migratoire de l'UE (procédure aux frontières, solidarité entre États, base de données Eurodac).",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-04-10"
+            },
+            {
+              "name": "Libération",
+              "url": "https://www.liberation.fr",
+              "date": "2024-04-10"
+            }
+          ]
+        },
+        {
+          "date": "2024-03-13",
+          "law": "Règlement sur l'Intelligence Artificielle (AI Act)",
+          "position": "contre",
+          "summary": "Premier cadre réglementaire mondial encadrant les systèmes d'IA selon leur niveau de risque.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-03-13"
+            },
+            {
+              "name": "Les Échos",
+              "url": "https://www.lesechos.fr",
+              "date": "2024-03-13"
+            }
+          ]
+        },
+        {
+          "date": "2023-11-22",
+          "law": "Réforme des règles budgétaires européennes",
+          "position": "contre",
+          "summary": "Révision du Pacte de stabilité et de croissance assouplissant les règles de dette et de déficit.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2023-11-22"
+            },
+            {
+              "name": "Le Figaro",
+              "url": "https://www.lefigaro.fr",
+              "date": "2023-11-22"
+            }
+          ]
+        }
+      ]
+    },
+    "stats": {
+      "amendmentsWritten": 21
+    }
+  },
+  {
+    "id": "manon-aubry",
+    "name": "Manon Aubry",
+    "party": "La France Insoumise (LFI) / The Left",
+    "partyColor": "#CC2443",
+    "image": "/manon-aubry.jpg",
+    "bio": "Députée européenne LFI et co-présidente du groupe The Left au Parlement européen.",
+    "lastUpdate": "2026-05-10",
+    "program": [
+      {
+        "category": "Justice fiscale",
+        "points": [
+          "Imposition mondiale des multinationales à 25% minimum.",
+          "Lutte radicale contre les paradis fiscaux et l'évasion fiscale européenne.",
+          "Création d'un ISF européen sur les grandes fortunes."
+        ]
+      },
+      {
+        "category": "Démocratie & Transparence",
+        "points": [
+          "Encadrement strict des lobbys au Parlement européen.",
+          "Transparence intégrale sur les conflits d'intérêts des commissaires.",
+          "Création d'une autorité éthique européenne indépendante."
+        ]
+      },
+      {
+        "category": "Droits sociaux",
+        "points": [
+          "Salaire minimum européen aligné sur le coût de la vie.",
+          "Directive contre la précarité des travailleurs des plateformes.",
+          "Renforcement des droits syndicaux à l'échelle de l'UE."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Définition européenne harmonisée du viol fondée sur le consentement.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Reconnaissance mutuelle des familles arc-en-ciel dans toute l'UE.",
+          "Lutte contre les thérapies de conversion.",
+          "Sanctions contre les États membres reculant sur les droits LGBT+."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Taxe carbone aux frontières renforcée et redistributive.",
+          "Sortie des accords commerciaux climaticides (CETA, Mercosur).",
+          "Plan d'investissement vert européen de 500 Md€."
+        ]
+      },
+      {
+        "category": "Étudiants",
+        "points": [
+          "Programme Erasmus universel et entièrement gratuit.",
+          "Bourses européennes de mobilité revalorisées.",
+          "Reconnaissance automatique des diplômes dans l'UE."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune mise en cause judiciaire.",
+      "details": [
+        "Très active sur la transparence et l'anti-corruption au Parlement européen.",
+        "Pas d'affaire judiciaire personnelle identifiée."
+      ],
+      "sources": [
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "Mediapart",
+          "url": "https://www.mediapart.fr"
+        },
+        {
+          "name": "Europarl",
+          "url": "https://www.europarl.europa.eu"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "timeline": [
+      {
+        "year": "2014",
+        "title": "Diplômée de Sciences Po Paris"
+      },
+      {
+        "year": "2015",
+        "title": "Porte-parole d'Oxfam France",
+        "description": "Spécialiste de la justice fiscale et des inégalités."
+      },
+      {
+        "year": "2019",
+        "title": "Élue députée européenne",
+        "description": "Tête de liste La France Insoumise."
+      },
+      {
+        "year": "2020",
+        "title": "Co-présidente du groupe The Left"
+      },
+      {
+        "year": "2024",
+        "title": "Réélue députée européenne",
+        "description": "Reconduite à la co-présidence de The Left."
+      }
+    ],
+    "votes": {
+      "instance": "Parlement européen",
+      "items": [
+        {
+          "date": "2024-04-24",
+          "law": "Directive européenne contre la violence faite aux femmes",
+          "position": "pour",
+          "summary": "Le groupe The Left a voté pour le texte tout en dénonçant le retrait de la définition européenne du viol fondée sur le consentement, sous pression de la France et de l'Allemagne.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-04-24"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2024-04-24"
+            }
+          ]
+        },
+        {
+          "date": "2024-04-10",
+          "law": "Pacte européen sur la migration et l'asile",
+          "position": "contre",
+          "summary": "The Left a voté contre l'ensemble du paquet, dénonçant un durcissement des contrôles aux frontières et une atteinte au droit d'asile.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-04-10"
+            },
+            {
+              "name": "Mediapart",
+              "url": "https://www.mediapart.fr",
+              "date": "2024-04-10"
+            }
+          ]
+        },
+        {
+          "date": "2023-11-22",
+          "law": "Réforme des règles budgétaires européennes",
+          "position": "contre",
+          "summary": "Révision du Pacte de stabilité maintenant les règles d'austérité (déficit < 3%, dette < 60%). The Left a voté contre, jugeant ces règles incompatibles avec les besoins d'investissement social et écologique.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2023-11-22"
+            },
+            {
+              "name": "Libération",
+              "url": "https://www.liberation.fr",
+              "date": "2023-11-22"
+            }
+          ]
+        }
+      ]
+    },
+    "stats": {
+      "amendmentsWritten": 3460
+    }
+  },
+  {
+    "id": "bally-bagayoko",
+    "name": "Bally Bagayoko",
+    "party": "Maire de Saint-Denis (LFI / PCF)",
+    "partyColor": "#CC2443",
+    "image": "/bagayoko.jpg",
+    "bio": "Élu maire de Saint-Denis au 1er tour en Mars 2026 avec 50,7%.",
+    "lastUpdate": "2026-05-10",
+    "program": [
+      {
+        "category": "Service Public",
+        "points": [
+          "Retour en régie publique de l'eau et de la gestion des déchets.",
+          "Plan de recrutement de 200 agents pour les services municipaux.",
+          "Gratuité des transports pour les jeunes dyonisiens."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      },
+      {
+        "category": "Étudiants",
+        "points": [
+          "Revenu d'autonomie pour tous les étudiants (1100€/mois).",
+          "Gratuité totale des transports publics régionaux.",
+          "Garantie du repas à 1€ universel dans tous les RU."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Statut éthique propre.",
+      "details": [
+        "Inscrit son mandat dans le refus des politiques de sécurité 'répressives'.",
+        "Visé par des critiques politiques virulentes de l'opposition sortante."
+      ],
+      "sources": [
+        {
+          "name": "Le Media TV",
+          "url": "https://www.lemediatv.fr"
+        },
+        {
+          "name": "Actu.fr",
+          "url": "https://actu.fr"
+        },
+        {
+          "name": "Vert éco",
+          "url": "https://vert.eco"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
+    }
   },
   {
     "id": "marine-le-pen",
@@ -359,7 +721,7 @@
     "partyColor": "#004494",
     "image": "/marine.jpg",
     "bio": "Triple candidate à la présidentielle et figure centrale de l'opposition.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
         "category": "Pouvoir d'achat",
@@ -424,10 +786,20 @@
         "Peine fixée en 1ère instance à 5 ans d'inéligibilité et 2 ans de prison ferme aménageables."
       ],
       "sources": [
-        "Public Sénat",
-        "Le Monde",
-        "Libération"
-      ]
+        {
+          "name": "Public Sénat",
+          "url": "https://www.publicsenat.fr"
+        },
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        }
+      ],
+      "globalStatus": "indicted"
     },
     "timeline": [
       {
@@ -442,7 +814,158 @@
         "year": "2022",
         "title": "Présidente du groupe RN"
       }
-    ]
+    ],
+    "votes": {
+      "instance": "Assemblée Nationale",
+      "items": [
+        {
+          "date": "2024-03-04",
+          "law": "Constitutionnalisation de l'IVG (Congrès)",
+          "position": "pour",
+          "summary": "Inscription de la liberté de recourir à l'IVG dans la Constitution française. Adoptée à 780 voix pour, 72 contre.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2024-03-04"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2024-03-04"
+            }
+          ]
+        },
+        {
+          "date": "2023-12-19",
+          "law": "Loi Immigration (loi Darmanin)",
+          "position": "pour",
+          "summary": "Texte durci en commission mixte paritaire (priorité nationale, durcissement des conditions d'accès aux prestations sociales). Le RN a voté pour la version finale.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-12-19"
+            },
+            {
+              "name": "Libération",
+              "url": "https://www.liberation.fr",
+              "date": "2023-12-19"
+            }
+          ]
+        },
+        {
+          "date": "2023-03-20",
+          "law": "Motion de censure contre la réforme des retraites",
+          "position": "pour",
+          "summary": "Motion transpartisane (LIOT) contre l'usage du 49.3 sur la réforme des retraites. Rejetée à 9 voix près (278/287). Vote pour la motion = opposition à la réforme.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-03-20"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2023-03-20"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "edouard-philippe",
+    "name": "Édouard Philippe",
+    "party": "Horizons",
+    "partyColor": "#00B0FF",
+    "image": "/philippe.jpg",
+    "bio": "Ancien Premier ministre et maire du Havre, fondateur du parti Horizons.",
+    "lastUpdate": "2026-04-01",
+    "program": [
+      {
+        "category": "Économie & Travail",
+        "points": [
+          "Allongement de la durée du travail pour financer le modèle social.",
+          "Réduction de la dépense publique et de la dette.",
+          "Soutien à la compétitivité des entreprises par la baisse des charges."
+        ]
+      },
+      {
+        "category": "Énergie & Climat",
+        "points": [
+          "Relance massive du nucléaire civil (nouveaux EPR).",
+          "Transition écologique pragmatique sans écologie punitive.",
+          "Développement de la filière hydrogène vert."
+        ]
+      },
+      {
+        "category": "Sécurité & Justice",
+        "points": [
+          "Rétablissement de l'autorité de l'État sur tout le territoire.",
+          "Construction de nouvelles places de prison.",
+          "Soutien aux forces de l'ordre et simplification des procédures pénales."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation pénale.",
+      "details": [
+        "Visé par des plaintes devant la CJR sur la gestion COVID, classées sans suite.",
+        "Gestion au Havre citée comme exemplaire par ses soutiens."
+      ],
+      "sources": [
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "Horizons",
+          "url": "https://horizons-le-parti.fr"
+        },
+        {
+          "name": "Public Sénat",
+          "url": "https://www.publicsenat.fr"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "timeline": [
+      {
+        "year": "1992",
+        "title": "Diplômé de Sciences Po Paris"
+      },
+      {
+        "year": "1997",
+        "title": "Diplômé de l'ENA (Marc Bloch)"
+      },
+      {
+        "year": "2002",
+        "title": "Fondation de l'UMP",
+        "description": "Conseiller d'Alain Juppé."
+      },
+      {
+        "year": "2010-2017",
+        "title": "Maire du Havre"
+      },
+      {
+        "year": "2017-2020",
+        "title": "Premier Ministre",
+        "description": "Gestion de crises (Gilets Jaunes, COVID)."
+      },
+      {
+        "year": "2021",
+        "title": "Fondation de Horizons"
+      }
+    ],
+    "votes": {
+      "instance": null,
+      "items": []
+    }
   },
   {
     "id": "gabriel-attal",
@@ -451,7 +974,7 @@
     "partyColor": "#0055A4",
     "image": "/attal.jpg",
     "bio": "Ancien Premier ministre et figure de la majorité présidentielle.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Travail & Économie",
@@ -516,10 +1039,20 @@
         "Ses réformes sur la justice des mineurs ont fait l'objet de vifs débats parlementaires."
       ],
       "sources": [
-        "Renaissance Portal",
-        "Le Figaro",
-        "BFMTV"
-      ]
+        {
+          "name": "Renaissance Portal",
+          "url": "https://parti-renaissance.fr"
+        },
+        {
+          "name": "Le Figaro",
+          "url": "https://www.lefigaro.fr"
+        },
+        {
+          "name": "BFMTV",
+          "url": "https://www.bfmtv.com"
+        }
+      ],
+      "globalStatus": "clean"
     },
     "timeline": [
       {
@@ -544,7 +1077,11 @@
         "year": "2024",
         "title": "Premier Ministre"
       }
-    ]
+    ],
+    "votes": {
+      "instance": null,
+      "items": []
+    }
   },
   {
     "id": "raphael-glucksmann",
@@ -553,7 +1090,7 @@
     "partyColor": "#E61D36",
     "image": "/glucksmann.jpg",
     "bio": "Député européen et fondateur de Place Publique.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
         "category": "Écologie Europe",
@@ -618,10 +1155,20 @@
         "Défenseur d'une ligne éthique stricte dans la politique européenne."
       ],
       "sources": [
-        "Europarl",
-        "Fonds de dotation PP",
-        "France Inter"
-      ]
+        {
+          "name": "Europarl",
+          "url": "https://www.europarl.europa.eu"
+        },
+        {
+          "name": "Fonds de dotation PP",
+          "url": "https://www.placepublique.eu"
+        },
+        {
+          "name": "France Inter",
+          "url": "https://www.radiofrance.fr/franceinter"
+        }
+      ],
+      "globalStatus": "clean"
     },
     "timeline": [
       {
@@ -642,7 +1189,72 @@
         "year": "2019",
         "title": "Député Européen"
       }
-    ]
+    ],
+    "votes": {
+      "instance": "Parlement européen",
+      "items": [
+        {
+          "date": "2024-04-24",
+          "law": "Directive européenne contre la violence faite aux femmes",
+          "position": "pour",
+          "summary": "Le groupe S&D a voté pour, tout en regrettant le retrait de la définition européenne du viol fondée sur le consentement.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-04-24"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2024-04-24"
+            }
+          ]
+        },
+        {
+          "date": "2024-04-10",
+          "law": "Pacte européen sur la migration et l'asile",
+          "position": "pour",
+          "summary": "Texte de compromis sur la politique migratoire de l'UE. Le S&D a voté pour, malgré des réserves sur les procédures aux frontières.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-04-10"
+            },
+            {
+              "name": "Libération",
+              "url": "https://www.liberation.fr",
+              "date": "2024-04-10"
+            }
+          ]
+        },
+        {
+          "date": "2024-03-13",
+          "law": "Règlement sur l'Intelligence Artificielle (AI Act)",
+          "position": "pour",
+          "summary": "Premier cadre réglementaire mondial encadrant les systèmes d'IA. Soutien massif du S&D.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Howtheyvote.eu",
+              "url": "https://howtheyvote.eu",
+              "date": "2024-03-13"
+            },
+            {
+              "name": "Les Échos",
+              "url": "https://www.lesechos.fr",
+              "date": "2024-03-13"
+            }
+          ]
+        }
+      ]
+    },
+    "stats": {
+      "amendmentsWritten": 2033
+    }
   },
   {
     "id": "fabien-roussel",
@@ -651,7 +1263,7 @@
     "partyColor": "#CE0015",
     "image": "/roussel.jpg",
     "bio": "Député et Secrétaire national du Parti Communiste Français.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Travail & Salaires",
@@ -716,10 +1328,20 @@
         "A été relaxé ou non poursuivi dans les dossiers de financement de parti."
       ],
       "sources": [
-        "L'Humanité",
-        "Le Parisien",
-        "PNF Reports"
-      ]
+        {
+          "name": "L'Humanité",
+          "url": "https://www.humanite.fr"
+        },
+        {
+          "name": "Le Parisien",
+          "url": "https://www.leparisien.fr"
+        },
+        {
+          "name": "PNF Reports",
+          "url": "https://www.economie.gouv.fr/pnf"
+        }
+      ],
+      "globalStatus": "clean"
     },
     "timeline": [
       {
@@ -735,7 +1357,11 @@
         "year": "2018",
         "title": "Secrétaire National du PCF"
       }
-    ]
+    ],
+    "votes": {
+      "instance": null,
+      "items": []
+    }
   },
   {
     "id": "emmanuel-gregoire",
@@ -744,7 +1370,7 @@
     "partyColor": "#E61D36",
     "image": "/gregoire.jpg",
     "bio": "Maire de Paris élu en Mars 2026, succédant à Anne Hidalgo.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Paris Populaire",
@@ -794,10 +1420,24 @@
         "Sa gestion en tant qu'ancien 1er adjoint reste scrutée par l'opposition."
       ],
       "sources": [
-        "La Croix",
-        "Le Parisien",
-        "Libération"
-      ]
+        {
+          "name": "La Croix",
+          "url": "https://www.la-croix.com"
+        },
+        {
+          "name": "Le Parisien",
+          "url": "https://www.leparisien.fr"
+        },
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -807,7 +1447,7 @@
     "partyColor": "#DE1B4E",
     "image": "/payan.jpg",
     "bio": "Réélu maire de Marseille en Mars 2026 avec le Printemps Marseillais.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Bouclier Social",
@@ -857,10 +1497,24 @@
         "L'affaire porte sur une erreur technique lors d'un vote sur sa protection fonctionnelle."
       ],
       "sources": [
-        "Marsactu",
-        "Anticor",
-        "La Provence"
-      ]
+        {
+          "name": "Marsactu",
+          "url": "https://marsactu.fr"
+        },
+        {
+          "name": "Anticor",
+          "url": "https://www.anticor.org"
+        },
+        {
+          "name": "La Provence",
+          "url": "https://www.laprovence.com"
+        }
+      ],
+      "globalStatus": "investigation"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -870,7 +1524,7 @@
     "partyColor": "#004494",
     "image": "/ciotti.jpg",
     "bio": "Maire de Nice élu en Mars 2026, renversant le sortant Christian Estrosi.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
         "category": "Sécurité Maximale",
@@ -920,10 +1574,20 @@
         "Plusieurs enquêtes en cours concernant des détournements de fonds publics (ex-épouse, parking)."
       ],
       "sources": [
-        "Le Parisien",
-        "Libération",
-        "Anticor"
-      ]
+        {
+          "name": "Le Parisien",
+          "url": "https://www.leparisien.fr"
+        },
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        },
+        {
+          "name": "Anticor",
+          "url": "https://www.anticor.org"
+        }
+      ],
+      "globalStatus": "investigation"
     },
     "timeline": [
       {
@@ -938,7 +1602,69 @@
         "year": "2026",
         "title": "Élu Maire de Nice"
       }
-    ]
+    ],
+    "votes": {
+      "instance": "Assemblée Nationale (mandat 2007-2024)",
+      "items": [
+        {
+          "date": "2023-12-19",
+          "law": "Loi Immigration (loi Darmanin)",
+          "position": "pour",
+          "summary": "Texte durci en commission mixte paritaire. Les Républicains, alors présidés par Ciotti, ont voté pour la version finale.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-12-19"
+            },
+            {
+              "name": "Le Figaro",
+              "url": "https://www.lefigaro.fr",
+              "date": "2023-12-19"
+            }
+          ]
+        },
+        {
+          "date": "2023-03-20",
+          "law": "Motion de censure contre la réforme des retraites",
+          "position": "contre",
+          "summary": "Motion transpartisane (LIOT) contre l'usage du 49.3 sur la réforme des retraites. La majorité de LR (dont Ciotti) a voté contre la motion, soutenant la réforme.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-03-20"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2023-03-20"
+            }
+          ]
+        },
+        {
+          "date": "2021-04-15",
+          "law": "Loi Sécurité globale",
+          "position": "pour",
+          "summary": "Texte encadrant la diffusion d'images des forces de l'ordre et étendant les pouvoirs de la police municipale. LR a voté pour.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2021-04-15"
+            },
+            {
+              "name": "Le Figaro",
+              "url": "https://www.lefigaro.fr",
+              "date": "2021-04-15"
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "id": "jean-luc-moudenc",
@@ -947,7 +1673,7 @@
     "partyColor": "#0055A4",
     "image": "/moudenc.jpg",
     "bio": "Réélu maire de Toulouse en Mars 2026 pour un troisième mandat.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Transports & Économie",
@@ -997,10 +1723,24 @@
         "Soupçonné d'avoir utilisé son cabinet municipal pour sa campagne de 2020."
       ],
       "sources": [
-        "Mediacités",
-        "Sud Ouest",
-        "Le Journal Toulousain"
-      ]
+        {
+          "name": "Mediacités",
+          "url": "https://www.mediacites.fr"
+        },
+        {
+          "name": "Sud Ouest",
+          "url": "https://www.sudouest.fr"
+        },
+        {
+          "name": "Le Journal Toulousain",
+          "url": "https://www.lejournaltoulousain.fr"
+        }
+      ],
+      "globalStatus": "investigation"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1010,7 +1750,7 @@
     "partyColor": "#4DAE47",
     "image": "/doucet.jpg",
     "bio": "Réélu maire de Lyon en Mars 2026 pour un second mandat écologiste.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Révolution Écologique",
@@ -1060,10 +1800,24 @@
         "Pas d'affaire pénale majeure identifiée en ce début 2026."
       ],
       "sources": [
-        "Le Progrès",
-        "Vert éco",
-        "Lyon Mag"
-      ]
+        {
+          "name": "Le Progrès",
+          "url": "https://www.leprogres.fr"
+        },
+        {
+          "name": "Vert éco",
+          "url": "https://vert.eco"
+        },
+        {
+          "name": "Lyon Mag",
+          "url": "https://www.lyonmag.com"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1073,7 +1827,7 @@
     "partyColor": "#CC2443",
     "image": "/guiraud.jpg",
     "bio": "Élu maire de Roubaix en Mars 2026 avec 53% des voix.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Bouclier Populaire",
@@ -1123,73 +1877,24 @@
         "Succède à une municipalité de droite marquée par des inéligibilités."
       ],
       "sources": [
-        "La Croix",
-        "Datan",
-        "Libération"
-      ]
-    }
-  },
-  {
-    "id": "bally-bagayoko",
-    "name": "Bally Bagayoko",
-    "party": "Maire de Saint-Denis (LFI / PCF)",
-    "partyColor": "#CC2443",
-    "image": "/bagayoko.jpg",
-    "bio": "Élu maire de Saint-Denis au 1er tour en Mars 2026 avec 50,7%.",
-    "lastUpdate": "31 Mars 2026",
-    "program": [
-      {
-        "category": "Service Public",
-        "points": [
-          "Retour en régie publique de l'eau et de la gestion des déchets.",
-          "Plan de recrutement de 200 agents pour les services municipaux.",
-          "Gratuité des transports pour les jeunes dyonisiens."
-        ]
-      },
-      {
-        "category": "Droits des Femmes",
-        "points": [
-          "Loi intégrale contre les violences sexistes (1 md €).",
-          "Abrogation de l'écart salarial sous peine de sanctions.",
-          "Remboursement total des moyens de contraception."
-        ]
-      },
-      {
-        "category": "Droits LGBT+",
-        "points": [
-          "Changement d'état civil libre et gratuit.",
-          "PMA pour toutes et accès facilité à la transition.",
-          "Lutte radicale contre les discriminations à l'embauche."
-        ]
-      },
-      {
-        "category": "Environnement & Énergie",
-        "points": [
-          "Planification écologique radicale (100% renouvelables).",
-          "Rénovation thermique globale des logements publics.",
-          "Taxe carbone sur les super-profits industriels."
-        ]
-      },
-      {
-        "category": "Étudiants",
-        "points": [
-          "Revenu d'autonomie pour tous les étudiants (1100€/mois).",
-          "Gratuité totale des transports publics régionaux.",
-          "Garantie du repas à 1€ universel dans tous les RU."
-        ]
-      }
-    ],
-    "legal": {
-      "status": "Statut éthique propre.",
-      "details": [
-        "Inscrit son mandat dans le refus des politiques de sécurité 'répressives'.",
-        "Visé par des critiques politiques virulentes de l'opposition sortante."
+        {
+          "name": "La Croix",
+          "url": "https://www.la-croix.com"
+        },
+        {
+          "name": "Datan",
+          "url": "https://datan.fr"
+        },
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        }
       ],
-      "sources": [
-        "Le Media TV",
-        "Actu.fr",
-        "Vert éco"
-      ]
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1199,7 +1904,7 @@
     "partyColor": "#0055A4",
     "image": "/rachida-dati.jpg",
     "bio": "Chef de l'opposition à Paris (Groupe Paris Liberté!) et ancienne ministre.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Paris Liberté",
@@ -1257,10 +1962,20 @@
         "Conteste fermement les accusations et dénonce un calendrier politique."
       ],
       "sources": [
-        "Le Monde",
-        "Anticor",
-        "Public Sénat"
-      ]
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "Anticor",
+          "url": "https://www.anticor.org"
+        },
+        {
+          "name": "Public Sénat",
+          "url": "https://www.publicsenat.fr"
+        }
+      ],
+      "globalStatus": "indicted"
     },
     "timeline": [
       {
@@ -1280,7 +1995,11 @@
         "year": "2024",
         "title": "Ministre de la Culture"
       }
-    ]
+    ],
+    "votes": {
+      "instance": null,
+      "items": []
+    }
   },
   {
     "id": "francois-ruffin",
@@ -1289,7 +2008,7 @@
     "partyColor": "#CC2443",
     "image": "/francois-ruffin.jpg",
     "bio": "Député de la Somme, fondateur de Picardie Debout et figure de la gauche sociale.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
         "category": "Social & Travail",
@@ -1347,10 +2066,20 @@
         "Très critique sur les dérives déontologiques du personnel politique."
       ],
       "sources": [
-        "Reporterre",
-        "Blast",
-        "Le Média"
-      ]
+        {
+          "name": "Reporterre",
+          "url": "https://reporterre.net"
+        },
+        {
+          "name": "Blast",
+          "url": "https://www.blast-info.fr"
+        },
+        {
+          "name": "Le Média",
+          "url": "https://www.lemediatv.fr"
+        }
+      ],
+      "globalStatus": "clean"
     },
     "timeline": [
       {
@@ -1367,7 +2096,69 @@
         "year": "2017",
         "title": "Élu Député de la Somme"
       }
-    ]
+    ],
+    "votes": {
+      "instance": "Assemblée Nationale",
+      "items": [
+        {
+          "date": "2024-12-04",
+          "law": "Motion de censure contre le gouvernement Barnier",
+          "position": "pour",
+          "summary": "Motion déposée par le NFP, adoptée à 331 voix. Première chute d'un gouvernement par motion de censure depuis 1962. Ruffin a voté pour, comme l'ensemble des oppositions.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2024-12-04"
+            },
+            {
+              "name": "Mediapart",
+              "url": "https://www.mediapart.fr",
+              "date": "2024-12-04"
+            }
+          ]
+        },
+        {
+          "date": "2024-03-04",
+          "law": "Constitutionnalisation de l'IVG (Congrès)",
+          "position": "pour",
+          "summary": "Inscription de la liberté de recourir à l'IVG dans la Constitution française. Adoptée à 780 voix pour, 72 contre.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2024-03-04"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2024-03-04"
+            }
+          ]
+        },
+        {
+          "date": "2023-03-20",
+          "law": "Motion de censure contre la réforme des retraites",
+          "position": "pour",
+          "summary": "Motion transpartisane (LIOT) contre l'usage du 49.3 sur la réforme des retraites. Rejetée à 9 voix près. Ruffin a porté plusieurs prises de parole en séance.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-03-20"
+            },
+            {
+              "name": "Reporterre",
+              "url": "https://reporterre.net",
+              "date": "2023-03-20"
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "id": "sandrine-rousseau",
@@ -1376,7 +2167,7 @@
     "partyColor": "#4DAE47",
     "image": "/sandrine-rousseau.jpg",
     "bio": "Députée écologiste et figure de l'écoféminisme.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Écoféminisme",
@@ -1434,10 +2225,24 @@
         "A gagné plusieurs procès pour diffamation."
       ],
       "sources": [
-        "Vert éco",
-        "Mediapart",
-        "Elle"
-      ]
+        {
+          "name": "Vert éco",
+          "url": "https://vert.eco"
+        },
+        {
+          "name": "Mediapart",
+          "url": "https://www.mediapart.fr"
+        },
+        {
+          "name": "Elle",
+          "url": "https://www.elle.fr"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1447,7 +2252,7 @@
     "partyColor": "#1A2542",
     "image": "/eric-zemmour.jpg",
     "bio": "Président de Reconquête ! et ancien candidat à la présidentielle.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Identité",
@@ -1505,10 +2310,24 @@
         "Un nouveau procès pour diffamation publique ouvert en Mars 2026."
       ],
       "sources": [
-        "La Croix",
-        "Le Monde",
-        "HuffPost"
-      ]
+        {
+          "name": "La Croix",
+          "url": "https://www.la-croix.com"
+        },
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "HuffPost",
+          "url": "https://www.huffingtonpost.fr"
+        }
+      ],
+      "globalStatus": "convicted"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1518,7 +2337,7 @@
     "partyColor": "#0055A4",
     "image": "/bruno-le-maire.jpg",
     "bio": "Figure de la majorité, ancien ministre de l'Économie et écrivain.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Rigueur Budgétaire",
@@ -1576,10 +2395,24 @@
         "Non cité dans des affaires pénales majeures en 2026."
       ],
       "sources": [
-        "Public Sénat",
-        "Les Échos",
-        "La Tribune"
-      ]
+        {
+          "name": "Public Sénat",
+          "url": "https://www.publicsenat.fr"
+        },
+        {
+          "name": "Les Échos",
+          "url": "https://www.lesechos.fr"
+        },
+        {
+          "name": "La Tribune",
+          "url": "https://www.latribune.fr"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1589,7 +2422,7 @@
     "partyColor": "#0055A4",
     "image": "/prisca-thevenot.jpg",
     "bio": "Députée de la majorité, ancienne porte-parole du gouvernement.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Vivre Ensemble",
@@ -1647,10 +2480,24 @@
         "Figure montante de la majorité présidentielle."
       ],
       "sources": [
-        "Le Parisien",
-        "Renaissance France",
-        "CNEWS"
-      ]
+        {
+          "name": "Le Parisien",
+          "url": "https://www.leparisien.fr"
+        },
+        {
+          "name": "Renaissance France",
+          "url": "https://parti-renaissance.fr"
+        },
+        {
+          "name": "CNEWS",
+          "url": "https://www.cnews.fr"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1660,7 +2507,7 @@
     "partyColor": "#4DAE47",
     "image": "/yannick-jadot.jpg",
     "bio": "Sénateur écologiste, ancien député européen et candidat à la présidentielle.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Écologie Réaliste",
@@ -1718,10 +2565,27 @@
         "Pas d'affaire judiciaire identifiée en 2026."
       ],
       "sources": [
-        "Sud Ouest",
-        "La Croix",
-        "Le Grand Continent"
-      ]
+        {
+          "name": "Sud Ouest",
+          "url": "https://www.sudouest.fr"
+        },
+        {
+          "name": "La Croix",
+          "url": "https://www.la-croix.com"
+        },
+        {
+          "name": "Le Grand Continent",
+          "url": "https://legrandcontinent.eu"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
+    },
+    "stats": {
+      "amendmentsWritten": 276
     }
   },
   {
@@ -1731,7 +2595,7 @@
     "partyColor": "#0055A4",
     "image": "/valerie-pecresse.jpg",
     "bio": "Présidente de la Région Île-de-France et ancienne ministre.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Région Puissante",
@@ -1789,10 +2653,24 @@
         "Sa gestion des transports (IDFM) est un sujet de contentieux politique fréquent."
       ],
       "sources": [
-        "Politique France",
-        "Sud Radio",
-        "Le Figaro"
-      ]
+        {
+          "name": "Politique France",
+          "url": null
+        },
+        {
+          "name": "Sud Radio",
+          "url": "https://www.sudradio.fr"
+        },
+        {
+          "name": "Le Figaro",
+          "url": "https://www.lefigaro.fr"
+        }
+      ],
+      "globalStatus": "investigation"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1802,7 +2680,7 @@
     "partyColor": "#0055A4",
     "image": "/xavier-bertrand.jpg",
     "bio": "Président de la Région Hauts-de-France et figure de la droite sociale.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Proximité",
@@ -1860,10 +2738,24 @@
         "Pas de dossiers judiciaires pénaux identifiés en 2026."
       ],
       "sources": [
-        "La Voix du Nord",
-        "LCP",
-        "Nous France"
-      ]
+        {
+          "name": "La Voix du Nord",
+          "url": "https://www.lavoixdunord.fr"
+        },
+        {
+          "name": "LCP",
+          "url": "https://lcp.fr"
+        },
+        {
+          "name": "Nous France",
+          "url": null
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1873,7 +2765,7 @@
     "partyColor": "#0055A4",
     "image": "/laurent-wauquiez.jpg",
     "bio": "Président de la Région AURA et figure de proue de la droite conservatrice.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Rassemblement Droite",
@@ -1931,10 +2823,24 @@
         "Fait l'objet de signalements réguliers par l'opposition régionale."
       ],
       "sources": [
-        "Le Réveil du Midi",
-        "Le Parisien",
-        "Orange News"
-      ]
+        {
+          "name": "Le Réveil du Midi",
+          "url": "https://www.lereveildumidi.com"
+        },
+        {
+          "name": "Le Parisien",
+          "url": "https://www.leparisien.fr"
+        },
+        {
+          "name": "Orange News",
+          "url": "https://actu.orange.fr"
+        }
+      ],
+      "globalStatus": "investigation"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -1944,7 +2850,7 @@
     "partyColor": "#CC2443",
     "image": "/manuel-bompard.jpg",
     "bio": "Député et coordinateur national de La France Insoumise.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
         "category": "Rupture Sociale",
@@ -2002,9 +2908,230 @@
         "Pas d'affaire judiciaire personnelle identifiée en 2026."
       ],
       "sources": [
-        "Libération",
-        "Orange News",
-        "Parlons Politique"
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        },
+        {
+          "name": "Orange News",
+          "url": "https://actu.orange.fr"
+        },
+        {
+          "name": "Parlons Politique",
+          "url": null
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": "Assemblée Nationale",
+      "items": [
+        {
+          "date": "2024-03-04",
+          "law": "Constitutionnalisation de l'IVG (Congrès)",
+          "position": "pour",
+          "summary": "Inscription de la liberté de recourir à l'IVG dans la Constitution française. Adoptée à 780 voix pour, 72 contre.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2024-03-04"
+            },
+            {
+              "name": "Mediapart",
+              "url": "https://www.mediapart.fr",
+              "date": "2024-03-04"
+            }
+          ]
+        },
+        {
+          "date": "2023-12-19",
+          "law": "Loi Immigration (loi Darmanin)",
+          "position": "contre",
+          "summary": "Texte durci en commission mixte paritaire. La gauche a unanimement voté contre. Bompard a porté la motion de rejet préalable.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-12-19"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2023-12-19"
+            }
+          ]
+        },
+        {
+          "date": "2023-03-20",
+          "law": "Motion de censure contre la réforme des retraites",
+          "position": "pour",
+          "summary": "Motion transpartisane (LIOT) contre l'usage du 49.3 sur la réforme des retraites. Rejetée à 9 voix près. La NUPES a voté pour.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-03-20"
+            },
+            {
+              "name": "Libération",
+              "url": "https://www.liberation.fr",
+              "date": "2023-03-20"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "louis-boyard",
+    "name": "Louis Boyard",
+    "party": "La France Insoumise (LFI) / NFP",
+    "partyColor": "#CC2443",
+    "image": "/louis-boyard.jpg",
+    "bio": "Député LFI du Val-de-Marne, ancien président de l'Union Nationale Lycéenne et figure médiatique de la jeunesse insoumise.",
+    "lastUpdate": "2026-05-10",
+    "program": [
+      {
+        "category": "Jeunesse & Éducation",
+        "points": [
+          "Allocation d'autonomie pour tous les jeunes de 18 à 25 ans (1 100€/mois).",
+          "Suppression de Parcoursup et retour au baccalauréat national.",
+          "Plan d'urgence pour la santé mentale des étudiants."
+        ]
+      },
+      {
+        "category": "Justice sociale",
+        "points": [
+          "SMIC à 1 600€ net et indexation des salaires sur l'inflation.",
+          "Encadrement strict des loyers dans les zones tendues.",
+          "Gratuité des transports publics pour les moins de 26 ans."
+        ]
+      },
+      {
+        "category": "Banlieues & Égalité",
+        "points": [
+          "Plan d'investissement massif dans les quartiers populaires.",
+          "Lutte renforcée contre les contrôles au faciès et la discrimination.",
+          "Soutien aux associations de quartier et à l'éducation populaire."
+        ]
+      },
+      {
+        "category": "Droits des Femmes",
+        "points": [
+          "Loi intégrale contre les violences sexistes (1 md €).",
+          "Abrogation de l'écart salarial sous peine de sanctions.",
+          "Remboursement total des moyens de contraception."
+        ]
+      },
+      {
+        "category": "Droits LGBT+",
+        "points": [
+          "Changement d'état civil libre et gratuit.",
+          "PMA pour toutes et accès facilité à la transition.",
+          "Lutte radicale contre les discriminations à l'embauche."
+        ]
+      },
+      {
+        "category": "Environnement & Énergie",
+        "points": [
+          "Planification écologique radicale (100% renouvelables).",
+          "Rénovation thermique globale des logements publics.",
+          "Taxe carbone sur les super-profits industriels."
+        ]
+      },
+      {
+        "category": "Étudiants",
+        "points": [
+          "Revenu d'autonomie pour tous les étudiants (1100€/mois).",
+          "Gratuité totale des transports publics régionaux.",
+          "Garantie du repas à 1€ universel dans tous les RU."
+        ]
+      }
+    ],
+    "legal": {
+      "status": "Aucune condamnation pénale.",
+      "details": [
+        "Cible régulière de campagnes de cyber-harcèlement liées à ses interventions médiatiques.",
+        "A gagné plusieurs procès en diffamation contre des éditorialistes de droite."
+      ],
+      "sources": [
+        {
+          "name": "Le Monde",
+          "url": "https://www.lemonde.fr"
+        },
+        {
+          "name": "Mediapart",
+          "url": "https://www.mediapart.fr"
+        },
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "timeline": [
+      {
+        "year": "2018",
+        "title": "Président de l'UNL",
+        "description": "Union Nationale Lycéenne — figure du mouvement contre Parcoursup."
+      },
+      {
+        "year": "2020",
+        "title": "Chroniqueur TPMP",
+        "description": "Notoriété médiatique avant la politique."
+      },
+      {
+        "year": "2022",
+        "title": "Élu Député du Val-de-Marne",
+        "description": "Plus jeune député de la 16ème législature à 21 ans."
+      },
+      {
+        "year": "2024",
+        "title": "Réélu Député",
+        "description": "Reconduit dans le cadre du Nouveau Front Populaire."
+      }
+    ],
+    "votes": {
+      "instance": "Assemblée Nationale",
+      "items": [
+        {
+          "date": "2024-12-04",
+          "law": "Motion de censure contre le gouvernement Barnier",
+          "position": "pour",
+          "summary": "Motion adoptée à 331 voix, première chute d'un gouvernement par motion de censure depuis 1962. La gauche a voté pour à l'unanimité.",
+          "verified": true,
+          "sources": [
+            { "name": "Assemblée Nationale", "url": "https://www.assemblee-nationale.fr", "date": "2024-12-04" },
+            { "name": "Mediapart", "url": "https://www.mediapart.fr", "date": "2024-12-04" }
+          ]
+        },
+        {
+          "date": "2024-03-04",
+          "law": "Constitutionnalisation de l'IVG (Congrès)",
+          "position": "pour",
+          "summary": "Inscription de la liberté de recourir à l'IVG dans la Constitution française. Adoptée à 780 voix pour, 72 contre.",
+          "verified": true,
+          "sources": [
+            { "name": "Assemblée Nationale", "url": "https://www.assemblee-nationale.fr", "date": "2024-03-04" },
+            { "name": "Le Monde", "url": "https://www.lemonde.fr", "date": "2024-03-04" }
+          ]
+        },
+        {
+          "date": "2023-12-19",
+          "law": "Loi Immigration (loi Darmanin)",
+          "position": "contre",
+          "summary": "Texte durci en CMP. La gauche a unanimement voté contre, dénonçant un alignement sur les positions du RN.",
+          "verified": true,
+          "sources": [
+            { "name": "Assemblée Nationale", "url": "https://www.assemblee-nationale.fr", "date": "2023-12-19" },
+            { "name": "Libération", "url": "https://www.liberation.fr", "date": "2023-12-19" }
+          ]
+        }
       ]
     }
   },
@@ -2015,7 +3142,7 @@
     "partyColor": "#E61D36",
     "image": "/olivier-faure.jpg",
     "bio": "Premier secrétaire du Parti Socialiste et député.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-05-10",
     "program": [
       {
         "category": "Équilibre Gauche",
@@ -2073,9 +3200,81 @@
         "Statut éthique sans reproche judiciaire connu."
       ],
       "sources": [
-        "La Croix",
-        "TV5 Monde",
-        "Public Sénat"
+        {
+          "name": "La Croix",
+          "url": "https://www.la-croix.com"
+        },
+        {
+          "name": "TV5 Monde",
+          "url": "https://www.tv5monde.com"
+        },
+        {
+          "name": "Public Sénat",
+          "url": "https://www.publicsenat.fr"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": "Assemblée Nationale",
+      "items": [
+        {
+          "date": "2024-03-04",
+          "law": "Constitutionnalisation de l'IVG (Congrès)",
+          "position": "pour",
+          "summary": "Inscription de la liberté de recourir à l'IVG dans la Constitution française. Le PS a voté unanimement pour.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2024-03-04"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2024-03-04"
+            }
+          ]
+        },
+        {
+          "date": "2023-12-19",
+          "law": "Loi Immigration (loi Darmanin)",
+          "position": "contre",
+          "summary": "Texte durci en CMP. Le groupe PS a voté contre, dénonçant un alignement sur les positions de la droite et du RN.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-12-19"
+            },
+            {
+              "name": "Libération",
+              "url": "https://www.liberation.fr",
+              "date": "2023-12-19"
+            }
+          ]
+        },
+        {
+          "date": "2023-03-20",
+          "law": "Motion de censure contre la réforme des retraites",
+          "position": "pour",
+          "summary": "Motion transpartisane (LIOT) contre l'usage du 49.3 sur la réforme des retraites. Rejetée à 9 voix près. Le PS a voté pour.",
+          "verified": true,
+          "sources": [
+            {
+              "name": "Assemblée Nationale",
+              "url": "https://www.assemblee-nationale.fr",
+              "date": "2023-03-20"
+            },
+            {
+              "name": "Le Monde",
+              "url": "https://www.lemonde.fr",
+              "date": "2023-03-20"
+            }
+          ]
+        }
       ]
     }
   },
@@ -2086,7 +3285,7 @@
     "partyColor": "#E61D36",
     "image": "/carole-delga.jpg",
     "bio": "Présidente de la Région Occitanie, fervente défenseure d'une gauche républicaine.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Gauche Réelle",
@@ -2144,10 +3343,24 @@
         "Pas de dossiers judiciaires identifiés en 2026."
       ],
       "sources": [
-        "Ecom News",
-        "La Région Occitanie",
-        "La Croix"
-      ]
+        {
+          "name": "Ecom News",
+          "url": null
+        },
+        {
+          "name": "La Région Occitanie",
+          "url": "https://www.laregion.fr"
+        },
+        {
+          "name": "La Croix",
+          "url": "https://www.la-croix.com"
+        }
+      ],
+      "globalStatus": "clean"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   },
   {
@@ -2157,7 +3370,7 @@
     "partyColor": "#0055A4",
     "image": "/robert-menard.jpg",
     "bio": "Réélu maire de Béziers au 1er tour en Mars 2026 avec 65,6%.",
-    "lastUpdate": "31 Mars 2026",
+    "lastUpdate": "2026-03-31",
     "program": [
       {
         "category": "Béziers Antique",
@@ -2215,10 +3428,24 @@
         "Conflits récurrents avec les syndicats locaux (suppression de subventions)."
       ],
       "sources": [
-        "Libération",
-        "L'internaute",
-        "Le Parisien"
-      ]
+        {
+          "name": "Libération",
+          "url": "https://www.liberation.fr"
+        },
+        {
+          "name": "L'internaute",
+          "url": "https://www.linternaute.com"
+        },
+        {
+          "name": "Le Parisien",
+          "url": "https://www.leparisien.fr"
+        }
+      ],
+      "globalStatus": "indicted"
+    },
+    "votes": {
+      "instance": null,
+      "items": []
     }
   }
 ]
