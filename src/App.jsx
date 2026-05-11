@@ -482,10 +482,13 @@ function App() {
       root.classList.add('light');
       localStorage.setItem('theme', 'light');
     }
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) themeMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
   }, [isDark]);
 
   useEffect(() => {
     const handleHashChange = () => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
       const hash = window.location.hash.replace('#', '');
       if (hash === 'mentions-legales') {
         setShowMentions(true);
@@ -571,10 +574,10 @@ function App() {
           <div className="w-1/4 flex justify-end items-center gap-3">
             <a
               href="#chiffres-assemblee"
-              className="hidden md:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold hover:bg-blue-200 dark:hover:bg-blue-800/40 hover:scale-105 transition-all whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-2.5 py-2.5 sm:px-3.5 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold hover:bg-blue-200 dark:hover:bg-blue-800/40 hover:scale-105 transition-all whitespace-nowrap"
             >
               <Landmark className="h-4 w-4" strokeWidth={2} />
-              <span>Assemblée</span>
+              <span className="hidden sm:inline">Assemblée</span>
             </a>
             <button
               onClick={() => setIsDark(!isDark)}
