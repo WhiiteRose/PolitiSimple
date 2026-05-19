@@ -1,18 +1,23 @@
 import {
   AlertTriangle,
   ArrowLeft,
+  ArrowRight,
+  Award,
   BarChart3,
   Briefcase,
   Check,
   ChevronDown,
+  ChevronLeft,
   ChevronRight,
   Clock,
+  Compass,
   ExternalLink,
   Gavel,
   Info,
   Landmark,
   Minus,
   Moon,
+  RotateCcw,
   ScrollText,
   Search,
   ShieldCheck,
@@ -24,6 +29,7 @@ import {
 import { useEffect, useMemo, useState } from 'react';
 import financesData from './data/finances.json';
 import politiciansData from './data/politicians.json';
+import quizData from './data/quiz.json';
 
 import './index.css';
 
@@ -458,11 +464,366 @@ function ChiffresAssemblee({ onSelectPolitician }) {
   );
 }
 
+const ANSWER_STYLES = {
+  2: 'bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600',
+  1: 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/40',
+  0: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700',
+  '-1': 'bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800/50 hover:bg-rose-100 dark:hover:bg-rose-900/40',
+  '-2': 'bg-rose-500 text-white border-rose-500 hover:bg-rose-600',
+};
+
+function QuizIntro({ onStart, hasInProgress, onResume }) {
+  return (
+    <div className="max-w-2xl mx-auto pt-6 pb-12 animate-[fadeIn_0.5s_ease-out_forwards]">
+      <div className="flex flex-col items-center text-center mb-10">
+        <div className="p-5 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-[2rem] shadow-xl shadow-blue-500/30 mb-6">
+          <Compass className="h-10 w-10" strokeWidth={2} />
+        </div>
+        <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase mb-4">
+          {quizData.meta.title}
+        </h2>
+        <p className="text-slate-500 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-lg">
+          {quizData.meta.subtitle}
+        </p>
+      </div>
+
+      <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black uppercase tracking-wider">
+          <ScrollText className="h-4 w-4" />
+          {quizData.questions.length} questions
+        </div>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black uppercase tracking-wider">
+          <Clock className="h-4 w-4" />~{quizData.meta.estimatedMinutes} min
+        </div>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black uppercase tracking-wider">
+          <Award className="h-4 w-4" />
+          Top 3 partis
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center gap-3">
+        <button
+          onClick={onStart}
+          className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:opacity-90 hover:scale-[1.02] transition-all"
+        >
+          {hasInProgress ? 'Recommencer le quiz' : 'Commencer le quiz'}
+          <ArrowRight className="h-4 w-4" />
+        </button>
+        {hasInProgress && (
+          <button
+            onClick={onResume}
+            className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+          >
+            Reprendre où j'en étais
+          </button>
+        )}
+      </div>
+
+      <div className="mt-12 p-5 bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <span className="font-black text-blue-700 dark:text-blue-400">Méthode :</span> chaque
+          question est notée de -2 (pas du tout d'accord) à +2 (tout à fait d'accord). Vos réponses
+          sont comparées aux positions publiques de 9 partis français. Plus la distance est faible,
+          plus le score de correspondance est élevé.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function QuizQuestion({ question, current, total, onAnswer, onBack, currentAnswer }) {
+  const progress = (current / total) * 100;
+  return (
+    <div className="max-w-2xl mx-auto pt-6 pb-12 animate-[fadeIn_0.4s_ease-out_forwards]">
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
+            Question {current} sur {total}
+          </span>
+          <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
+            {Math.round(progress)} %
+          </span>
+        </div>
+        <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-500 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-lg bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest">
+        {question.theme}
+      </div>
+
+      <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight mb-10">
+        « {question.text} »
+      </h3>
+
+      <div className="space-y-3">
+        {quizData.answerOptions.map((opt) => (
+          <button
+            key={opt.value}
+            onClick={() => onAnswer(opt.value)}
+            className={`w-full text-left px-5 py-4 rounded-2xl border-2 font-bold text-sm sm:text-base transition-all hover:scale-[1.01] ${ANSWER_STYLES[String(opt.value)]} ${currentAnswer === opt.value ? 'ring-4 ring-blue-500/30' : ''}`}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+
+      {current > 1 && (
+        <button
+          onClick={onBack}
+          className="mt-8 inline-flex items-center gap-2 px-4 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 font-bold text-xs uppercase tracking-widest transition-colors"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          Question précédente
+        </button>
+      )}
+    </div>
+  );
+}
+
+function calculateQuizResults(answers) {
+  const results = quizData.parties.map((party) => {
+    let totalDistance = 0;
+    let answered = 0;
+    quizData.questions.forEach((q) => {
+      const userVal = answers[q.id];
+      if (userVal === undefined) return;
+      const partyVal = q.positions[party.id] ?? 0;
+      totalDistance += Math.abs(userVal - partyVal);
+      answered++;
+    });
+    const maxDistance = answered * 4;
+    const match = maxDistance > 0 ? 100 - (totalDistance / maxDistance) * 100 : 0;
+    return { party, match: Math.round(match) };
+  });
+  return results.sort((a, b) => b.match - a.match);
+}
+
+function QuizResults({ answers, onRestart, onSelectPolitician }) {
+  const results = useMemo(() => calculateQuizResults(answers), [answers]);
+  const top3 = results.slice(0, 3);
+
+  const topPoliticians = useMemo(() => {
+    const picks = [];
+    top3.forEach(({ party }) => {
+      const match = politiciansData.find(
+        (p) => p.party.includes(party.matchPattern) && !picks.some((pk) => pk.id === p.id),
+      );
+      if (match) picks.push(match);
+    });
+    return picks;
+  }, [top3]);
+
+  return (
+    <div className="max-w-4xl mx-auto pt-6 pb-12 animate-[fadeIn_0.5s_ease-out_forwards]">
+      <div className="flex flex-col items-center text-center mb-12">
+        <div className="p-4 bg-gradient-to-br from-amber-400 to-orange-500 text-white rounded-[1.5rem] shadow-xl shadow-amber-500/30 mb-5">
+          <Award className="h-8 w-8" strokeWidth={2} />
+        </div>
+        <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase mb-3">
+          Vos résultats
+        </h2>
+        <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base italic">
+          Sur la base de vos {Object.keys(answers).length} réponses.
+        </p>
+      </div>
+
+      <section className="mb-16">
+        <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase mb-8">
+          Top 3 des partis
+        </h3>
+        <div className="space-y-4">
+          {top3.map(({ party, match }, idx) => (
+            <div
+              key={party.id}
+              className="bg-white dark:bg-slate-900 p-5 sm:p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm"
+            >
+              <div className="flex items-start gap-4 mb-3">
+                <div
+                  className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl font-black shadow-lg"
+                  style={{
+                    backgroundColor: party.color,
+                    boxShadow: `0 8px 20px -5px ${party.color}55`,
+                  }}
+                >
+                  {idx + 1}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight leading-tight">
+                    {party.name}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                    {party.description}
+                  </p>
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="text-3xl sm:text-4xl font-black tracking-tighter" style={{ color: party.color }}>
+                    {match}%
+                  </div>
+                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Match
+                  </div>
+                </div>
+              </div>
+              <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                <div
+                  className="h-full transition-all duration-1000 ease-out"
+                  style={{ width: `${match}%`, backgroundColor: party.color }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {topPoliticians.length > 0 && (
+        <section className="mb-16">
+          <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase mb-8">
+            Personnalités qui vous correspondent
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {topPoliticians.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => onSelectPolitician(p.id)}
+                className="text-left bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all"
+              >
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=random&size=400&bold=true`;
+                    }}
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="font-black uppercase tracking-tight text-base leading-tight mb-1">
+                    {p.name}
+                  </div>
+                  <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    {p.party}
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button
+          onClick={onRestart}
+          className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:opacity-90 transition-all"
+        >
+          <RotateCcw className="h-4 w-4" />
+          Refaire le quiz
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function Quiz({ onSelectPolitician }) {
+  const [answers, setAnswers] = useState(() => {
+    try {
+      const saved = localStorage.getItem('quiz-answers');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [phase, setPhase] = useState('intro');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('quiz-answers', JSON.stringify(answers));
+    } catch {
+      /* ignore quota / private mode */
+    }
+  }, [answers]);
+
+  const handleStart = () => {
+    setAnswers({});
+    setCurrentIdx(0);
+    setPhase('question');
+  };
+
+  const handleResume = () => {
+    const answered = Object.keys(answers).length;
+    const nextIdx = Math.min(answered, quizData.questions.length - 1);
+    setCurrentIdx(nextIdx);
+    setPhase(answered >= quizData.questions.length ? 'results' : 'question');
+  };
+
+  const handleAnswer = (value) => {
+    const q = quizData.questions[currentIdx];
+    const newAnswers = { ...answers, [q.id]: value };
+    setAnswers(newAnswers);
+    if (currentIdx + 1 >= quizData.questions.length) {
+      setPhase('results');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else {
+      setCurrentIdx(currentIdx + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentIdx > 0) setCurrentIdx(currentIdx - 1);
+  };
+
+  const handleRestart = () => {
+    setAnswers({});
+    setCurrentIdx(0);
+    setPhase('intro');
+    try {
+      localStorage.removeItem('quiz-answers');
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const hasInProgress = Object.keys(answers).length > 0;
+
+  if (phase === 'intro') {
+    return <QuizIntro onStart={handleStart} hasInProgress={hasInProgress} onResume={handleResume} />;
+  }
+  if (phase === 'results') {
+    return (
+      <QuizResults
+        answers={answers}
+        onRestart={handleRestart}
+        onSelectPolitician={onSelectPolitician}
+      />
+    );
+  }
+  const question = quizData.questions[currentIdx];
+  return (
+    <QuizQuestion
+      question={question}
+      current={currentIdx + 1}
+      total={quizData.questions.length}
+      onAnswer={handleAnswer}
+      onBack={handleBack}
+      currentAnswer={answers[question.id]}
+    />
+  );
+}
+
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const [showMentions, setShowMentions] = useState(false);
   const [showChiffres, setShowChiffres] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -497,18 +858,27 @@ function App() {
       if (hash === 'mentions-legales') {
         setShowMentions(true);
         setShowChiffres(false);
+        setShowQuiz(false);
         setSelectedId(null);
       } else if (hash === 'chiffres-assemblee') {
         setShowChiffres(true);
         setShowMentions(false);
+        setShowQuiz(false);
+        setSelectedId(null);
+      } else if (hash === 'quiz') {
+        setShowQuiz(true);
+        setShowMentions(false);
+        setShowChiffres(false);
         setSelectedId(null);
       } else if (hash && politiciansData.some((p) => p.id === hash)) {
         setShowMentions(false);
         setShowChiffres(false);
+        setShowQuiz(false);
         setSelectedId(hash);
       } else {
         setShowMentions(false);
         setShowChiffres(false);
+        setShowQuiz(false);
         setSelectedId(null);
       }
     };
@@ -545,7 +915,7 @@ function App() {
   };
 
   const showProfile = !!selectedId && !!selectedPolitician;
-  const showList = !showMentions && !showChiffres && !showProfile;
+  const showList = !showMentions && !showChiffres && !showQuiz && !showProfile;
 
   return (
     <div className="min-h-screen font-sans antialiased text-slate-900 dark:text-slate-100 transition-colors duration-300">
@@ -575,7 +945,14 @@ function App() {
             )}
           </div>
 
-          <div className="w-1/4 flex justify-end items-center gap-3">
+          <div className="w-1/4 flex justify-end items-center gap-2 sm:gap-3">
+            <a
+              href="#quiz"
+              className="inline-flex items-center gap-2 px-2.5 py-2.5 sm:px-3.5 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold hover:bg-indigo-200 dark:hover:bg-indigo-800/40 hover:scale-105 transition-all whitespace-nowrap"
+            >
+              <Compass className="h-5 w-5" strokeWidth={2} />
+              <span className="hidden sm:inline">Quiz</span>
+            </a>
             <a
               href="#chiffres-assemblee"
               className="inline-flex items-center gap-2 px-2.5 py-2.5 sm:px-3.5 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold hover:bg-blue-200 dark:hover:bg-blue-800/40 hover:scale-105 transition-all whitespace-nowrap"
@@ -595,7 +972,7 @@ function App() {
               )}
             </button>
 
-            {(showProfile || showMentions || showChiffres) && (
+            {(showProfile || showMentions || showChiffres || showQuiz) && (
               <button
                 onClick={goHome}
                 className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-xl font-bold text-sm shadow-lg hover:opacity-90 transition-all"
@@ -627,6 +1004,8 @@ function App() {
         {showMentions && <MentionsLegales />}
 
         {showChiffres && <ChiffresAssemblee onSelectPolitician={handleSelectPolitician} />}
+
+        {showQuiz && <Quiz onSelectPolitician={handleSelectPolitician} />}
 
         {showList && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">

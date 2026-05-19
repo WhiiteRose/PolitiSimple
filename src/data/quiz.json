@@ -1,0 +1,231 @@
+{
+  "meta": {
+    "title": "Trouvez votre parti",
+    "subtitle": "25 questions pour découvrir les partis politiques français qui correspondent le mieux à vos idées.",
+    "estimatedMinutes": 5
+  },
+  "parties": [
+    {
+      "id": "LFI",
+      "name": "La France Insoumise",
+      "color": "#CC2443",
+      "description": "Gauche radicale, écologie populaire, VIe République.",
+      "matchPattern": "LFI"
+    },
+    {
+      "id": "PS",
+      "name": "Parti Socialiste",
+      "color": "#E91E63",
+      "description": "Gauche modérée, social-démocratie européenne.",
+      "matchPattern": "PS"
+    },
+    {
+      "id": "EELV",
+      "name": "Les Écologistes",
+      "color": "#16A34A",
+      "description": "Écologie politique, transition climatique, droits sociaux.",
+      "matchPattern": "EELV"
+    },
+    {
+      "id": "PCF",
+      "name": "Parti Communiste Français",
+      "color": "#7F1D1D",
+      "description": "Gauche communiste, services publics, défense du nucléaire.",
+      "matchPattern": "PCF"
+    },
+    {
+      "id": "Renaissance",
+      "name": "Renaissance",
+      "color": "#2563EB",
+      "description": "Centre libéral européen, fondé par Emmanuel Macron.",
+      "matchPattern": "Renaissance"
+    },
+    {
+      "id": "Horizons",
+      "name": "Horizons",
+      "color": "#06B6D4",
+      "description": "Centre-droit pragmatique, fondé par Édouard Philippe.",
+      "matchPattern": "Horizons"
+    },
+    {
+      "id": "LR",
+      "name": "Les Républicains",
+      "color": "#1E40AF",
+      "description": "Droite républicaine, libérale et conservatrice.",
+      "matchPattern": "LR"
+    },
+    {
+      "id": "RN",
+      "name": "Rassemblement National",
+      "color": "#1E1B4B",
+      "description": "Droite nationale, souverainiste et identitaire.",
+      "matchPattern": "RN"
+    },
+    {
+      "id": "Reconquete",
+      "name": "Reconquête",
+      "color": "#525252",
+      "description": "Droite radicale, fondée par Éric Zemmour.",
+      "matchPattern": "Reconquête"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "theme": "Économie",
+      "text": "Il faut rétablir l'ISF (impôt sur la fortune).",
+      "positions": { "LFI": 2, "PS": 2, "EELV": 2, "PCF": 2, "Renaissance": -2, "Horizons": -2, "LR": -2, "RN": -1, "Reconquete": -2 }
+    },
+    {
+      "id": 2,
+      "theme": "Économie",
+      "text": "Le SMIC doit être augmenté à 1600€ net minimum.",
+      "positions": { "LFI": 2, "PS": 1, "EELV": 1, "PCF": 2, "Renaissance": -1, "Horizons": -1, "LR": -2, "RN": 0, "Reconquete": -1 }
+    },
+    {
+      "id": 3,
+      "theme": "Économie",
+      "text": "L'État doit réduire ses dépenses publiques et alléger la fiscalité des entreprises.",
+      "positions": { "LFI": -2, "PS": -1, "EELV": -1, "PCF": -2, "Renaissance": 1, "Horizons": 2, "LR": 2, "RN": 0, "Reconquete": 2 }
+    },
+    {
+      "id": 4,
+      "theme": "Économie",
+      "text": "Il faut taxer fortement les superprofits des grandes entreprises.",
+      "positions": { "LFI": 2, "PS": 2, "EELV": 2, "PCF": 2, "Renaissance": -1, "Horizons": -1, "LR": -1, "RN": 1, "Reconquete": -1 }
+    },
+    {
+      "id": 5,
+      "theme": "Économie",
+      "text": "Les services publics (santé, éducation, transports) doivent être renforcés, même si cela coûte plus cher.",
+      "positions": { "LFI": 2, "PS": 2, "EELV": 2, "PCF": 2, "Renaissance": 0, "Horizons": -1, "LR": -1, "RN": 1, "Reconquete": 0 }
+    },
+    {
+      "id": 6,
+      "theme": "Social",
+      "text": "L'âge légal de départ à la retraite doit revenir à 60 ans pour tous.",
+      "positions": { "LFI": 2, "PS": 1, "EELV": 1, "PCF": 2, "Renaissance": -2, "Horizons": -2, "LR": -2, "RN": 1, "Reconquete": -1 }
+    },
+    {
+      "id": 7,
+      "theme": "Social",
+      "text": "Le RSA doit être conditionné à des heures d'activité hebdomadaires obligatoires.",
+      "positions": { "LFI": -2, "PS": -1, "EELV": -1, "PCF": -2, "Renaissance": 2, "Horizons": 2, "LR": 2, "RN": 1, "Reconquete": 2 }
+    },
+    {
+      "id": 8,
+      "theme": "Social",
+      "text": "Les étudiants doivent recevoir un revenu d'autonomie versé par l'État.",
+      "positions": { "LFI": 2, "PS": 2, "EELV": 2, "PCF": 2, "Renaissance": 0, "Horizons": -1, "LR": -1, "RN": 0, "Reconquete": -1 }
+    },
+    {
+      "id": 9,
+      "theme": "Social",
+      "text": "L'hôpital public doit être prioritaire sur le secteur privé dans les dépenses de santé.",
+      "positions": { "LFI": 2, "PS": 2, "EELV": 2, "PCF": 2, "Renaissance": 0, "Horizons": 0, "LR": -1, "RN": 1, "Reconquete": 0 }
+    },
+    {
+      "id": 10,
+      "theme": "Social",
+      "text": "Les allocations familiales doivent rester universelles, sans condition de ressources.",
+      "positions": { "LFI": 1, "PS": 1, "EELV": 0, "PCF": 1, "Renaissance": 0, "Horizons": 0, "LR": 1, "RN": 2, "Reconquete": 2 }
+    },
+    {
+      "id": 11,
+      "theme": "Immigration",
+      "text": "Il faut supprimer le droit du sol en France.",
+      "positions": { "LFI": -2, "PS": -2, "EELV": -2, "PCF": -2, "Renaissance": -1, "Horizons": -1, "LR": 1, "RN": 2, "Reconquete": 2 }
+    },
+    {
+      "id": 12,
+      "theme": "Immigration",
+      "text": "La 'priorité nationale' doit s'appliquer à l'emploi et au logement social.",
+      "positions": { "LFI": -2, "PS": -2, "EELV": -2, "PCF": -2, "Renaissance": -2, "Horizons": -1, "LR": 0, "RN": 2, "Reconquete": 2 }
+    },
+    {
+      "id": 13,
+      "theme": "Immigration",
+      "text": "L'accueil des réfugiés doit être facilité pour des raisons humanitaires.",
+      "positions": { "LFI": 2, "PS": 1, "EELV": 2, "PCF": 1, "Renaissance": 0, "Horizons": -1, "LR": -1, "RN": -2, "Reconquete": -2 }
+    },
+    {
+      "id": 14,
+      "theme": "Sécurité",
+      "text": "Les peines minimales (peines planchers) pour les récidivistes doivent être rétablies.",
+      "positions": { "LFI": -2, "PS": -1, "EELV": -1, "PCF": -1, "Renaissance": 0, "Horizons": 1, "LR": 2, "RN": 2, "Reconquete": 2 }
+    },
+    {
+      "id": 15,
+      "theme": "Sécurité",
+      "text": "Les forces de l'ordre doivent disposer de plus de moyens et d'effectifs.",
+      "positions": { "LFI": -1, "PS": 0, "EELV": -1, "PCF": 0, "Renaissance": 1, "Horizons": 2, "LR": 2, "RN": 2, "Reconquete": 2 }
+    },
+    {
+      "id": 16,
+      "theme": "Écologie",
+      "text": "La France doit sortir progressivement du nucléaire pour passer aux énergies renouvelables.",
+      "positions": { "LFI": 2, "PS": 1, "EELV": 2, "PCF": -1, "Renaissance": -1, "Horizons": -1, "LR": -2, "RN": -2, "Reconquete": -2 }
+    },
+    {
+      "id": 17,
+      "theme": "Écologie",
+      "text": "Il faut interdire progressivement les pesticides et favoriser l'agriculture biologique.",
+      "positions": { "LFI": 2, "PS": 1, "EELV": 2, "PCF": 1, "Renaissance": 0, "Horizons": 0, "LR": -1, "RN": -1, "Reconquete": -1 }
+    },
+    {
+      "id": 18,
+      "theme": "Écologie",
+      "text": "Il faut limiter l'usage de la voiture en ville (ZFE, péages urbains, places réduites).",
+      "positions": { "LFI": 1, "PS": 1, "EELV": 2, "PCF": 0, "Renaissance": 1, "Horizons": 0, "LR": -1, "RN": -2, "Reconquete": -2 }
+    },
+    {
+      "id": 19,
+      "theme": "Droits des femmes",
+      "text": "L'égalité salariale entre femmes et hommes doit être imposée aux entreprises sous peine de sanctions financières.",
+      "positions": { "LFI": 2, "PS": 2, "EELV": 2, "PCF": 2, "Renaissance": 0, "Horizons": 0, "LR": -1, "RN": 0, "Reconquete": -2 }
+    },
+    {
+      "id": 20,
+      "theme": "Écologie",
+      "text": "Les vols intérieurs courts doivent être interdits quand une alternative en train existe.",
+      "positions": { "LFI": 2, "PS": 1, "EELV": 2, "PCF": 1, "Renaissance": 1, "Horizons": 0, "LR": -1, "RN": -2, "Reconquete": -2 }
+    },
+    {
+      "id": 21,
+      "theme": "Institutions",
+      "text": "La France doit passer à une VIe République via une Assemblée Constituante.",
+      "positions": { "LFI": 2, "PS": 0, "EELV": 1, "PCF": 1, "Renaissance": -2, "Horizons": -1, "LR": -1, "RN": 0, "Reconquete": 0 }
+    },
+    {
+      "id": 22,
+      "theme": "International",
+      "text": "La France doit sortir de l'OTAN et adopter une diplomatie non-alignée.",
+      "positions": { "LFI": 2, "PS": -1, "EELV": 0, "PCF": 2, "Renaissance": -2, "Horizons": -2, "LR": -2, "RN": 0, "Reconquete": -1 }
+    },
+    {
+      "id": 23,
+      "theme": "International",
+      "text": "L'Union européenne a trop de pouvoir et doit en rendre aux États membres.",
+      "positions": { "LFI": 1, "PS": -1, "EELV": -1, "PCF": 1, "Renaissance": -2, "Horizons": -1, "LR": 1, "RN": 2, "Reconquete": 2 }
+    },
+    {
+      "id": 24,
+      "theme": "International",
+      "text": "La France doit reconnaître officiellement l'État de Palestine.",
+      "positions": { "LFI": 2, "PS": 1, "EELV": 2, "PCF": 2, "Renaissance": 0, "Horizons": -1, "LR": -1, "RN": -1, "Reconquete": -2 }
+    },
+    {
+      "id": 25,
+      "theme": "Société",
+      "text": "Le mariage homosexuel et la PMA pour toutes les femmes sont des acquis intouchables.",
+      "positions": { "LFI": 2, "PS": 2, "EELV": 2, "PCF": 1, "Renaissance": 2, "Horizons": 1, "LR": 0, "RN": 0, "Reconquete": -2 }
+    }
+  ],
+  "answerOptions": [
+    { "value": 2, "label": "Tout à fait d'accord", "shortLabel": "Oui" },
+    { "value": 1, "label": "Plutôt d'accord", "shortLabel": "Plutôt oui" },
+    { "value": 0, "label": "Sans avis / Neutre", "shortLabel": "Neutre" },
+    { "value": -1, "label": "Plutôt pas d'accord", "shortLabel": "Plutôt non" },
+    { "value": -2, "label": "Pas du tout d'accord", "shortLabel": "Non" }
+  ]
+}

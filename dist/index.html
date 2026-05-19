@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      (function () {
+        var dark = localStorage.getItem('theme') === 'dark';
+        if (dark) {
+          document.documentElement.classList.add('dark');
+          document.querySelector('meta[name="theme-color"]').content = '#0f172a';
+        }
+      })();
+    </script>
     <title>PolitiSimple - L'information politique claire</title>
     
     <!-- Polices Premium -->
@@ -31,7 +41,7 @@
       [alpha-in] { animation: fadeIn 0.8s ease-out forwards; }
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
-    <script type="module" crossorigin src="/assets/index-Cu7oHkBM.js"></script>
+    <script type="module" crossorigin src="/assets/index-CLeiRp1f.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BwbZvY6P.css">
   </head>
   <body class="bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
