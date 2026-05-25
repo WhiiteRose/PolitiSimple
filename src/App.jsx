@@ -1,129 +1,173 @@
 import {
   AlertTriangle,
-  ArrowLeft,
   ArrowRight,
-  Award,
-  BarChart3,
-  Briefcase,
-  Check,
   ChevronDown,
   ChevronLeft,
-  ChevronRight,
-  Clock,
-  Compass,
   ExternalLink,
   Gavel,
-  Info,
-  Landmark,
-  Minus,
-  Moon,
   RotateCcw,
-  ScrollText,
   Search,
   ShieldCheck,
-  Slash,
-  Sun,
-  Vote,
-  X,
 } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import financesData from './data/finances.json';
 import politiciansData from './data/politicians.json';
 import quizData from './data/quiz.json';
 
 import './index.css';
 
+// ─────────────────────────────────────────────────────────
+// CONSTANTES
+// ─────────────────────────────────────────────────────────
+
+const ICON_STROKE = 1.6;
+
 const LEGAL_STATUS_META = {
   clean: {
     label: 'Aucune procédure',
-    color: '#16a34a',
+    short: '✓ Casier vide',
     icon: ShieldCheck,
-    bgClass: 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-100 dark:border-emerald-900/30',
-    textClass: 'text-emerald-700 dark:text-emerald-400',
+    color: 'green',
   },
   investigation: {
     label: 'Enquête en cours',
-    color: '#eab308',
+    short: '! Enquête',
     icon: AlertTriangle,
-    bgClass: 'bg-yellow-50 dark:bg-yellow-950/20 border-yellow-200 dark:border-yellow-900/30',
-    textClass: 'text-yellow-700 dark:text-yellow-400',
+    color: 'red',
   },
   indicted: {
-    label: 'Mis en examen / Procès en cours',
-    color: '#ea580c',
+    label: 'Mis en examen',
+    short: '! Mis en examen',
     icon: AlertTriangle,
-    bgClass: 'bg-orange-50 dark:bg-orange-950/20 border-orange-200 dark:border-orange-900/30',
-    textClass: 'text-orange-700 dark:text-orange-400',
+    color: 'red',
   },
   convicted: {
     label: 'Condamné',
-    color: '#dc2626',
+    short: '✗ Condamné',
     icon: Gavel,
-    bgClass: 'bg-red-50/70 dark:bg-red-950/20 border-red-200 dark:border-red-900/30',
-    textClass: 'text-red-700 dark:text-red-400',
+    color: 'red',
   },
-};
-
-const VOTE_POSITION_META = {
-  pour: {
-    label: 'POUR',
-    icon: Check,
-    classes:
-      'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/30',
-  },
-  contre: {
-    label: 'CONTRE',
-    icon: X,
-    classes: 'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-md shadow-red-500/30',
-  },
-  abstention: {
-    label: 'ABS.',
-    icon: Minus,
-    classes:
-      'bg-gradient-to-br from-amber-400 to-yellow-500 text-white shadow-md shadow-yellow-500/30',
-  },
-  absent: {
-    label: 'ABSENT',
-    icon: Slash,
-    classes:
-      'bg-gradient-to-br from-slate-400 to-slate-500 text-white shadow-md shadow-slate-500/20',
-  },
-};
-
-const INSTANCE_FLAG = {
-  'Assemblée Nationale': '🇫🇷',
-  Sénat: '🇫🇷',
-  'Parlement européen': '🇪🇺',
 };
 
 const FR_MONTH_NAMES = [
-  'Janvier',
-  'Février',
-  'Mars',
-  'Avril',
-  'Mai',
-  'Juin',
-  'Juillet',
-  'Août',
-  'Septembre',
-  'Octobre',
-  'Novembre',
-  'Décembre',
+  'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre',
 ];
+
+const FR_MONTH_SHORT = [
+  'janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin',
+  'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.',
+];
+
+const IMPORTANCE_LABELS = ['Aucune', 'Faible', 'Moyenne', 'Forte', 'Cruciale'];
+const IMPORTANCE_WEIGHTS = [0.25, 0.6, 1, 1.5, 2];
+
+// ─────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────
 
 function formatFrenchDate(iso) {
   if (!iso) return '';
   const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!m) return iso;
-  const day = parseInt(m[3], 10);
-  const month = FR_MONTH_NAMES[parseInt(m[2], 10) - 1];
-  return `${day} ${month} ${m[1]}`;
+  return `${parseInt(m[3], 10)} ${FR_MONTH_NAMES[parseInt(m[2], 10) - 1]} ${m[1]}`;
+}
+
+function formatShortDate(iso) {
+  if (!iso) return '';
+  const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return iso;
+  return `${parseInt(m[3], 10)} ${FR_MONTH_SHORT[parseInt(m[2], 10) - 1]} ${m[1]}`;
+}
+
+function formatDotDate(iso) {
+  if (!iso) return '';
+  const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return iso;
+  return `${m[3]}.${m[2]}.${m[1]}`;
+}
+
+function formatMillions(amount) {
+  const abs = Math.abs(amount);
+  if (abs >= 1_000_000) return `${(abs / 1_000_000).toFixed(1).replace('.', ',')} M€`;
+  if (abs >= 1_000) return `${Math.round(abs / 1_000)} K€`;
+  return `${abs} €`;
+}
+
+function partyShort(party) {
+  return party.split(/[/(]/)[0].trim();
+}
+
+// Famille politique → clé de couleur ('red', 'blue', 'green', 'white').
+// — rouge : gauche (LFI, PCF, PS, NFP, NUPES, place publique)
+// — bleu  : droite + extrême-droite (RN, LR, Reconquête, Debout la France…)
+// — vert  : écologistes (EELV, Les Écologistes)
+// — blanc : centre (Renaissance, MoDem, Horizons, Ensemble)
+function partyFamily(party) {
+  if (!party) return 'white';
+  const p = party.toLowerCase();
+  if (
+    p.includes('insoumise') || p.includes('lfi') ||
+    p.includes('communiste') || p.includes('pcf') ||
+    p.includes('socialiste') || /\bps\b/.test(p) ||
+    p.includes('place publique') ||
+    p.includes('nfp') || p.includes('nupes') ||
+    p.includes('the left')
+  ) return 'red';
+  if (
+    p.includes('rassemblement national') || /\brn\b/.test(p) ||
+    p.includes('reconquête') || p.includes('reconquete') ||
+    p.includes('républicains') || /\blr\b/.test(p) ||
+    p.includes('debout la france') || p.includes('patriotes') ||
+    p.includes('identité') || p.includes('zemmour')
+  ) return 'blue';
+  if (
+    p.includes('écolo') || p.includes('ecolo') ||
+    p.includes('eelv') || p.includes('verts')
+  ) return 'green';
+  return 'white'; // centre / ensemble / renaissance / modem / horizons / divers
+}
+
+const FAMILY_COLORS = {
+  red:   { hex: '#d6321f', bg: '#d6321f', fg: '#ffffff', border: '#d6321f' },
+  blue:  { hex: '#1d4ed8', bg: '#1d4ed8', fg: '#ffffff', border: '#1d4ed8' },
+  green: { hex: '#1a7a4e', bg: '#1a7a4e', fg: '#ffffff', border: '#1a7a4e' },
+  white: { hex: '#ffffff', bg: '#ffffff', fg: '#0a0a0a', border: '#0a0a0a' },
+};
+
+// ─────────────────────────────────────────────────────────
+// PRIMITIVES
+// ─────────────────────────────────────────────────────────
+
+function Logo({ size = 22, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="font-display font-extrabold leading-none select-none bg-transparent border-0 p-0 cursor-pointer text-ink"
+      style={{ fontSize: size, letterSpacing: '-0.04em' }}
+    >
+      politisimple<span style={{ color: 'var(--ink-red)' }}>.</span>
+    </button>
+  );
+}
+
+function Eyebrow({ children, color = 'red', className = '' }) {
+  const colorVar = color === 'blue' ? 'var(--ink-blue)' : color === 'green' ? 'var(--ink-green)' : 'var(--ink-red)';
+  return (
+    <span
+      className={`font-display font-bold tracking-[0.1em] uppercase ${className}`}
+      style={{ color: colorVar, fontSize: 13 }}
+    >
+      {children}
+    </span>
+  );
 }
 
 function SourceLink({ source }) {
   if (!source.url) {
     return (
-      <span className="px-3 py-1.5 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-black rounded-lg border border-slate-200 dark:border-slate-700 uppercase tracking-wider">
+      <span className="inline-flex items-center px-2 py-1 text-[10px] font-semibold tracking-[0.05em] uppercase border border-ink text-ink-mute" style={{ borderRadius: 999 }}>
         {source.name}
       </span>
     );
@@ -133,600 +177,1877 @@ function SourceLink({ source }) {
       href={source.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 text-[10px] font-black rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 transition-colors uppercase tracking-wider"
+      className="inline-flex items-center gap-1.5 px-2 py-1 text-[10px] font-semibold tracking-[0.05em] uppercase border border-ink text-ink hover:bg-ink hover:text-paper transition-colors"
+      style={{ borderRadius: 999 }}
     >
-      {source.name}
-      <ExternalLink className="h-3 w-3 opacity-60" />
+      {source.name} ↗
     </a>
   );
 }
 
-function VotesSection({ politician }) {
+function PhotoFrame({ politician, ratio = '4/5', children, bordered = false }) {
+  return (
+    <div
+      className="photo-wrap"
+      style={{ aspectRatio: ratio, width: '100%', border: bordered ? '1.5px solid var(--ink)' : 'none' }}
+    >
+      <img
+        src={politician.image}
+        alt={politician.name}
+        className="photo"
+        referrerPolicy="no-referrer"
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(politician.name)}&background=0a0a0a&color=ffffff&size=400&bold=true`;
+        }}
+      />
+      {children}
+    </div>
+  );
+}
+
+function SectionHead({ kicker, kickerColor = 'red', title, count, right, subtitle }) {
+  return (
+    <div className="mb-6">
+      <div className="flex items-baseline justify-between gap-4 flex-wrap">
+        <div className="flex items-baseline gap-4 flex-wrap">
+          {kicker && <Eyebrow color={kickerColor}>§ {kicker}</Eyebrow>}
+          <h2 className="font-display font-extrabold text-ink leading-none text-4xl sm:text-5xl lg:text-6xl" style={{ letterSpacing: '-0.04em' }}>
+            {title}
+          </h2>
+          {count != null && <span className="text-sm text-ink-mute">· {count}</span>}
+        </div>
+        {right}
+      </div>
+      {subtitle && <p className="text-base text-ink-mute mt-3 max-w-2xl">{subtitle}</p>}
+      <hr className="rule rule--thick mt-4" />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// HEADER
+// ─────────────────────────────────────────────────────────
+
+function Header({ activeRoute, onGoHome, searchTerm, onSearch, showSearch = true }) {
+  return (
+    <header className="sticky top-0 z-40 bg-paper" style={{ borderBottom: '1.5px solid var(--ink)' }}>
+      <div className="flex items-center gap-3 sm:gap-6 px-4 sm:px-6 lg:px-12 py-3.5">
+        <Logo size={22} onClick={onGoHome} />
+        <nav className="hidden md:flex items-center gap-1 ml-2">
+          <HeaderLink href="#" active={activeRoute === 'home' || activeRoute === 'profile'}>Personnalités</HeaderLink>
+          <HeaderLink href="#chiffres-assemblee" active={activeRoute === 'chiffres'}>Assemblée</HeaderLink>
+          <HeaderLink href="#quiz" active={activeRoute === 'quiz'}>Quiz</HeaderLink>
+        </nav>
+
+        {showSearch && (
+          <div className="input ml-auto" style={{ flex: '1 1 280px', maxWidth: 420, padding: '8px 14px' }}>
+            <Search className="h-4 w-4 shrink-0 text-ink-mute" strokeWidth={ICON_STROKE} />
+            <input
+              value={searchTerm}
+              onChange={(e) => onSearch(e.target.value)}
+              placeholder="Rechercher une personnalité, un parti…"
+            />
+            <span className="kbd hidden lg:inline">⌘ K</span>
+          </div>
+        )}
+        {!showSearch && <div className="flex-1" />}
+
+        <a href="#quiz" className="btn btn--sm btn--solid hidden sm:inline-flex">
+          Faire le quiz →
+        </a>
+      </div>
+    </header>
+  );
+}
+
+function HeaderLink({ href, active, children }) {
+  return (
+    <a
+      href={href}
+      className="px-3 py-2 font-display font-medium text-[13px] transition-colors"
+      style={{
+        background: active ? 'var(--ink)' : 'transparent',
+        color: active ? 'var(--paper)' : 'var(--ink)',
+      }}
+    >
+      {children}
+    </a>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// HOME
+// ─────────────────────────────────────────────────────────
+
+function HomeHero() {
+  return (
+    <section className="px-4 sm:px-6 lg:px-12 pt-14 lg:pt-20">
+      <div className="hand text-2xl sm:text-3xl mb-4" style={{ color: 'var(--ink-red)', transform: 'rotate(-2deg)' }}>
+        avant de voter, lisez. ↓
+      </div>
+      <h1
+        className="font-display font-extrabold text-ink"
+        style={{ fontSize: 'clamp(56px, 11vw, 156px)', letterSpacing: '-0.055em', lineHeight: 0.86 }}
+      >
+        La vraie <span className="marker">fiche</span><br />
+        <em style={{ fontStyle: 'italic', fontWeight: 400 }}>de chaque</em> politique<span style={{ color: 'var(--ink-red)' }}>.</span>
+      </h1>
+      <p className="text-lg sm:text-xl mt-8 max-w-3xl leading-snug text-ink">
+        Programmes, votes, parcours, financement. <span className="text-ink-mute">Tout en une page. Sourcé. Sans interprétation.</span>
+      </p>
+      <div className="flex gap-3 mt-8 flex-wrap">
+        <a href="#" className="btn btn--solid">Parcourir les fiches →</a>
+        <a href="#quiz" className="btn">Faire le quiz</a>
+      </div>
+      <hr className="rule rule--thick mt-14 lg:mt-20" />
+    </section>
+  );
+}
+
+function PortraitTile({ politician, onSelect, isLastCol, isFirstRow, badgeColor, annotation, dark = false }) {
+  const borderColor = dark ? 'rgba(255,255,255,0.15)' : 'rgba(128,128,128,0.18)';
+  // Si badgeColor n'est pas explicitement forcé (ex: 'red' pour procédures),
+  // on utilise la couleur de famille politique.
+  const family = badgeColor || partyFamily(politician.party);
+  const fc = FAMILY_COLORS[family] || FAMILY_COLORS.white;
+  const needsBorder = family === 'white';
+
+  return (
+    <button
+      onClick={() => onSelect(politician.id)}
+      className="group text-left p-5 sm:p-7 relative w-full transition-colors"
+      style={{
+        background: 'transparent',
+        borderRight: isLastCol ? 'none' : `1px solid ${borderColor}`,
+        borderTop: isFirstRow ? 'none' : `1px solid ${borderColor}`,
+        color: dark ? 'var(--paper)' : 'var(--ink)',
+      }}
+    >
+      <PhotoFrame politician={politician} ratio="4/5">
+        <span
+          className="absolute left-2.5 bottom-2.5 px-2 py-1 font-display font-bold uppercase"
+          style={{
+            background: fc.bg,
+            color: fc.fg,
+            border: needsBorder ? `1px solid ${fc.border}` : 'none',
+            fontSize: 10,
+            letterSpacing: '0.15em',
+          }}
+        >
+          {partyShort(politician.party)}
+        </span>
+      </PhotoFrame>
+      <h3
+        className="font-display font-bold mt-5"
+        style={{ fontSize: 22, letterSpacing: '-0.03em' }}
+      >
+        {politician.name}
+      </h3>
+      <div className="mt-1 text-xs" style={{ color: dark ? 'rgba(255,255,255,0.7)' : 'var(--ink-mute)' }}>
+        {politician.role || politician.bio?.split('.')[0]}
+      </div>
+      <div
+        className="mt-4 flex items-center justify-between font-display font-semibold uppercase"
+        style={{ fontSize: 11, letterSpacing: '0.1em' }}
+      >
+        <span>Lire la fiche</span>
+        <ArrowRight className="h-3.5 w-3.5" strokeWidth={ICON_STROKE} />
+      </div>
+      {annotation && (
+        <div
+          className="hand absolute pointer-events-none"
+          style={{
+            top: annotation.top,
+            right: annotation.right,
+            color: 'var(--ink-red)',
+            fontSize: annotation.size || 22,
+            transform: `rotate(${annotation.rotate || -4}deg)`,
+          }}
+        >
+          {annotation.text}
+        </div>
+      )}
+    </button>
+  );
+}
+
+function HomePersonalities({ politicians, onSelect, searchTerm }) {
+  const featured = useMemo(() => {
+    const want = ['emmanuel-macron', 'manon-aubry', 'jordan-bardella', 'marine-tondelier'];
+    const found = want.map((id) => politicians.find((p) => p.id === id)).filter(Boolean);
+    if (found.length === 4) return found;
+    return politicians.slice(0, 4);
+  }, [politicians]);
+
+  const annotations = {
+    'emmanuel-macron': { text: 'en exercice ↓', top: 8, right: -4, size: 22, rotate: -8 },
+  };
+
+  const [filter, setFilter] = useState('exercice');
+  const [showAll, setShowAll] = useState(false);
+
+  const isSearching = !!searchTerm;
+  const expanded = showAll || isSearching;
+
+  const filtered = useMemo(() => {
+    let list = politicians;
+    if (isSearching) {
+      const q = searchTerm.toLowerCase();
+      list = list.filter((p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.party.toLowerCase().includes(q) ||
+        (p.bio || '').toLowerCase().includes(q),
+      );
+    }
+    return list;
+  }, [politicians, isSearching, searchTerm]);
+
+  const tiles = expanded ? filtered : featured;
+
+  return (
+    <section className="px-4 sm:px-6 lg:px-12 pt-14 lg:pt-20">
+      <SectionHead
+        kicker="À LA UNE"
+        title="Personnalités"
+        right={
+          !expanded && (
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                className="btn btn--sm"
+                style={filter === 'exercice' ? { background: 'var(--ink)', color: 'var(--paper)' } : {}}
+                onClick={() => setFilter('exercice')}
+              >
+                En exercice
+              </button>
+              <button
+                className="btn btn--sm"
+                style={filter === 'candidats' ? { background: 'var(--ink)', color: 'var(--paper)' } : {}}
+                onClick={() => setFilter('candidats')}
+              >
+                Candidats
+              </button>
+              <button
+                className="btn btn--sm"
+                style={filter === 'maires' ? { background: 'var(--ink)', color: 'var(--paper)' } : {}}
+                onClick={() => setFilter('maires')}
+              >
+                Maires
+              </button>
+            </div>
+          )
+        }
+      />
+
+      <div
+        className="grid grid-cols-2 lg:grid-cols-4"
+        style={{ borderBottom: '1.5px solid var(--ink)' }}
+      >
+        {tiles.map((p, i) => {
+          const cols = expanded ? 4 : 4;
+          return (
+            <PortraitTile
+              key={p.id}
+              politician={p}
+              onSelect={onSelect}
+              isLastCol={(i + 1) % cols === 0}
+              isFirstRow={i < cols}
+              annotation={annotations[p.id]}
+            />
+          );
+        })}
+
+        {tiles.length === 0 && (
+          <div className="col-span-2 lg:col-span-4 py-24 text-center">
+            <p className="text-lg text-ink-mute">Aucune fiche ne correspond à votre recherche.</p>
+          </div>
+        )}
+      </div>
+
+      {!expanded && (
+        <div className="flex justify-center pt-8">
+          <button className="btn" onClick={() => setShowAll(true)}>
+            Voir les {politicians.length} fiches →
+          </button>
+        </div>
+      )}
+      {expanded && !isSearching && (
+        <div className="flex justify-center pt-8">
+          <button className="btn btn--ghost" onClick={() => setShowAll(false)}>
+            ← Réduire
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function HomeQuizCTA() {
+  return (
+    <section className="px-4 sm:px-6 lg:px-12 pt-14 lg:pt-20">
+      <div
+        className="relative px-6 sm:px-10 lg:px-14 py-10 lg:py-12 grid lg:grid-cols-[1.2fr_auto] gap-8 items-center"
+        style={{ background: 'var(--ink)', color: 'var(--paper)' }}
+      >
+        <div>
+          <h2
+            className="font-display font-extrabold"
+            style={{ fontSize: 'clamp(40px, 6vw, 64px)', letterSpacing: '-0.04em', lineHeight: 0.95 }}
+          >
+            Vous votez<br />comme qui<span style={{ color: 'var(--ink-red)' }}>?</span>
+          </h2>
+          <p className="text-base sm:text-lg mt-4 max-w-md leading-snug" style={{ opacity: 0.8 }}>
+            À la fin : votre proximité chiffrée avec chaque personnalité, basée sur leurs vrais votes.
+          </p>
+        </div>
+        <a
+          href="#quiz"
+          className="btn"
+          style={{ background: 'var(--paper)', color: 'var(--ink)', border: 'none', fontSize: 18, padding: '20px 28px' }}
+        >
+          Commencer →
+        </a>
+        <div
+          className="hand absolute pointer-events-none"
+          style={{ top: -26, right: 60, color: 'var(--ink-red)', fontSize: 28, transform: 'rotate(-6deg)' }}
+        >
+          le préféré des lecteurs
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function aggregateRecentVotes(limit = 3) {
+  const grouped = new Map();
+  politiciansData.forEach((p) => {
+    (p.votes?.items || []).forEach((v) => {
+      const key = v.law;
+      if (!grouped.has(key)) {
+        grouped.set(key, {
+          law: v.law,
+          date: v.date,
+          summary: v.summary,
+          instance: p.votes.instance,
+          positions: [],
+        });
+      }
+      grouped.get(key).positions.push(v.position);
+    });
+  });
+  return Array.from(grouped.values())
+    .filter((v) => v.date)
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+    .slice(0, limit)
+    .map((v) => {
+      const pour = v.positions.filter((x) => x === 'pour').length;
+      const contre = v.positions.filter((x) => x === 'contre').length;
+      const abs = v.positions.filter((x) => x === 'abstention').length;
+      const total = pour + contre + abs || 1;
+      return {
+        ...v,
+        pour, contre, abs,
+        pourPct: (pour / total) * 100,
+        contrePct: (contre / total) * 100,
+        absPct: (abs / total) * 100,
+        adopted: pour >= contre,
+      };
+    });
+}
+
+function HomeDerniersVotes() {
+  const recent = useMemo(() => aggregateRecentVotes(3), []);
+  if (recent.length === 0) return null;
+  return (
+    <section className="px-4 sm:px-6 lg:px-12 pt-14 lg:pt-20">
+      <SectionHead
+        kicker="EN DIRECT"
+        title="Derniers votes"
+        right={
+          <a href="#chiffres-assemblee" className="font-display font-semibold uppercase tracking-[0.1em] inline-flex items-center gap-2 text-xs hover:text-ink-red transition-colors">
+            Toute l'Assemblée <ArrowRight className="h-3.5 w-3.5" strokeWidth={ICON_STROKE} />
+          </a>
+        }
+      />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3" style={{ borderBottom: '1.5px solid var(--ink)' }}>
+        {recent.map((v, i) => (
+          <article
+            key={v.law}
+            className="p-6 sm:p-8 relative"
+            style={{
+              borderRight: i < 2 ? '1px solid rgba(128,128,128,0.18)' : 'none',
+            }}
+          >
+            <div className="flex justify-between items-start mb-5">
+              <span
+                className="font-display font-bold uppercase px-2.5 py-1"
+                style={{
+                  background: v.adopted ? 'var(--ink-green)' : 'var(--ink-red)',
+                  color: '#fff',
+                  fontSize: 11,
+                  letterSpacing: '0.15em',
+                }}
+              >
+                {v.adopted ? '✓ Adopté' : '✗ Rejeté'}
+              </span>
+              <span className="text-[11px] text-ink-mute tracking-[0.1em]">{formatDotDate(v.date)}</span>
+            </div>
+            <h3
+              className="font-display font-bold leading-tight"
+              style={{ fontSize: 22, letterSpacing: '-0.02em', minHeight: 80 }}
+            >
+              {v.law}
+            </h3>
+            {v.summary && (
+              <p className="text-sm text-ink-mute leading-relaxed mt-3">{v.summary}</p>
+            )}
+            <div className="mt-5 flex items-center" style={{ height: 6 }}>
+              <div style={{ width: `${v.pourPct}%`, height: '100%', background: 'var(--ink-green)' }} />
+              <div style={{ width: `${v.contrePct}%`, height: '100%', background: 'var(--ink-red)' }} />
+              <div style={{ width: `${v.absPct}%`, height: '100%', background: 'rgba(128,128,128,0.2)' }} />
+            </div>
+            <div className="mt-3 flex gap-4 text-[11px] text-ink-mute">
+              <span><strong style={{ color: 'var(--ink-green)' }}>{v.pour}</strong> pour</span>
+              <span><strong style={{ color: 'var(--ink-red)' }}>{v.contre}</strong> contre</span>
+              <span>{v.abs} abs.</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// PROFILE VIEW
+// ─────────────────────────────────────────────────────────
+
+function ProfileView({ politician, allPoliticians, onSelectPolitician }) {
+  const legalMeta = LEGAL_STATUS_META[politician.legal?.globalStatus] || LEGAL_STATUS_META.clean;
+  const isClean = politician.legal?.globalStatus === 'clean';
+  const amendmentsWritten = politician.stats?.amendmentsWritten ?? null;
+  const votesCount = politician.votes?.items?.length || 0;
+  const firstMandate = politician.timeline?.[0]?.year || '—';
+
+  const others = useMemo(() => {
+    return allPoliticians.filter((p) => p.id !== politician.id).slice(0, 4);
+  }, [allPoliticians, politician.id]);
+
+  return (
+    <article className="fade-in">
+      {/* BREADCRUMB MASTHEAD */}
+      <div className="px-4 sm:px-6 lg:px-12 pt-4">
+        <div className="flex items-baseline justify-between gap-4 flex-wrap text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.15em] text-ink-mute">
+          <span>
+            <a href="#" className="hover:text-ink">Personnalités</a> · {politician.party} · <span className="text-ink">{politician.name}</span>
+          </span>
+          <span>Mise à jour le {formatDotDate(politician.lastUpdate)}</span>
+        </div>
+        <hr className="rule rule--thick mt-2" />
+      </div>
+
+      {/* HERO PORTRAIT + IDENTITÉ */}
+      <section className="px-4 sm:px-6 lg:px-12 pt-6 lg:pt-8">
+        <div className="grid lg:grid-cols-[420px_1fr] gap-10 lg:gap-16 items-start relative">
+          <div>
+            <PhotoFrame politician={politician} ratio="4/5" bordered>
+              {(() => {
+                const fam = partyFamily(politician.party);
+                const fc = FAMILY_COLORS[fam];
+                const needsBorder = fam === 'white';
+                return (
+                  <span
+                    className="absolute font-display font-bold tracking-[0.1em] uppercase"
+                    style={{
+                      left: 16, bottom: 16,
+                      fontSize: 11,
+                      padding: '5px 12px',
+                      background: fc.bg,
+                      color: fc.fg,
+                      border: needsBorder ? `1px solid ${fc.border}` : 'none',
+                      borderRadius: 999,
+                    }}
+                  >
+                    {politician.party}
+                  </span>
+                );
+              })()}
+            </PhotoFrame>
+            <div className="flex justify-between items-center mt-3 px-1 text-[10px] tracking-[0.1em] uppercase text-ink-mute">
+              <span>Photo · {politician.votes?.instance || 'Public'}</span>
+              <span>N&B éditorial</span>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="text-[11px] tracking-[0.15em] uppercase text-ink-mute mb-4">
+              <span
+                className="inline-block w-2 h-2 rounded-full mr-2 align-middle"
+                style={{ background: isClean ? 'var(--ink-green)' : 'var(--ink-red)' }}
+              />
+              Actualisé · {formatFrenchDate(politician.lastUpdate)}
+            </div>
+            <h1
+              className="font-display font-extrabold text-ink"
+              style={{ fontSize: 'clamp(56px, 9vw, 128px)', letterSpacing: '-0.05em', lineHeight: 0.85 }}
+            >
+              {politician.name.split(' ').slice(0, -1).join(' ')}<br />
+              <em style={{ fontStyle: 'italic', fontWeight: 400 }}>
+                {politician.name.split(' ').slice(-1)[0]}<span style={{ color: 'var(--ink-red)' }}>.</span>
+              </em>
+            </h1>
+            <p className="text-lg sm:text-xl mt-8 max-w-2xl leading-snug text-ink">
+              {politician.bio}
+            </p>
+
+            {/* Stats clés en ligne */}
+            <div
+              className="mt-8 grid grid-cols-2 sm:grid-cols-4"
+              style={{ borderTop: '1.5px solid var(--ink)', borderBottom: '1.5px solid var(--ink)', padding: '20px 0' }}
+            >
+              <ProfileStatBlock label="1er mandat" value={firstMandate} />
+              {amendmentsWritten !== null && (
+                <ProfileStatBlock
+                  label="amendements"
+                  value={amendmentsWritten.toLocaleString('fr-FR')}
+                  color="red"
+                />
+              )}
+              {votesCount > 0 && <ProfileStatBlock label="votes suivis" value={votesCount} />}
+              <ProfileStatBlock
+                label={legalMeta.label}
+                value={isClean ? '✓' : '!'}
+                color={isClean ? 'green' : 'red'}
+              />
+            </div>
+
+            <div className="flex gap-3 mt-6 flex-wrap">
+              <a href="#programme" className="btn btn--solid">Dossier complet →</a>
+              <a href="#quiz" className="btn">Comparer</a>
+            </div>
+
+            <div
+              className="hand pointer-events-none hidden lg:block"
+              style={{
+                position: 'absolute', top: 32, right: -8,
+                color: 'var(--ink-red)', fontSize: 26,
+                transform: 'rotate(6deg)', lineHeight: 1.1,
+              }}
+            >
+              fiche en cours →
+            </div>
+          </div>
+        </div>
+
+        {/* Sommaire ancré */}
+        <div
+          className="mt-12 py-4 flex flex-wrap items-center gap-6"
+          style={{ borderTop: '1.5px solid var(--ink)', borderBottom: '1.5px solid var(--ink)' }}
+        >
+          <span className="text-[11px] tracking-[0.2em] uppercase font-semibold">Sommaire</span>
+          {[
+            ['01', 'Programme', '#programme'],
+            ['02', 'Votes & positions', '#votes'],
+            ['03', 'Justice & légalité', '#justice'],
+            ['04', 'Parcours', '#parcours'],
+            ['05', 'Financement', '#financement'],
+          ].map(([n, t, href]) => (
+            <a key={n} href={href} className="flex items-baseline gap-2 hover:text-ink-red transition-colors">
+              <span className="font-display font-bold text-[11px]" style={{ color: 'var(--ink-red)' }}>§ {n}</span>
+              <span className="font-display font-medium text-[13px]">{t}</span>
+            </a>
+          ))}
+          <span className="ml-auto text-xs text-ink-mute">≈ 6 min de lecture</span>
+        </div>
+      </section>
+
+      <ProfileProgramme politician={politician} />
+      <ProfileVotes politician={politician} />
+      <ProfileJustice politician={politician} legalMeta={legalMeta} />
+      <ProfileParcours politician={politician} />
+      <ProfileFinancement politician={politician} />
+      <ProfileOthers others={others} onSelect={onSelectPolitician} />
+    </article>
+  );
+}
+
+function ProfileStatBlock({ label, value, color }) {
+  const colorVar = color === 'red' ? 'var(--ink-red)' : color === 'green' ? 'var(--ink-green)' : 'var(--ink)';
+  return (
+    <div>
+      <div className="numeral font-extrabold" style={{ fontSize: 36, color: colorVar }}>
+        {value}
+      </div>
+      <div className="text-[11px] tracking-[0.1em] uppercase text-ink-mute mt-1">{label}</div>
+    </div>
+  );
+}
+
+function ProfileProgramme({ politician }) {
+  if (!politician.program || politician.program.length === 0) return null;
+  return (
+    <section id="programme" className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+      <div className="flex items-baseline gap-5 flex-wrap">
+        <Eyebrow>§ 01</Eyebrow>
+        <h2 className="font-display font-extrabold text-ink" style={{ fontSize: 'clamp(40px, 6vw, 80px)', letterSpacing: '-0.04em', lineHeight: 1 }}>
+          Le programme
+        </h2>
+      </div>
+      <p className="text-base sm:text-lg text-ink-mute mt-3 max-w-3xl">
+        Les positions affichées par la personnalité dans ses prises de parole publiques et ses propositions législatives. Synthèse, sans interprétation.
+      </p>
+      <hr className="rule rule--thick mt-6" />
+
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+        style={{ borderBottom: '1.5px solid var(--ink)' }}
+      >
+        {politician.program.map((p, i) => (
+          <div
+            key={p.category}
+            className="p-6 sm:p-8"
+            style={{
+              borderRight: (i + 1) % 3 !== 0 ? '1px solid rgba(128,128,128,0.18)' : 'none',
+              borderTop: i >= 3 ? '1px solid rgba(128,128,128,0.18)' : 'none',
+            }}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                className="inline-flex items-center justify-center font-display font-extrabold"
+                style={{
+                  width: 28, height: 28,
+                  background: 'var(--ink)', color: 'var(--paper)',
+                  fontSize: 13,
+                }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="font-display font-bold uppercase tracking-[0.05em]" style={{ fontSize: 17 }}>
+                {p.category}
+              </h3>
+            </div>
+            <ul className="flex flex-col gap-3">
+              {p.points.map((pt, j) => (
+                <li key={j} className="flex gap-3 text-sm leading-relaxed">
+                  <span className="font-display font-bold shrink-0" style={{ color: 'var(--ink-red)' }}>—</span>
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProfileVotes({ politician }) {
   const [showAll, setShowAll] = useState(false);
   const votes = politician.votes;
   if (!votes || !votes.items || votes.items.length === 0) return null;
-
-  const items = showAll ? votes.items : votes.items.slice(0, 3);
-  const flag = INSTANCE_FLAG[votes.instance] || '';
+  const items = showAll ? votes.items : votes.items.slice(0, 4);
 
   return (
-    <section>
-      <div className="flex items-center gap-4 mb-10">
-        <div
-          className="p-4 text-white rounded-[1.5rem] shadow-xl"
-          style={{
-            backgroundColor: politician.partyColor,
-            boxShadow: `0 10px 25px -5px ${politician.partyColor}33`,
-          }}
-        >
-          <Vote className="h-6 w-6" />
+    <section id="votes" className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+      <div className="flex items-baseline justify-between gap-4 flex-wrap">
+        <div className="flex items-baseline gap-5 flex-wrap">
+          <Eyebrow>§ 02</Eyebrow>
+          <h2 className="font-display font-extrabold text-ink" style={{ fontSize: 'clamp(40px, 6vw, 80px)', letterSpacing: '-0.04em', lineHeight: 1 }}>
+            Votes & positions
+          </h2>
         </div>
-        <div>
-          <h3 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase">
-            Votes & Positions
-          </h3>
-          {votes.instance && (
-            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-300 text-[11px] font-black uppercase tracking-wider">
-              <span>{flag}</span>
-              <span>{votes.instance}</span>
-            </div>
-          )}
-        </div>
+        {votes.instance && <span className="tag tag--blue">{votes.instance}</span>}
       </div>
+      <hr className="rule rule--thick mt-6" />
 
-      <div className="space-y-3">
+      <div>
         {items.map((item, idx) => {
-          const meta = VOTE_POSITION_META[item.position] || VOTE_POSITION_META.absent;
-          const PositionIcon = meta.icon;
+          const isPour = item.position === 'pour';
+          const isContre = item.position === 'contre';
+          const isAbs = item.position === 'abstention';
+          let bg = 'var(--ink)';
+          let symbol = '·';
+          let label = 'ABS.';
+          if (isPour) { bg = 'var(--ink-green)'; symbol = '✓'; label = 'POUR'; }
+          else if (isContre) { bg = 'var(--ink-red)'; symbol = '✗'; label = 'CONTRE'; }
+          else if (isAbs) { bg = 'var(--ink-mute)'; symbol = '—'; label = 'ABS.'; }
+          else { bg = '#888'; symbol = '·'; label = 'ABSENT'; }
+
           return (
             <div
               key={idx}
-              className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex gap-4 sm:gap-5 items-stretch"
+              className="grid grid-cols-[90px_1fr] sm:grid-cols-[120px_1fr_120px] gap-4 sm:gap-8 py-6 items-center"
+              style={{ borderBottom: '1px solid rgba(128,128,128,0.18)' }}
             >
-              <div
-                className={`shrink-0 flex flex-col items-center justify-center gap-1 w-20 sm:w-24 rounded-xl ${meta.classes}`}
-              >
-                <PositionIcon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={3} />
-                <span className="text-[10px] font-black tracking-widest">{meta.label}</span>
+              <div>
+                <div className="font-display font-bold text-[13px] tracking-[0.05em]">{formatDotDate(item.date)}</div>
+                {votes.instance && (
+                  <div className="text-[10px] text-ink-mute tracking-[0.05em] uppercase mt-1">{votes.instance}</div>
+                )}
               </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">
-                  {item.date}
-                </div>
-                <h4 className="text-sm sm:text-base font-black uppercase tracking-tight leading-snug mb-1.5">
+              <div>
+                <h3 className="font-display font-bold leading-snug" style={{ fontSize: 20, letterSpacing: '-0.02em' }}>
                   {item.law}
-                </h4>
+                </h3>
                 {item.summary && (
-                  <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-2">
-                    {item.summary}
-                  </p>
+                  <p className="text-sm text-ink-mute mt-2 leading-relaxed max-w-3xl">{item.summary}</p>
                 )}
                 {item.sources && item.sources.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    {item.sources.map((s, i) => (
-                      <SourceLink key={i} source={s} />
-                    ))}
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {item.sources.map((s, i) => <SourceLink key={i} source={s} />)}
                   </div>
                 )}
+              </div>
+              <div
+                className="hidden sm:flex flex-col items-center justify-center text-paper"
+                style={{ width: 120, height: 120, background: bg }}
+              >
+                <div style={{ fontSize: 32, lineHeight: 1 }}>{symbol}</div>
+                <div className="font-display font-extrabold mt-1" style={{ fontSize: 18, letterSpacing: '0.1em' }}>{label}</div>
+              </div>
+              <div className="sm:hidden col-span-2">
+                <span
+                  className="inline-block font-display font-bold uppercase px-3 py-1"
+                  style={{ background: bg, color: '#fff', fontSize: 11, letterSpacing: '0.15em' }}
+                >
+                  {symbol} {label}
+                </span>
               </div>
             </div>
           );
         })}
       </div>
 
-      {votes.items.length > 3 && (
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:opacity-90 transition-all"
-        >
+      {votes.items.length > 4 && (
+        <button onClick={() => setShowAll(!showAll)} className="btn mt-6">
           {showAll ? 'Voir moins' : `Voir tous les votes (${votes.items.length})`}
-          <ChevronDown className={`h-4 w-4 transition-transform ${showAll ? 'rotate-180' : ''}`} />
         </button>
       )}
     </section>
   );
 }
 
-function MentionsLegales() {
+function ProfileJustice({ politician, legalMeta }) {
+  const isClean = politician.legal?.globalStatus === 'clean';
+  const Icon = legalMeta.icon;
+  const accentColor = isClean ? 'var(--ink-green)' : 'var(--ink-red)';
+
   return (
-    <div className="max-w-3xl mx-auto py-12 animate-[fadeIn_0.5s_ease-out_forwards]">
-      <div className="flex items-center gap-4 mb-10">
-        <div className="p-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-[1.5rem] shadow-xl">
-          <ScrollText className="h-6 w-6" />
-        </div>
-        <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase">
-          Mentions légales
+    <section id="justice" className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+      <div className="flex items-baseline gap-5 flex-wrap">
+        <Eyebrow>§ 03</Eyebrow>
+        <h2 className="font-display font-extrabold text-ink" style={{ fontSize: 'clamp(40px, 6vw, 80px)', letterSpacing: '-0.04em', lineHeight: 1 }}>
+          Justice & légalité
         </h2>
       </div>
+      <hr className="rule rule--thick mt-6" />
 
-      <div className="prose prose-slate dark:prose-invert max-w-none space-y-8 text-slate-700 dark:text-slate-300">
-        <section>
-          <h3 className="text-xl font-black uppercase tracking-tight mb-3">Nature du site</h3>
-          <p>
-            PolitiSimple est un site d'information non officiel à vocation citoyenne. Son but est de
-            rassembler et présenter de manière synthétique des informations publiques relatives à
-            des personnalités politiques françaises (programmes, votes parlementaires, procédures
-            judiciaires).
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-black uppercase tracking-tight mb-3">
-            Sources & vérification
-          </h3>
-          <p>
-            Les informations publiées proviennent de sources publiques diversifiées : open data des
-            assemblées (Assemblée Nationale, Parlement européen), presse française (Le Monde, Le
-            Figaro, Libération, Mediapart, Le Canard Enchaîné, etc.), publications officielles
-            (HATVP, Cour de cassation). Chaque information sensible est sourcée. Aucune source
-            unique n'est privilégiée.
-          </p>
-          <p>
-            Les votes et positions sont reconstitués à partir des registres officiels des assemblées
-            et de sites de transparence (datan.fr, howtheyvote.eu). Une étiquette « À vérifier »
-            signale les données en cours de validation.
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-black uppercase tracking-tight mb-3">
-            Présomption d'innocence
-          </h3>
-          <p>
-            Les informations relatives à des procédures judiciaires sont présentées dans le strict
-            respect de la <strong>présomption d'innocence</strong> (art. 9-1 du Code civil). Une
-            mise en examen, une enquête préliminaire ou une plainte ne valent pas culpabilité. Le
-            statut judiciaire affiché (« Enquête en cours », « Mis en examen », « Condamné »)
-            reflète l'état connu de la procédure au moment de la dernière mise à jour de la fiche.
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-black uppercase tracking-tight mb-3">
-            Droit de réponse & corrections
-          </h3>
-          <p>
-            Conformément à la loi du 29 juillet 1881 sur la liberté de la presse, toute personne
-            nommée sur ce site dispose d'un droit de réponse. Les demandes de rectification, de mise
-            à jour ou de suppression peuvent être adressées via le dépôt d'une issue sur le dépôt
-            public du projet ou par tout autre canal mis à disposition. Toute demande légitime est
-            traitée dans les meilleurs délais.
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-black uppercase tracking-tight mb-3">Responsabilité</h3>
-          <p>
-            Malgré le soin apporté à la qualité des informations, des erreurs peuvent subsister.
-            PolitiSimple ne saurait être tenu pour responsable de l'usage qui serait fait des
-            informations publiées. Les opinions politiques exprimées dans les programmes restent
-            celles de leurs auteurs respectifs.
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-black uppercase tracking-tight mb-3">
-            Hébergement & technique
-          </h3>
-          <p>
-            Site statique, sans collecte de données personnelles, sans cookie de suivi, sans
-            inscription. Le code source est ouvert sous licence MIT.
-          </p>
-        </section>
-      </div>
-    </div>
-  );
-}
-
-function FinanceBar({ entry, max, kind }) {
-  const pct = Math.max(2, (Math.abs(entry.amount) / max) * 100);
-  const isSurplus = kind === 'surplus';
-  const formatted = (entry.amount > 0 ? '+' : '') + entry.amount.toLocaleString('fr-FR') + ' €';
-  return (
-    <div className="flex items-center gap-4">
-      <div className="flex-1 min-w-0">
-        <div className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 truncate">
-          {entry.name}
-        </div>
-        <div className="h-3 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-          <div
-            className={`h-full rounded-full ${
-              isSurplus
-                ? 'bg-gradient-to-r from-emerald-400 to-emerald-600'
-                : 'bg-gradient-to-r from-red-400 to-red-600'
-            }`}
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-      </div>
       <div
-        className={`shrink-0 text-xs sm:text-sm font-black tabular-nums ${
-          isSurplus ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-700 dark:text-red-400'
-        }`}
+        className="mt-8 relative p-8 sm:p-12"
+        style={{ background: 'var(--ink-cream)', border: '1.5px solid var(--ink)' }}
       >
-        {formatted}
+        <div className="flex flex-wrap items-center gap-4 mb-6">
+          <span
+            className="inline-flex items-center gap-2 font-display font-bold uppercase px-3 py-1.5"
+            style={{ background: accentColor, color: '#fff', fontSize: 12, letterSpacing: '0.15em' }}
+          >
+            <Icon className="h-3.5 w-3.5" strokeWidth={ICON_STROKE} />
+            {isClean ? '✓ ' : '✗ '}{legalMeta.label}
+          </span>
+          <h3 className="font-display font-bold text-xl sm:text-2xl" style={{ letterSpacing: '-0.02em' }}>
+            {politician.legal.status}
+          </h3>
+        </div>
+
+        <ul className="flex flex-col gap-4">
+          {politician.legal.details.map((d, i) => (
+            <li key={i} className="flex gap-3">
+              <span className="shrink-0" style={{ width: 3, background: accentColor }} />
+              <span className="text-base sm:text-lg leading-snug font-medium">{d}</span>
+            </li>
+          ))}
+        </ul>
+
+        {politician.legal.sources && politician.legal.sources.length > 0 && (
+          <div
+            className="mt-7 pt-5 flex flex-wrap justify-between items-center gap-3"
+            style={{ borderTop: '1px solid rgba(0,0,0,0.15)' }}
+          >
+            <div className="flex flex-wrap gap-2 items-center">
+              <span className="text-ink-mute text-[10px] tracking-[0.1em] uppercase font-semibold">Sources :</span>
+              {politician.legal.sources.map((s, i) => <SourceLink key={i} source={s} />)}
+            </div>
+            <span className="text-xs italic text-ink-mute">
+              Présomption d'innocence respectée · <a href="#mentions-legales" className="underline text-ink">Droit de réponse</a>
+            </span>
+          </div>
+        )}
+
+        <div
+          className="hand pointer-events-none absolute"
+          style={{
+            top: -16, right: 28,
+            color: accentColor, fontSize: 24,
+            transform: 'rotate(-3deg)',
+            background: 'var(--ink-cream)',
+            padding: '0 8px',
+          }}
+        >
+          {isClean ? 'casier vide ✓' : 'à surveiller !'}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-function ChiffresAssemblee({ onSelectPolitician }) {
-  const maxSurplus = Math.max(...financesData.surplus.map((e) => Math.abs(e.amount)));
-  const maxDeficit = Math.max(...financesData.deficit.map((e) => Math.abs(e.amount)));
-  const convicted = politiciansData.filter((p) => p.legal?.globalStatus === 'convicted');
-  const indicted = politiciansData.filter((p) => p.legal?.globalStatus === 'indicted');
+function ProfileParcours({ politician }) {
+  if (!politician.timeline || politician.timeline.length === 0) return null;
+  const last = politician.timeline.length - 1;
+  return (
+    <section id="parcours" className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+      <div className="flex items-baseline gap-5 flex-wrap">
+        <Eyebrow>§ 04</Eyebrow>
+        <h2 className="font-display font-extrabold text-ink" style={{ fontSize: 'clamp(40px, 6vw, 80px)', letterSpacing: '-0.04em', lineHeight: 1 }}>
+          Parcours
+        </h2>
+      </div>
+      <hr className="rule rule--thick mt-6" />
+
+      <div className="grid grid-cols-[100px_1fr] sm:grid-cols-[140px_1fr] mt-8">
+        {politician.timeline.map((p, i) => {
+          const isLast = i === last;
+          return (
+            <Fragment key={i}>
+              <div
+                className="font-display font-extrabold relative pt-4 pb-8"
+                style={{
+                  fontSize: 'clamp(32px, 5vw, 56px)',
+                  letterSpacing: '-0.04em',
+                  color: isLast ? 'var(--ink-red)' : 'var(--ink)',
+                  borderRight: '1.5px solid var(--ink)',
+                }}
+              >
+                {p.year}
+                <span
+                  className="absolute"
+                  style={{
+                    right: -8, top: 36,
+                    width: 14, height: 14, borderRadius: '50%',
+                    background: isLast ? 'var(--ink-red)' : 'var(--ink)',
+                  }}
+                />
+              </div>
+              <div className="pl-6 sm:pl-8 pt-4 pb-8">
+                <h3 className="font-display font-bold" style={{ fontSize: 'clamp(20px, 2.5vw, 26px)', letterSpacing: '-0.02em' }}>
+                  {p.title}
+                </h3>
+                {p.description && (
+                  <p className="text-sm sm:text-base text-ink-mute mt-2 max-w-2xl leading-relaxed">{p.description}</p>
+                )}
+              </div>
+            </Fragment>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function ProfileFinancement({ politician }) {
+  const partyName = partyShort(politician.party);
+  const partyFinance = useMemo(() => {
+    const all = [
+      ...financesData.surplus.map((e) => ({ ...e, kind: 'surplus' })),
+      ...financesData.deficit.map((e) => ({ ...e, kind: 'deficit' })),
+    ];
+    return all.find((f) => f.name.toLowerCase().includes(partyName.toLowerCase()))
+        || all.find((f) => partyName.toLowerCase().includes(f.name.toLowerCase().split(/[ /]/)[0]));
+  }, [partyName]);
 
   return (
-    <div className="max-w-5xl mx-auto pt-6 pb-12 animate-[fadeIn_0.5s_ease-out_forwards]">
-      <div className="flex items-center gap-4 mb-8">
-        <div className="p-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-[1.5rem] shadow-xl">
-          <BarChart3 className="h-6 w-6" />
+    <section id="financement" className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+      <div className="flex items-baseline justify-between gap-4 flex-wrap">
+        <div className="flex items-baseline gap-5 flex-wrap">
+          <Eyebrow>§ 05</Eyebrow>
+          <h2 className="font-display font-extrabold text-ink" style={{ fontSize: 'clamp(40px, 6vw, 80px)', letterSpacing: '-0.04em', lineHeight: 1 }}>
+            Financement
+          </h2>
+        </div>
+        <span className="tag tag--blue">Données {financesData.source.name} · {financesData.year}</span>
+      </div>
+      <hr className="rule rule--thick mt-6" />
+
+      <div className="grid sm:grid-cols-2 gap-8 lg:gap-12 mt-8">
+        <div>
+          <div className="text-xs uppercase tracking-[0.1em] text-ink-mute mb-3">
+            Parti d'attache · {politician.party}
+          </div>
+          {partyFinance ? (
+            <>
+              <div
+                className="numeral font-extrabold"
+                style={{
+                  fontSize: 'clamp(56px, 8vw, 88px)',
+                  letterSpacing: '-0.04em',
+                  color: partyFinance.amount >= 0 ? 'var(--ink-green)' : 'var(--ink-red)',
+                }}
+              >
+                {partyFinance.amount >= 0 ? '+' : '−'}{formatMillions(partyFinance.amount)}
+              </div>
+              <div className="text-sm text-ink-mute mt-2">
+                {partyFinance.amount >= 0 ? 'Excédent' : 'Déficit'} comptable du parti pour l'exercice {financesData.year}.
+              </div>
+            </>
+          ) : (
+            <div className="text-base text-ink-mute italic">Données non disponibles pour ce parti.</div>
+          )}
+          <a href="#chiffres-assemblee" className="btn btn--sm mt-6">Voir tous les comptes →</a>
         </div>
         <div>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase">
-            Chiffres Assemblée
-          </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-2 italic">
-            Données agrégées sur le paysage politique français.
-          </p>
-        </div>
-      </div>
-
-      <section className="mb-20">
-        <div className="flex items-baseline justify-between mb-8 flex-wrap gap-2">
-          <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase">
-            Finances des partis · {financesData.year}
-          </h3>
+          <div className="text-xs uppercase tracking-[0.1em] text-ink-mute mb-3">Déclaration HATVP</div>
+          <ul className="flex flex-col">
+            {[
+              ['Patrimoine déclaré', '— public'],
+              ['Intérêts privés', 'Voir HATVP'],
+              ['Activités annexes', 'Voir HATVP'],
+              ['Dons reçus (2024)', '—'],
+            ].map(([k, v]) => (
+              <li
+                key={k}
+                className="flex justify-between py-3 text-sm"
+                style={{ borderBottom: '1px solid rgba(128,128,128,0.18)' }}
+              >
+                <span className="text-ink-mute">{k}</span>
+                <strong className="font-display">{v}</strong>
+              </li>
+            ))}
+          </ul>
           <a
-            href={financesData.source.url}
+            href="https://www.hatvp.fr"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-600 dark:hover:text-blue-400"
+            className="text-xs uppercase tracking-[0.1em] font-semibold inline-flex items-center gap-1.5 mt-4 hover:text-ink-blue transition-colors"
+            style={{ color: 'var(--ink-blue)' }}
           >
-            Source · {financesData.source.name}
-            <ExternalLink className="h-3 w-3" />
+            Consulter sur HATVP <ExternalLink className="h-3 w-3" strokeWidth={ICON_STROKE} />
           </a>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-emerald-100 dark:border-emerald-900/30 shadow-sm">
-            <h4 className="text-base font-black uppercase tracking-widest text-emerald-700 dark:text-emerald-400 mb-6 flex items-center gap-2">
-              <span className="h-1.5 w-6 bg-emerald-500 rounded-full" />
-              Excédentaires ({financesData.surplus.length})
-            </h4>
-            <div className="space-y-4">
-              {financesData.surplus.map((e, i) => (
-                <FinanceBar key={i} entry={e} max={maxSurplus} kind="surplus" />
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-red-100 dark:border-red-900/30 shadow-sm">
-            <h4 className="text-base font-black uppercase tracking-widest text-red-700 dark:text-red-400 mb-6 flex items-center gap-2">
-              <span className="h-1.5 w-6 bg-red-500 rounded-full" />
-              Déficitaires ({financesData.deficit.length})
-            </h4>
-            <div className="space-y-4">
-              {financesData.deficit.map((e, i) => (
-                <FinanceBar key={i} entry={e} max={maxDeficit} kind="deficit" />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase mb-2">
-          Personnalités condamnées ou poursuivies
-        </h3>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-8 italic">
-          Présomption d'innocence respectée. Statut au moment de la dernière mise à jour de chaque
-          fiche.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[...convicted, ...indicted].map((p) => {
-            const meta = LEGAL_STATUS_META[p.legal.globalStatus];
-            const Icon = meta.icon;
-            return (
-              <button
-                key={p.id}
-                onClick={() => onSelectPolitician(p.id)}
-                className={`text-left p-5 rounded-2xl border ${meta.bgClass} hover:shadow-md transition-all`}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-white text-[9px] font-black uppercase tracking-widest"
-                    style={{ backgroundColor: meta.color }}
-                  >
-                    <Icon className="h-3 w-3" />
-                    {meta.label}
-                  </span>
-                </div>
-                <div className="font-black uppercase tracking-tight text-base mb-1">{p.name}</div>
-                <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-                  {p.party}
-                </div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-snug line-clamp-3">
-                  {p.legal.status}
-                </p>
-              </button>
-            );
-          })}
-        </div>
-
-        {convicted.length + indicted.length === 0 && (
-          <p className="text-slate-500 italic">Aucune fiche correspondante pour le moment.</p>
-        )}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
-const ANSWER_STYLES = {
-  2: 'bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600',
-  1: 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/40',
-  0: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700',
-  '-1': 'bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800/50 hover:bg-rose-100 dark:hover:bg-rose-900/40',
-  '-2': 'bg-rose-500 text-white border-rose-500 hover:bg-rose-600',
-};
-
-function QuizIntro({ onStart, hasInProgress, onResume }) {
+function ProfileOthers({ others, onSelect }) {
   return (
-    <div className="max-w-2xl mx-auto pt-6 pb-12 animate-[fadeIn_0.5s_ease-out_forwards]">
-      <div className="flex flex-col items-center text-center mb-10">
-        <div className="p-5 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-[2rem] shadow-xl shadow-blue-500/30 mb-6">
-          <Compass className="h-10 w-10" strokeWidth={2} />
-        </div>
-        <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase mb-4">
-          {quizData.meta.title}
+    <section
+      className="mt-20 lg:mt-32 px-4 sm:px-6 lg:px-12 py-12 lg:py-16"
+      style={{ background: 'var(--ink)', color: 'var(--paper)' }}
+    >
+      <div className="flex items-baseline justify-between flex-wrap gap-4">
+        <h2 className="font-display font-extrabold" style={{ fontSize: 'clamp(40px, 6vw, 56px)', letterSpacing: '-0.04em' }}>
+          D'autres fiches
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-lg">
-          {quizData.meta.subtitle}
-        </p>
+        <a href="#" className="font-display font-semibold uppercase tracking-[0.1em] text-xs inline-flex items-center gap-2">
+          Toutes les {politiciansData.length} fiches <ArrowRight className="h-3.5 w-3.5" strokeWidth={ICON_STROKE} />
+        </a>
       </div>
+      <hr className="rule rule--thick mt-4" style={{ borderTopColor: 'var(--paper)' }} />
 
-      <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black uppercase tracking-wider">
-          <ScrollText className="h-4 w-4" />
-          {quizData.questions.length} questions
-        </div>
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black uppercase tracking-wider">
-          <Clock className="h-4 w-4" />~{quizData.meta.estimatedMinutes} min
-        </div>
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black uppercase tracking-wider">
-          <Award className="h-4 w-4" />
-          Top 3 partis
-        </div>
-      </div>
-
-      <div className="flex flex-col items-center gap-3">
-        <button
-          onClick={onStart}
-          className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:opacity-90 hover:scale-[1.02] transition-all"
-        >
-          {hasInProgress ? 'Recommencer le quiz' : 'Commencer le quiz'}
-          <ArrowRight className="h-4 w-4" />
-        </button>
-        {hasInProgress && (
-          <button
-            onClick={onResume}
-            className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
-          >
-            Reprendre où j'en étais
-          </button>
-        )}
-      </div>
-
-      <div className="mt-12 p-5 bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl">
-        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          <span className="font-black text-blue-700 dark:text-blue-400">Méthode :</span> chaque
-          question est notée de -2 (pas du tout d'accord) à +2 (tout à fait d'accord). Vos réponses
-          sont comparées aux positions publiques de 9 partis français. Plus la distance est faible,
-          plus le score de correspondance est élevé.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function QuizQuestion({ question, current, total, onAnswer, onBack, currentAnswer }) {
-  const progress = (current / total) * 100;
-  return (
-    <div className="max-w-2xl mx-auto pt-6 pb-12 animate-[fadeIn_0.4s_ease-out_forwards]">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
-            Question {current} sur {total}
-          </span>
-          <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
-            {Math.round(progress)} %
-          </span>
-        </div>
-        <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-500 ease-out"
-            style={{ width: `${progress}%` }}
+      <div className="grid grid-cols-2 lg:grid-cols-4 mt-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
+        {others.map((p, i) => (
+          <PortraitTile
+            key={p.id}
+            politician={p}
+            onSelect={onSelect}
+            isLastCol={(i + 1) % 4 === 0}
+            isFirstRow
+            dark
           />
-        </div>
-      </div>
-
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-lg bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest">
-        {question.theme}
-      </div>
-
-      <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight mb-10">
-        « {question.text} »
-      </h3>
-
-      <div className="space-y-3">
-        {quizData.answerOptions.map((opt) => (
-          <button
-            key={opt.value}
-            onClick={() => onAnswer(opt.value)}
-            className={`w-full text-left px-5 py-4 rounded-2xl border-2 font-bold text-sm sm:text-base transition-all hover:scale-[1.01] ${ANSWER_STYLES[String(opt.value)]} ${currentAnswer === opt.value ? 'ring-4 ring-blue-500/30' : ''}`}
-          >
-            {opt.label}
-          </button>
         ))}
       </div>
+    </section>
+  );
+}
 
-      {current > 1 && (
-        <button
-          onClick={onBack}
-          className="mt-8 inline-flex items-center gap-2 px-4 py-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 font-bold text-xs uppercase tracking-widest transition-colors"
+// ─────────────────────────────────────────────────────────
+// CHIFFRES ASSEMBLÉE
+// ─────────────────────────────────────────────────────────
+
+function ChiffresAssemblee({ onSelectPolitician }) {
+  const surplus = financesData.surplus;
+  const deficit = financesData.deficit;
+  const maxSurplus = Math.max(...surplus.map((e) => Math.abs(e.amount)));
+  const maxDeficit = Math.max(...deficit.map((e) => Math.abs(e.amount)));
+
+  const aggregatedVotes = useMemo(() => {
+    const grouped = new Map();
+    politiciansData.forEach((p) => {
+      (p.votes?.items || []).forEach((v) => {
+        if (!grouped.has(v.law)) {
+          grouped.set(v.law, {
+            law: v.law,
+            date: v.date,
+            summary: v.summary,
+            instance: p.votes.instance,
+            byPosition: { pour: [], contre: [], abstention: [], absent: [] },
+          });
+        }
+        const bucket = grouped.get(v.law).byPosition[v.position];
+        if (bucket) bucket.push(p);
+      });
+    });
+    return Array.from(grouped.values())
+      .filter((v) => v.date)
+      .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+      .map((v) => {
+        const pour = v.byPosition.pour.length;
+        const contre = v.byPosition.contre.length;
+        const abs = v.byPosition.abstention.length;
+        const total = pour + contre + abs || 1;
+        return {
+          ...v,
+          pour, contre, abs,
+          pourPct: (pour / total) * 100,
+          contrePct: (contre / total) * 100,
+          absPct: (abs / total) * 100,
+          adopted: pour >= contre,
+        };
+      });
+  }, []);
+
+  const stats = useMemo(() => {
+    const allVotes = politiciansData.flatMap((p) => p.votes?.items || []);
+    const uniqueLaws = new Set(allVotes.map((v) => v.law)).size;
+    const uniqueDates = new Set(allVotes.map((v) => v.date)).size;
+    const uniqueParties = new Set(politiciansData.map((p) => partyShort(p.party))).size;
+    const adopted = aggregatedVotes.filter((v) => v.adopted).length;
+    const rate = aggregatedVotes.length > 0 ? Math.round((adopted / aggregatedVotes.length) * 100) : 0;
+    return [
+      [uniqueLaws.toLocaleString('fr-FR'), 'votes', 'suivis', false],
+      [uniqueDates.toLocaleString('fr-FR'), 'sessions', 'plénières couvertes', false],
+      [uniqueParties.toString(), 'partis', 'analysés', false],
+      [`↗ ${rate} %`, 'taux', "d'adoption moyen", true],
+    ];
+  }, [aggregatedVotes]);
+
+  const [voteFilter, setVoteFilter] = useState('all');
+  const [expandedKey, setExpandedKey] = useState(null);
+  const filteredVotes = useMemo(() => {
+    if (voteFilter === 'all') return aggregatedVotes.slice(0, 8);
+    return aggregatedVotes
+      .filter((v) => (v.instance || '').toLowerCase().includes(voteFilter))
+      .slice(0, 8);
+  }, [aggregatedVotes, voteFilter]);
+
+  return (
+    <div className="fade-in">
+      {/* HERO */}
+      <section className="px-4 sm:px-6 lg:px-12 pt-10 lg:pt-12">
+        <div className="hand mb-4" style={{ color: 'var(--ink-blue)', fontSize: 30, transform: 'rotate(-2deg)' }}>
+          qui vote quoi, qui finance qui. ↓
+        </div>
+        <h1
+          className="font-display font-extrabold text-ink"
+          style={{ fontSize: 'clamp(56px, 10vw, 144px)', letterSpacing: '-0.055em', lineHeight: 0.86 }}
         >
-          <ChevronLeft className="h-4 w-4" />
-          Question précédente
-        </button>
-      )}
+          L'<em style={{ fontStyle: 'italic', fontWeight: 400 }}>Assemblée</em><br />
+          sans <span className="marker">filtre</span><span style={{ color: 'var(--ink-red)' }}>.</span>
+        </h1>
+        <p className="text-lg sm:text-xl mt-8 max-w-3xl leading-snug text-ink">
+          Chaque vote européen et national, expliqué en deux phrases. Les finances des partis. <span className="text-ink-mute">Mis à jour quotidiennement.</span>
+        </p>
+
+        {/* Stats noir */}
+        <div
+          className="mt-12 grid grid-cols-2 lg:grid-cols-4"
+          style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '32px 24px sm:px-10' }}
+        >
+          {stats.map(([n, label, sub, highlight], i) => (
+            <div
+              key={label}
+              className="px-4 sm:px-6 py-4"
+              style={{ borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.15)' : 'none' }}
+            >
+              <div
+                className="numeral font-extrabold"
+                style={{
+                  fontSize: 'clamp(36px, 5vw, 64px)',
+                  letterSpacing: '-0.04em',
+                  color: highlight ? 'var(--ink-yellow)' : 'var(--paper)',
+                }}
+              >
+                {n}
+              </div>
+              <div className="font-display font-bold mt-1" style={{ fontSize: 16 }}>{label}</div>
+              <div className="text-xs mt-1" style={{ opacity: 0.6 }}>{sub}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* § 01 DERNIERS VOTES TABLE */}
+      <section className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+        <SectionHead
+          kicker="01"
+          title="Derniers votes"
+          right={
+            <div className="flex gap-2 flex-wrap">
+              {[['all', 'Tous'], ['européen', 'Parl. EU'], ['nationale', 'AN'], ['sénat', 'Sénat']].map(([k, label]) => (
+                <button
+                  key={k}
+                  className="btn btn--sm"
+                  style={voteFilter === k ? { background: 'var(--ink)', color: 'var(--paper)' } : {}}
+                  onClick={() => setVoteFilter(k)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          }
+        />
+
+        <div className="overflow-x-auto">
+          <table className="w-full" style={{ borderCollapse: 'collapse', fontSize: 14, minWidth: 760 }}>
+            <thead>
+              <tr style={{ borderBottom: '1.5px solid var(--ink)' }}>
+                <th className="text-left py-3 text-[11px] tracking-[0.15em] uppercase font-semibold" style={{ width: 120 }}>Date</th>
+                <th className="text-left py-3 px-4 text-[11px] tracking-[0.15em] uppercase font-semibold">Objet du vote</th>
+                <th className="text-left py-3 px-4 text-[11px] tracking-[0.15em] uppercase font-semibold" style={{ width: 220 }}>Répartition</th>
+                <th className="text-left py-3 px-4 text-[11px] tracking-[0.15em] uppercase font-semibold" style={{ width: 140 }}>Résultat</th>
+                <th className="py-3" style={{ width: 40 }}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredVotes.map((v) => {
+                const isOpen = expandedKey === v.law;
+                return (
+                  <Fragment key={v.law}>
+                    <tr
+                      onClick={() => setExpandedKey(isOpen ? null : v.law)}
+                      style={{
+                        borderBottom: isOpen ? '1px solid rgba(128,128,128,0.18)' : '1px solid rgba(128,128,128,0.18)',
+                        cursor: 'pointer',
+                        background: isOpen ? 'var(--ink-cream)' : 'transparent',
+                      }}
+                      className="hover:bg-paper-2 transition-colors"
+                    >
+                      <td className="py-5 align-top">
+                        <div className="font-display font-bold text-[13px]">{formatDotDate(v.date)}</div>
+                        <div className="text-[10px] text-ink-mute tracking-[0.05em] mt-1 uppercase">{v.instance || '—'}</div>
+                      </td>
+                      <td className="py-5 px-4 align-top">
+                        <div className="font-display font-bold leading-snug" style={{ fontSize: 17, letterSpacing: '-0.01em' }}>{v.law}</div>
+                        {v.summary && (
+                          <div className="text-xs text-ink-mute mt-1 max-w-xl leading-relaxed">{v.summary}</div>
+                        )}
+                      </td>
+                      <td className="py-5 px-4 align-top">
+                        <div className="flex" style={{ height: 8 }}>
+                          <div style={{ width: `${v.pourPct}%`, background: 'var(--ink)' }} />
+                          <div style={{ width: `${v.contrePct}%`, background: 'var(--ink-red)' }} />
+                          <div style={{ width: `${v.absPct}%`, background: 'rgba(128,128,128,0.35)' }} />
+                        </div>
+                        <div className="flex justify-between text-[10px] text-ink-mute mt-1.5 tracking-[0.05em]">
+                          <span><strong className="text-ink">{v.pour}</strong> P.</span>
+                          <span><strong style={{ color: 'var(--ink-red)' }}>{v.contre}</strong> C.</span>
+                          <span>{v.abs} A.</span>
+                        </div>
+                      </td>
+                      <td className="py-5 px-4 align-top">
+                        <span
+                          className="inline-flex font-display font-bold uppercase items-center"
+                          style={{
+                            background: v.adopted ? 'var(--ink)' : 'var(--ink-red)',
+                            color: '#fff',
+                            fontSize: 11,
+                            letterSpacing: '0.1em',
+                            padding: '5px 11px',
+                          }}
+                        >
+                          {v.adopted ? '✓ Adopté' : '✗ Rejeté'}
+                        </span>
+                      </td>
+                      <td className="py-5 px-2 align-top text-ink-mute">
+                        <ChevronDown
+                          className="h-4 w-4 transition-transform"
+                          strokeWidth={ICON_STROKE}
+                          style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                        />
+                      </td>
+                    </tr>
+                    {isOpen && (
+                      <tr style={{ borderBottom: '1px solid rgba(128,128,128,0.18)', background: 'var(--ink-cream)' }}>
+                        <td colSpan={5} className="py-6 px-4">
+                          <VoteBreakdown vote={v} onSelectPolitician={onSelectPolitician} />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                );
+              })}
+              {filteredVotes.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="text-center py-12 text-ink-mute italic">
+                    Aucun vote correspondant.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* § 02 FINANCES */}
+      <section className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+        <SectionHead
+          kicker="02"
+          title="Finances des partis"
+          right={<span className="tag tag--blue">{financesData.source.name} · {financesData.year}</span>}
+          subtitle="Qui termine l'année dans le vert, qui plonge dans le rouge."
+        />
+
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+          <FinanceColumn
+            label="Excédentaires"
+            count={surplus.length}
+            color="green"
+            entries={surplus}
+            max={maxSurplus}
+          />
+          <FinanceColumn
+            label="Déficitaires"
+            count={deficit.length}
+            color="red"
+            entries={deficit}
+            max={maxDeficit}
+          />
+        </div>
+      </section>
+
+      {/* § 03 COMPOSITION */}
+      <section className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+        <SectionHead
+          kicker="03"
+          title="Composition"
+          subtitle="Assemblée nationale · 577 sièges · Législature en cours."
+        />
+        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16">
+          <div>
+            <Hemicycle />
+            <div className="hand text-center mt-3" style={{ color: 'var(--ink-red)', fontSize: 22, transform: 'rotate(-1deg)' }}>
+              ↑ 577 sièges, vue de dessus
+            </div>
+          </div>
+          <div>
+            {COMPOSITION_GROUPS.map((c, i) => (
+              <div
+                key={c.group}
+                className="py-3.5"
+                style={{
+                  borderTop: i === 0 ? '1.5px solid var(--ink)' : '1px solid rgba(128,128,128,0.18)',
+                  borderBottom: i === COMPOSITION_GROUPS.length - 1 ? '1.5px solid var(--ink)' : 'none',
+                }}
+              >
+                <div className="grid grid-cols-[20px_1fr_60px_60px] gap-4 items-center">
+                  <span
+                    className="block w-3.5 h-3.5 rounded-full"
+                    style={{
+                      background: c.color,
+                      border: c.color === '#ffffff' ? '1px solid var(--ink)' : 'none',
+                    }}
+                  />
+                  <div>
+                    <div className="text-sm font-semibold">{c.group}</div>
+                    <div className="text-[11px] text-ink-mute">{c.parties}</div>
+                  </div>
+                  <div className="numeral font-bold text-right" style={{ fontSize: 20 }}>{c.seats}</div>
+                  <div className="text-[11px] text-ink-mute text-right">{(c.seats / 577 * 100).toFixed(1)} %</div>
+                </div>
+              </div>
+            ))}
+            <div className="hand mt-5 text-ink-mute" style={{ fontSize: 20 }}>
+              total : 577 sièges · majorité absolue à 289
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PROCÉDURES */}
+      <ProceduresGrid onSelectPolitician={onSelectPolitician} />
     </div>
   );
 }
 
-function calculateQuizResults(answers) {
+function VoteBreakdown({ vote, onSelectPolitician }) {
+  const cols = [
+    { key: 'pour', label: '✓ POUR', list: vote.byPosition.pour, color: 'var(--ink)', textColor: 'var(--paper)' },
+    { key: 'contre', label: '✗ CONTRE', list: vote.byPosition.contre, color: 'var(--ink-red)', textColor: 'var(--paper)' },
+    { key: 'abstention', label: '— ABSTENTION', list: vote.byPosition.abstention, color: 'rgba(128,128,128,0.25)', textColor: 'var(--ink)' },
+  ];
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      {cols.map((c) => (
+        <div key={c.key}>
+          <div
+            className="font-display font-bold uppercase mb-3 px-2 py-1.5 inline-block"
+            style={{
+              background: c.color,
+              color: c.textColor,
+              fontSize: 11,
+              letterSpacing: '0.15em',
+            }}
+          >
+            {c.label} <span style={{ opacity: 0.7 }}>· {c.list.length}</span>
+          </div>
+          {c.list.length === 0 ? (
+            <div className="text-xs text-ink-mute italic">Aucun</div>
+          ) : (
+            <ul className="flex flex-col gap-2">
+              {c.list.map((p) => (
+                <li key={p.id}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectPolitician(p.id);
+                    }}
+                    className="w-full flex items-center gap-3 text-left p-1.5 hover:bg-paper transition-colors"
+                    style={{ border: '1px solid transparent' }}
+                  >
+                    <div
+                      className="photo-wrap shrink-0"
+                      style={{ width: 32, height: 40 }}
+                    >
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="photo"
+                        referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=0a0a0a&color=ffffff&size=80&bold=true`;
+                        }}
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-display font-semibold text-[13px] leading-tight truncate">{p.name}</div>
+                      <div className="text-[10px] text-ink-mute tracking-[0.05em] uppercase truncate">
+                        {partyShort(p.party)}
+                      </div>
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FinanceColumn({ label, count, color, entries, max }) {
+  const colorVar = color === 'green' ? 'var(--ink-green)' : 'var(--ink-red)';
+  const sign = color === 'green' ? '+' : '−';
+  return (
+    <div>
+      <div className="flex items-center gap-3 mb-5">
+        <span className="block w-4 h-4" style={{ background: colorVar }} />
+        <h3 className="font-display font-bold" style={{ fontSize: 24, letterSpacing: '-0.02em' }}>
+          {label} <span className="text-ink-mute font-normal">({count})</span>
+        </h3>
+      </div>
+      {entries.map((f) => {
+        const pct = (Math.abs(f.amount) / max) * 100;
+        return (
+          <div key={f.name} className="py-3.5" style={{ borderBottom: '1px solid rgba(128,128,128,0.18)' }}>
+            <div className="flex justify-between items-baseline mb-2">
+              <span className="text-sm font-semibold">{f.name}</span>
+              <span className="numeral font-bold" style={{ fontSize: 20, color: colorVar }}>
+                {sign}{formatMillions(f.amount)}
+              </span>
+            </div>
+            <div className="relative" style={{ height: 4, background: 'rgba(128,128,128,0.15)' }}>
+              <div className="absolute top-0 left-0 bottom-0" style={{ width: `${pct}%`, background: colorVar }} />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ProceduresGrid({ onSelectPolitician }) {
+  const flagged = politiciansData.filter((p) =>
+    ['convicted', 'indicted', 'investigation'].includes(p.legal?.globalStatus),
+  );
+  if (flagged.length === 0) return null;
+  return (
+    <section className="px-4 sm:px-6 lg:px-12 pt-16 lg:pt-24">
+      <SectionHead
+        kicker="04"
+        title="Procédures judiciaires"
+        count={`${flagged.length} fiches`}
+        subtitle="Présomption d'innocence respectée. Statut au moment de la dernière mise à jour."
+      />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3" style={{ borderBottom: '1.5px solid var(--ink)' }}>
+        {flagged.map((p, i) => (
+          <PortraitTile
+            key={p.id}
+            politician={p}
+            onSelect={onSelectPolitician}
+            isLastCol={(i + 1) % 3 === 0}
+            isFirstRow={i < 3}
+            badgeColor="red"
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const COMPOSITION_GROUPS = [
+  { group: 'NUPES / NFP', parties: 'LFI · PS · EELV · PCF', seats: 207, color: '#d6321f' },
+  { group: 'Ensemble', parties: 'Renaissance · MoDem · Horizons', seats: 182, color: '#ffffff' },
+  { group: 'Rassemblement National', parties: 'RN · alliés', seats: 89, color: '#1d4ed8' },
+  { group: 'Les Républicains', parties: 'LR · DVD', seats: 47, color: '#1d4ed8' },
+  { group: 'LIOT', parties: 'Indépendants', seats: 32, color: '#ffffff' },
+  { group: 'Non-inscrits', parties: 'Divers', seats: 20, color: '#0a0a0a' },
+];
+
+function Hemicycle() {
+  // Couleurs par famille politique :
+  // gauche (LFI/PCF/EELV/PS) en rouge (EELV en vert),
+  // centre (MoDem/Renaissance/Horizons) en blanc/ivoire,
+  // droite (LR) et RN en bleu, divers en noir.
+  const groups = [
+    { color: '#a52020', count: 75 },  // LFI
+    { color: '#d6321f', count: 31 },  // PCF
+    { color: '#1a7a4e', count: 35 },  // EELV (vert)
+    { color: '#e89090', count: 66 },  // PS (rouge clair)
+    { color: '#ffffff', count: 36 },  // MoDem (centre = blanc)
+    { color: '#faf7f0', count: 99 },  // Renaissance (centre = ivoire)
+    { color: '#e8e2c2', count: 47 },  // Horizons (centre)
+    { color: '#5a6f8c', count: 47 },  // LR (bleu-gris droite)
+    { color: '#1d4ed8', count: 89 },  // RN (bleu)
+    { color: '#0a0a0a', count: 52 },  // Non-inscrits / divers
+  ];
+  const rows = 8;
+  const points = [];
+  let groupIdx = 0;
+  let inGroup = 0;
+  for (let r = 0; r < rows; r++) {
+    const radius = 80 + r * 22;
+    const seatCount = Math.floor(577 / rows) + (r < 577 % rows ? 1 : 0);
+    for (let s = 0; s < seatCount; s++) {
+      const t = seatCount > 1 ? s / (seatCount - 1) : 0.5;
+      const angle = Math.PI - t * Math.PI;
+      const cx = 220 + radius * Math.cos(angle);
+      const cy = 220 - radius * Math.sin(angle);
+      while (groupIdx < groups.length - 1 && inGroup >= groups[groupIdx].count) {
+        groupIdx++;
+        inGroup = 0;
+      }
+      points.push({ cx, cy, color: groups[Math.min(groupIdx, groups.length - 1)].color });
+      inGroup++;
+    }
+  }
+  return (
+    <svg viewBox="0 0 440 240" style={{ width: '100%', display: 'block' }}>
+      {points.map((p, i) => (
+        <circle key={i} cx={p.cx} cy={p.cy} r="4" fill={p.color} stroke="#0a0a0a" strokeWidth="0.5" />
+      ))}
+      <line x1="40" y1="220" x2="400" y2="220" stroke="#0a0a0a" strokeWidth="1.5" />
+      <text
+        x="220" y="235" textAnchor="middle"
+        fontFamily="var(--font-display)" fontSize="11"
+        letterSpacing="2" fill="#0a0a0a"
+      >
+        — PERCHOIR —
+      </text>
+    </svg>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// QUIZ
+// ─────────────────────────────────────────────────────────
+
+function calculateQuizResults(answers, importance) {
   const results = quizData.parties.map((party) => {
     let totalDistance = 0;
-    let answered = 0;
+    let totalWeight = 0;
     quizData.questions.forEach((q) => {
       const userVal = answers[q.id];
       if (userVal === undefined) return;
+      const w = IMPORTANCE_WEIGHTS[importance[q.id] ?? 2];
       const partyVal = q.positions[party.id] ?? 0;
-      totalDistance += Math.abs(userVal - partyVal);
-      answered++;
+      totalDistance += Math.abs(userVal - partyVal) * w;
+      totalWeight += w;
     });
-    const maxDistance = answered * 4;
+    const maxDistance = totalWeight * 4;
     const match = maxDistance > 0 ? 100 - (totalDistance / maxDistance) * 100 : 0;
     return { party, match: Math.round(match) };
   });
   return results.sort((a, b) => b.match - a.match);
 }
 
-function QuizResults({ answers, onRestart, onSelectPolitician }) {
-  const results = useMemo(() => calculateQuizResults(answers), [answers]);
-  const top3 = results.slice(0, 3);
-
-  const topPoliticians = useMemo(() => {
-    const picks = [];
-    top3.forEach(({ party }) => {
-      const match = politiciansData.find(
-        (p) => p.party.includes(party.matchPattern) && !picks.some((pk) => pk.id === p.id),
-      );
-      if (match) picks.push(match);
-    });
-    return picks;
-  }, [top3]);
-
+function QuizIntro({ onStart, hasInProgress, onResume }) {
   return (
-    <div className="max-w-4xl mx-auto pt-6 pb-12 animate-[fadeIn_0.5s_ease-out_forwards]">
-      <div className="flex flex-col items-center text-center mb-12">
-        <div className="p-4 bg-gradient-to-br from-amber-400 to-orange-500 text-white rounded-[1.5rem] shadow-xl shadow-amber-500/30 mb-5">
-          <Award className="h-8 w-8" strokeWidth={2} />
+    <div className="fade-in px-4 sm:px-6 lg:px-12 pt-8 lg:pt-10 max-w-6xl mx-auto">
+      <div className="relative">
+        <div className="hand mb-4" style={{ color: 'var(--ink-red)', fontSize: 30, transform: 'rotate(-2deg)' }}>
+          sans compte. sans email. ↓
         </div>
-        <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase mb-3">
-          Vos résultats
-        </h2>
-        <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base italic">
-          Sur la base de vos {Object.keys(answers).length} réponses.
-        </p>
+        <h1
+          className="font-display font-extrabold text-ink"
+          style={{ fontSize: 'clamp(56px, 11vw, 160px)', letterSpacing: '-0.055em', lineHeight: 0.85 }}
+        >
+          Vous votez<br />comme<br />
+          <em style={{ fontStyle: 'italic', fontWeight: 400 }}>qui</em><span style={{ color: 'var(--ink-red)' }}>?</span>
+        </h1>
       </div>
 
-      <section className="mb-16">
-        <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase mb-8">
-          Top 3 des partis
-        </h3>
-        <div className="space-y-4">
-          {top3.map(({ party, match }, idx) => (
-            <div
-              key={party.id}
-              className="bg-white dark:bg-slate-900 p-5 sm:p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm"
-            >
-              <div className="flex items-start gap-4 mb-3">
-                <div
-                  className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl font-black shadow-lg"
-                  style={{
-                    backgroundColor: party.color,
-                    boxShadow: `0 8px 20px -5px ${party.color}55`,
-                  }}
+      <div
+        className="grid sm:grid-cols-2 gap-10 lg:gap-16 mt-16 pt-8"
+        style={{ borderTop: '1.5px solid var(--ink)' }}
+      >
+        <div>
+          <h2 className="font-display font-bold mb-4" style={{ fontSize: 24, letterSpacing: '-0.02em' }}>Comment ça marche</h2>
+          <ol className="flex flex-col gap-5">
+            {[
+              [`Vous répondez à ${quizData.questions.length} questions sur des sujets de société réels — climat, fiscalité, droit du travail, sécurité, Europe…`],
+              ["Chaque question est tirée d'un vote réel du Parlement européen ou de l'Assemblée nationale."],
+              ["À la fin : un classement chiffré des personnalités dont vous êtes le plus proche, sourcé sur leurs votes."],
+            ].map(([t], i) => (
+              <li key={i} className="flex gap-4">
+                <span
+                  className="font-display font-extrabold shrink-0"
+                  style={{ fontSize: 22, color: 'var(--ink-blue)', minWidth: 36 }}
                 >
-                  {idx + 1}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight leading-tight">
-                    {party.name}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-                    {party.description}
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <div className="text-3xl sm:text-4xl font-black tracking-tighter" style={{ color: party.color }}>
-                    {match}%
-                  </div>
-                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    Match
-                  </div>
-                </div>
-              </div>
-              <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                <div
-                  className="h-full transition-all duration-1000 ease-out"
-                  style={{ width: `${match}%`, backgroundColor: party.color }}
-                />
-              </div>
-            </div>
-          ))}
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="text-base leading-relaxed">{t}</span>
+              </li>
+            ))}
+          </ol>
         </div>
-      </section>
 
-      {topPoliticians.length > 0 && (
-        <section className="mb-16">
-          <h3 className="text-2xl sm:text-3xl font-black tracking-tight uppercase mb-8">
-            Personnalités qui vous correspondent
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {topPoliticians.map((p) => (
+        <div>
+          <h2 className="font-display font-bold mb-4" style={{ fontSize: 24, letterSpacing: '-0.02em' }}>Ce que vous obtiendrez</h2>
+          <div
+            className="p-6 sm:p-7 relative"
+            style={{ background: 'var(--ink-cream)', border: '1.5px solid var(--ink)' }}
+          >
+            <div className="text-xs tracking-[0.15em] uppercase text-ink-mute font-semibold mb-4">
+              Aperçu de votre résultat
+            </div>
+            {[
+              ['Manon Aubry', 87, 'green'],
+              ['Marine Tondelier', 72, 'green'],
+              ['Gabriel Attal', 34, null],
+              ['Marine Le Pen', 12, 'red'],
+            ].map(([name, pct, c]) => {
+              const colorVar = c === 'green' ? 'var(--ink-green)' : c === 'red' ? 'var(--ink-red)' : 'var(--ink)';
+              return (
+                <div key={name} className="mb-3">
+                  <div className="flex justify-between text-sm font-semibold mb-1">
+                    <span>{name}</span>
+                    <span className="numeral" style={{ color: colorVar }}>{pct} %</span>
+                  </div>
+                  <div className="relative" style={{ height: 4, background: 'rgba(0,0,0,0.08)' }}>
+                    <div style={{ width: `${pct}%`, height: '100%', background: colorVar }} />
+                  </div>
+                </div>
+              );
+            })}
+            <div className="hand mt-3 text-ink-mute" style={{ fontSize: 16 }}>↑ exemple — vos résultats varieront</div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="flex flex-col sm:flex-row sm:items-center gap-4 mt-14 py-8"
+        style={{ borderTop: '1.5px solid var(--ink)', borderBottom: '1.5px solid var(--ink)' }}
+      >
+        <button onClick={onStart} className="btn btn--blue" style={{ fontSize: 18, padding: '18px 32px' }}>
+          {hasInProgress ? 'Recommencer le quiz' : 'Commencer le quiz'} →
+        </button>
+        {hasInProgress && (
+          <button onClick={onResume} className="btn">
+            Reprendre où j'en étais
+          </button>
+        )}
+        <span className="hand sm:ml-auto text-ink-mute" style={{ fontSize: 22 }}>
+          {quizData.meta.estimatedMinutes} min. promis.
+        </span>
+      </div>
+
+      <div className="flex gap-6 mt-6 text-xs text-ink-mute flex-wrap">
+        <span>✓ Aucun compte requis</span>
+        <span>✓ Aucune donnée stockée</span>
+        <span>✓ Vous pouvez reprendre</span>
+      </div>
+    </div>
+  );
+}
+
+function QuizQuestion({ question, current, total, onAnswer, onBack, currentAnswer, currentImportance, onImportance }) {
+  const progress = (current / total) * 100;
+  const remaining = total - current;
+  return (
+    <div className="fade-in">
+      <div className="flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-12 pt-6 flex-wrap">
+        <span className="text-[11px] tracking-[0.15em] uppercase font-semibold">
+          Question {String(current).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        </span>
+        <span className="text-[11px] text-ink-mute tracking-[0.1em] uppercase">· {question.theme}</span>
+      </div>
+      <div className="relative mt-3" style={{ height: 4, background: 'rgba(0,0,0,0.08)' }}>
+        <div className="absolute top-0 left-0 bottom-0 transition-all duration-500" style={{ width: `${progress}%`, background: 'var(--ink-blue)' }} />
+      </div>
+
+      <section className="px-4 sm:px-6 lg:px-12 pt-10 lg:pt-14 max-w-5xl">
+        <div className="hand mb-3" style={{ color: 'var(--ink-blue)', fontSize: 24, transform: 'rotate(-2deg)' }}>
+          basé sur des votes réels ↓
+        </div>
+        <div className="stamp stamp--solid mb-6" style={{ borderColor: 'var(--ink)' }}>
+          {question.theme}
+        </div>
+        <h1
+          className="font-display font-extrabold text-ink"
+          style={{ fontSize: 'clamp(32px, 6vw, 64px)', letterSpacing: '-0.04em', lineHeight: 0.95 }}
+        >
+          « {question.text} »<span style={{ color: 'var(--ink-red)' }}>.</span>
+        </h1>
+
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-10">
+          {quizData.answerOptions.map((opt) => {
+            const isPour = opt.value > 0;
+            const isContre = opt.value < 0;
+            const isStrong = Math.abs(opt.value) === 2;
+            const selected = currentAnswer === opt.value;
+            let accentColor = 'var(--ink)';
+            if (isPour) accentColor = 'var(--ink-green)';
+            if (isContre) accentColor = 'var(--ink-red)';
+            const symbol = opt.value === 2 ? '✓✓' : opt.value === 1 ? '✓' : opt.value === 0 ? '·' : opt.value === -1 ? '✗' : '✗✗';
+            return (
               <button
-                key={p.id}
-                onClick={() => onSelectPolitician(p.id)}
-                className="text-left bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all"
+                key={opt.value}
+                onClick={() => onAnswer(opt.value)}
+                style={{
+                  padding: '20px 12px',
+                  border: `1.5px solid ${selected ? accentColor : 'var(--ink)'}`,
+                  background: selected ? accentColor : 'var(--paper)',
+                  color: selected ? '#fff' : 'var(--ink)',
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 600,
+                  fontSize: 13,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.02em',
+                  cursor: 'pointer',
+                  transition: 'all .15s',
+                }}
               >
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=random&size=400&bold=true`;
-                    }}
-                  />
-                </div>
-                <div className="p-4">
-                  <div className="font-black uppercase tracking-tight text-base leading-tight mb-1">
-                    {p.name}
-                  </div>
-                  <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                    {p.party}
-                  </div>
-                </div>
+                <div className="font-display font-extrabold mb-2" style={{ fontSize: 28 }}>{symbol}</div>
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Importance slider */}
+        <div className="mt-10 py-5" style={{ borderTop: '1.5px solid var(--ink)', borderBottom: '1.5px solid var(--ink)' }}>
+          <div className="flex justify-between items-baseline mb-3 flex-wrap gap-2">
+            <span className="text-[11px] tracking-[0.15em] uppercase font-semibold">Importance pour vous</span>
+            <span className="hand text-ink-red" style={{ fontSize: 18 }}>pondère votre résultat →</span>
+          </div>
+          <div className="grid grid-cols-5 gap-2">
+            {IMPORTANCE_LABELS.map((l, i) => (
+              <button
+                key={l}
+                onClick={() => onImportance(i)}
+                style={{
+                  padding: '10px 6px',
+                  border: '1.5px solid var(--ink)',
+                  background: currentImportance === i ? 'var(--ink)' : 'var(--paper)',
+                  color: currentImportance === i ? 'var(--paper)' : 'var(--ink)',
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 600,
+                  fontSize: 12,
+                }}
+              >
+                {l}
               </button>
             ))}
           </div>
-        </section>
-      )}
+        </div>
 
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <button
-          onClick={onRestart}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:opacity-90 transition-all"
-        >
-          <RotateCcw className="h-4 w-4" />
-          Refaire le quiz
-        </button>
-      </div>
+        <div className="mt-8 flex justify-between items-center gap-4 flex-wrap pb-12">
+          <button onClick={onBack} className="btn btn--ghost" disabled={current === 1}>
+            <ChevronLeft className="h-3.5 w-3.5" strokeWidth={ICON_STROKE} />
+            Précédent
+          </button>
+          <span className="text-xs text-ink-mute tracking-[0.1em] uppercase">
+            {remaining} question{remaining > 1 ? 's' : ''} restante{remaining > 1 ? 's' : ''}
+          </span>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function QuizResults({ answers, importance, onRestart, onSelectPolitician }) {
+  const partyResults = useMemo(() => calculateQuizResults(answers, importance), [answers, importance]);
+  const top3Parties = partyResults.slice(0, 3);
+
+  const topPoliticians = useMemo(() => {
+    const picks = [];
+    partyResults.forEach(({ party, match }) => {
+      const m = politiciansData.find(
+        (p) => p.party.includes(party.matchPattern) && !picks.some((pk) => pk.id === p.id),
+      );
+      if (m && picks.length < 8) picks.push({ politician: m, party, match });
+    });
+    return picks;
+  }, [partyResults]);
+
+  const top3 = topPoliticians.slice(0, 3);
+  const rest = topPoliticians.slice(3);
+  const top1Name = top3[0]?.politician?.name || top3[0]?.party?.name || '—';
+
+  return (
+    <div className="fade-in">
+      <section className="px-4 sm:px-6 lg:px-12 pt-10 lg:pt-12 max-w-6xl">
+        <div className="flex items-baseline justify-between text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.15em] text-ink-mute flex-wrap gap-2">
+          <span>§ Résultats</span>
+          <span>{Object.keys(answers).length} / {quizData.questions.length} questions</span>
+        </div>
+        <hr className="rule rule--thick mt-3" />
+
+        <div className="pt-12 lg:pt-16">
+          <div className="hand mb-4" style={{ color: 'var(--ink-green)', fontSize: 30, transform: 'rotate(-2deg)' }}>
+            voilà votre verdict. ↓
+          </div>
+          <h1
+            className="font-display font-extrabold text-ink"
+            style={{ fontSize: 'clamp(48px, 9vw, 124px)', letterSpacing: '-0.055em', lineHeight: 0.86 }}
+          >
+            Vous votez<br />
+            comme<br />
+            <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--ink-red)' }}>
+              {top1Name}<span style={{ color: 'var(--ink-red)' }}>.</span>
+            </em>
+          </h1>
+          {top3.length >= 2 && (
+            <p className="text-lg mt-6 max-w-3xl text-ink-mute leading-snug">
+              Sur {Object.keys(answers).length} votes réels, vos positions concordent à{' '}
+              <strong style={{ color: 'var(--ink-green)' }}>{top3[0].match} %</strong> avec {top3[0].politician.name}
+              {top3[1] && <>, <strong>{top3[1].match} %</strong> avec {top3[1].politician.name}</>}
+              {top3[2] && <> et <strong>{top3[2].match} %</strong> avec {top3[2].politician.name}</>}.
+            </p>
+          )}
+        </div>
+
+        {/* Podium 3 */}
+        {top3.length > 0 && (
+          <div
+            className="grid sm:grid-cols-3 mt-14"
+            style={{ borderTop: '1.5px solid var(--ink)', borderBottom: '1.5px solid var(--ink)' }}
+          >
+            {top3.map((entry, i) => (
+              <div
+                key={entry.politician.id}
+                className="p-6 sm:p-8 relative"
+                style={{
+                  borderRight: i < 2 ? '1px solid rgba(128,128,128,0.18)' : 'none',
+                }}
+              >
+                <div className="flex items-start gap-5">
+                  <div style={{ width: 100, flexShrink: 0 }}>
+                    <PhotoFrame politician={entry.politician} ratio="4/5" />
+                  </div>
+                  <div>
+                    <div
+                      className="font-display font-extrabold leading-none"
+                      style={{ fontSize: 64, color: 'var(--ink-mute)', letterSpacing: '-0.04em' }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <h3 className="font-display font-bold mt-1" style={{ fontSize: 20, letterSpacing: '-0.02em' }}>
+                      {entry.politician.name}
+                    </h3>
+                    <div className="text-[11px] text-ink-mute tracking-[0.05em] uppercase mt-1">
+                      {entry.party.name}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <div
+                    className="numeral font-extrabold"
+                    style={{ fontSize: 48, color: 'var(--ink-green)', letterSpacing: '-0.04em' }}
+                  >
+                    {entry.match}<span style={{ fontSize: 24, marginLeft: 4 }}>%</span>
+                  </div>
+                  <div className="text-[11px] text-ink-mute tracking-[0.1em] uppercase">de concordance</div>
+                </div>
+                <button
+                  onClick={() => onSelectPolitician(entry.politician.id)}
+                  className="btn btn--sm mt-4"
+                >
+                  Voir la fiche →
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Reste du classement */}
+        {rest.length > 0 && (
+          <>
+            <h2 className="font-display font-extrabold mt-14 mb-4" style={{ fontSize: 32, letterSpacing: '-0.03em' }}>
+              Le reste du classement
+            </h2>
+            <hr className="rule rule--thin" />
+            <div>
+              {rest.map((entry, i) => {
+                const color = entry.match > 50 ? 'var(--ink-green)' : entry.match < 30 ? 'var(--ink-red)' : 'var(--ink)';
+                return (
+                  <button
+                    key={entry.politician.id}
+                    onClick={() => onSelectPolitician(entry.politician.id)}
+                    className="w-full grid grid-cols-[40px_1fr_1fr_80px] gap-3 sm:gap-4 py-4 items-center text-left hover:bg-paper-2 transition-colors"
+                    style={{ borderBottom: '1px solid rgba(128,128,128,0.18)' }}
+                  >
+                    <span className="numeral font-bold text-ink-mute" style={{ fontSize: 18 }}>
+                      {String(i + 4).padStart(2, '0')}
+                    </span>
+                    <span className="text-sm sm:text-base font-semibold">
+                      {entry.politician.name}{' '}
+                      <span className="text-ink-mute font-normal">· {entry.party.name}</span>
+                    </span>
+                    <div className="relative" style={{ height: 6, background: 'rgba(128,128,128,0.15)' }}>
+                      <div style={{ width: `${entry.match}%`, height: '100%', background: color }} />
+                    </div>
+                    <span className="numeral font-bold text-right" style={{ fontSize: 18 }}>{entry.match} %</span>
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        <div className="flex gap-3 mt-12 pt-8 pb-12 flex-wrap" style={{ borderTop: '1.5px solid var(--ink)' }}>
+          {top3[0] && (
+            <button onClick={() => onSelectPolitician(top3[0].politician.id)} className="btn btn--solid">
+              Voir la fiche de {top3[0].politician.name.split(' ').slice(-1)[0]} →
+            </button>
+          )}
+          <button onClick={onRestart} className="btn">
+            <RotateCcw className="h-3.5 w-3.5" strokeWidth={ICON_STROKE} />
+            Refaire le quiz
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
@@ -736,9 +2057,13 @@ function Quiz({ onSelectPolitician }) {
     try {
       const saved = localStorage.getItem('quiz-answers');
       return saved ? JSON.parse(saved) : {};
-    } catch {
-      return {};
-    }
+    } catch { return {}; }
+  });
+  const [importance, setImportance] = useState(() => {
+    try {
+      const saved = localStorage.getItem('quiz-importance');
+      return saved ? JSON.parse(saved) : {};
+    } catch { return {}; }
   });
   const [currentIdx, setCurrentIdx] = useState(0);
   const [phase, setPhase] = useState('intro');
@@ -746,13 +2071,13 @@ function Quiz({ onSelectPolitician }) {
   useEffect(() => {
     try {
       localStorage.setItem('quiz-answers', JSON.stringify(answers));
-    } catch {
-      /* ignore quota / private mode */
-    }
-  }, [answers]);
+      localStorage.setItem('quiz-importance', JSON.stringify(importance));
+    } catch { /* ignore */ }
+  }, [answers, importance]);
 
   const handleStart = () => {
     setAnswers({});
+    setImportance({});
     setCurrentIdx(0);
     setPhase('question');
   };
@@ -766,14 +2091,19 @@ function Quiz({ onSelectPolitician }) {
 
   const handleAnswer = (value) => {
     const q = quizData.questions[currentIdx];
-    const newAnswers = { ...answers, [q.id]: value };
-    setAnswers(newAnswers);
+    setAnswers((a) => ({ ...a, [q.id]: value }));
     if (currentIdx + 1 >= quizData.questions.length) {
       setPhase('results');
       window.scrollTo({ top: 0, behavior: 'instant' });
     } else {
       setCurrentIdx(currentIdx + 1);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
+  };
+
+  const handleImportance = (value) => {
+    const q = quizData.questions[currentIdx];
+    setImportance((m) => ({ ...m, [q.id]: value }));
   };
 
   const handleBack = () => {
@@ -782,13 +2112,14 @@ function Quiz({ onSelectPolitician }) {
 
   const handleRestart = () => {
     setAnswers({});
+    setImportance({});
     setCurrentIdx(0);
     setPhase('intro');
     try {
       localStorage.removeItem('quiz-answers');
-    } catch {
-      /* ignore */
-    }
+      localStorage.removeItem('quiz-importance');
+    } catch { /* ignore */ }
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const hasInProgress = Object.keys(answers).length > 0;
@@ -797,13 +2128,7 @@ function Quiz({ onSelectPolitician }) {
     return <QuizIntro onStart={handleStart} hasInProgress={hasInProgress} onResume={handleResume} />;
   }
   if (phase === 'results') {
-    return (
-      <QuizResults
-        answers={answers}
-        onRestart={handleRestart}
-        onSelectPolitician={onSelectPolitician}
-      />
-    );
+    return <QuizResults answers={answers} importance={importance} onRestart={handleRestart} onSelectPolitician={onSelectPolitician} />;
   }
   const question = quizData.questions[currentIdx];
   return (
@@ -814,9 +2139,116 @@ function Quiz({ onSelectPolitician }) {
       onAnswer={handleAnswer}
       onBack={handleBack}
       currentAnswer={answers[question.id]}
+      currentImportance={importance[question.id] ?? 2}
+      onImportance={handleImportance}
     />
   );
 }
+
+// ─────────────────────────────────────────────────────────
+// MENTIONS LÉGALES
+// ─────────────────────────────────────────────────────────
+
+function MentionsLegales() {
+  const sections = [
+    { title: 'Nature du site', body: `PolitiSimple est un site d'information non officiel à vocation citoyenne. Son but est de rassembler et présenter de manière synthétique des informations publiques relatives à des personnalités politiques françaises.` },
+    { title: 'Sources & vérification', body: `Les informations publiées proviennent de sources publiques : open data des assemblées, presse française (Le Monde, Le Figaro, Libération, Mediapart, Le Canard Enchaîné), publications officielles (HATVP, Cour de cassation). Chaque information sensible est sourcée.` },
+    { title: "Présomption d'innocence", body: `Les informations relatives à des procédures judiciaires sont présentées dans le strict respect de la présomption d'innocence (art. 9-1 du Code civil). Une mise en examen ne vaut pas culpabilité.` },
+    { title: 'Droit de réponse', body: `Conformément à la loi du 29 juillet 1881, toute personne nommée dispose d'un droit de réponse. Les demandes de rectification peuvent être adressées via le dépôt public du projet.` },
+    { title: 'Responsabilité', body: `Malgré le soin apporté à la qualité des informations, des erreurs peuvent subsister. Les opinions politiques exprimées dans les programmes restent celles de leurs auteurs respectifs.` },
+    { title: 'Hébergement & technique', body: `Site statique, sans collecte de données personnelles, sans cookie de suivi, sans inscription. Code source ouvert sous licence MIT.` },
+  ];
+
+  return (
+    <div className="fade-in px-4 sm:px-6 lg:px-12 pt-10 lg:pt-12 max-w-4xl mx-auto pb-16">
+      <div className="text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.15em] text-ink-mute">
+        § Information légale
+      </div>
+      <hr className="rule rule--thick mt-3" />
+
+      <div className="mt-10">
+        <h1
+          className="font-display font-extrabold text-ink"
+          style={{ fontSize: 'clamp(48px, 9vw, 120px)', letterSpacing: '-0.05em', lineHeight: 0.9 }}
+        >
+          Mentions<br />
+          <em style={{ fontStyle: 'italic', fontWeight: 400 }}>légales<span style={{ color: 'var(--ink-red)' }}>.</span></em>
+        </h1>
+      </div>
+
+      <div className="mt-10" style={{ borderTop: '1.5px solid var(--ink)' }}>
+        {sections.map((s, i) => (
+          <section
+            key={i}
+            className="py-7"
+            style={{ borderBottom: '1px solid rgba(128,128,128,0.18)' }}
+          >
+            <div className="grid sm:grid-cols-[140px_1fr] gap-4 sm:gap-8">
+              <span className="numeral font-display font-extrabold" style={{ fontSize: 28, color: 'var(--ink-red)' }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h3 className="font-display font-bold uppercase" style={{ fontSize: 22, letterSpacing: '-0.02em' }}>
+                  {s.title}
+                </h3>
+                <p className="text-base mt-3 leading-relaxed">{s.body}</p>
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// FOOTER
+// ─────────────────────────────────────────────────────────
+
+function Footer({ onGoHome }) {
+  return (
+    <footer className="mt-20 lg:mt-32 px-4 sm:px-6 lg:px-12 pt-12 pb-8">
+      <div className="grid lg:grid-cols-[2fr_1fr_1fr_1fr] gap-10 lg:gap-12">
+        <div>
+          <Logo size={28} onClick={onGoHome} />
+          <p className="mt-4 text-sm text-ink-mute leading-relaxed max-w-sm">
+            L'information politique simplifiée. Une fiche par personnalité, vérifiée et sourcée.
+          </p>
+          <div
+            className="mt-6 hand"
+            style={{ color: 'var(--ink-red)', fontSize: 24, transform: 'rotate(-1deg)' }}
+          >
+            merci de votre lecture.
+          </div>
+        </div>
+        {[
+          ['Explorer', [['Personnalités', '#'], ['Assemblée', '#chiffres-assemblee'], ['Quiz', '#quiz']]],
+          ['À propos', [['Méthode', '#mentions-legales'], ['Sources', '#mentions-legales']]],
+          ['Légal', [['Mentions légales', '#mentions-legales'], ['Droit de réponse', '#mentions-legales']]],
+        ].map(([title, links]) => (
+          <div key={title}>
+            <div className="text-[11px] tracking-[0.15em] uppercase font-semibold mb-4">{title}</div>
+            <ul className="flex flex-col gap-2 text-sm">
+              {links.map(([label, href]) => (
+                <li key={label}><a href={href} className="text-ink-mute hover:text-ink">{label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <hr className="rule rule--thin mt-10" />
+      <div className="flex flex-wrap justify-between items-center gap-3 pt-4 text-[10px] sm:text-[11px] tracking-[0.1em] uppercase text-ink-mute">
+        <span>© {new Date().getFullYear()} PolitiSimple</span>
+        <span className="hidden sm:inline">Présomption d'innocence respectée</span>
+        <span>politisimple.fr</span>
+      </div>
+    </footer>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// APP ROOT
+// ─────────────────────────────────────────────────────────
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -824,65 +2256,23 @@ function App() {
   const [showMentions, setShowMentions] = useState(false);
   const [showChiffres, setShowChiffres] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved) return saved === 'dark';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDark) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
-      localStorage.setItem('theme', 'light');
-    }
-    let themeMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeMeta) themeMeta.remove();
-    themeMeta = document.createElement('meta');
-    themeMeta.name = 'theme-color';
-    themeMeta.content = isDark ? '#0f172a' : '#ffffff';
-    document.head.appendChild(themeMeta);
-  }, [isDark]);
 
   useEffect(() => {
     const handleHashChange = () => {
       window.scrollTo({ top: 0, behavior: 'instant' });
       const hash = window.location.hash.replace('#', '');
       if (hash === 'mentions-legales') {
-        setShowMentions(true);
-        setShowChiffres(false);
-        setShowQuiz(false);
-        setSelectedId(null);
+        setShowMentions(true); setShowChiffres(false); setShowQuiz(false); setSelectedId(null);
       } else if (hash === 'chiffres-assemblee') {
-        setShowChiffres(true);
-        setShowMentions(false);
-        setShowQuiz(false);
-        setSelectedId(null);
+        setShowChiffres(true); setShowMentions(false); setShowQuiz(false); setSelectedId(null);
       } else if (hash === 'quiz') {
-        setShowQuiz(true);
-        setShowMentions(false);
-        setShowChiffres(false);
-        setSelectedId(null);
+        setShowQuiz(true); setShowMentions(false); setShowChiffres(false); setSelectedId(null);
       } else if (hash && politiciansData.some((p) => p.id === hash)) {
-        setShowMentions(false);
-        setShowChiffres(false);
-        setShowQuiz(false);
-        setSelectedId(hash);
+        setShowMentions(false); setShowChiffres(false); setShowQuiz(false); setSelectedId(hash);
       } else {
-        setShowMentions(false);
-        setShowChiffres(false);
-        setShowQuiz(false);
-        setSelectedId(null);
+        setShowMentions(false); setShowChiffres(false); setShowQuiz(false); setSelectedId(null);
       }
     };
-
     handleHashChange();
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
@@ -894,403 +2284,59 @@ function App() {
 
   const goHome = () => {
     window.location.hash = '';
-  };
-
-  const filteredPoliticians = useMemo(() => {
-    return politiciansData.filter(
-      (p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.party.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.bio.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-  }, [searchTerm]);
-
-  const selectedPolitician = useMemo(() => {
-    return politiciansData.find((p) => p.id === selectedId);
-  }, [selectedId]);
-
-  const handleLogoClick = () => {
-    goHome();
     setSearchTerm('');
   };
+
+  const selectedPolitician = useMemo(
+    () => politiciansData.find((p) => p.id === selectedId),
+    [selectedId],
+  );
 
   const showProfile = !!selectedId && !!selectedPolitician;
   const showList = !showMentions && !showChiffres && !showQuiz && !showProfile;
 
+  let activeRoute = 'home';
+  if (showProfile) activeRoute = 'profile';
+  else if (showChiffres) activeRoute = 'chiffres';
+  else if (showQuiz) activeRoute = 'quiz';
+  else if (showMentions) activeRoute = 'mentions';
+
   return (
-    <div className="min-h-screen font-sans antialiased text-slate-900 dark:text-slate-100 transition-colors duration-300">
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="w-1/4">
-            <h1
-              onClick={handleLogoClick}
-              className="text-2xl sm:text-3xl font-black tracking-tighter cursor-pointer hover:opacity-80 transition-opacity select-none shrink-0"
-            >
-              PolitiSimple<span className="text-blue-600">.</span>
-            </h1>
-          </div>
+    <div className="min-h-screen bg-paper text-ink antialiased">
+      <Header
+        activeRoute={activeRoute}
+        onGoHome={goHome}
+        searchTerm={searchTerm}
+        onSearch={setSearchTerm}
+      />
 
-          <div className="hidden md:flex flex-1 justify-center items-center gap-3 max-w-2xl">
-            {showList && (
-              <div className="relative flex-1 max-w-lg">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Rechercher une personnalité, un parti, une ville..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all outline-none text-sm font-medium shadow-sm hover:shadow-md"
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="w-1/4 flex justify-end items-center gap-2 sm:gap-3">
-            <a
-              href="#quiz"
-              className="inline-flex items-center gap-2 px-2.5 py-2.5 sm:px-3.5 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold hover:bg-indigo-200 dark:hover:bg-indigo-800/40 hover:scale-105 transition-all whitespace-nowrap"
-            >
-              <Compass className="h-5 w-5" strokeWidth={2} />
-              <span className="hidden sm:inline">Quiz</span>
-            </a>
-            <a
-              href="#chiffres-assemblee"
-              className="inline-flex items-center gap-2 px-2.5 py-2.5 sm:px-3.5 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold hover:bg-blue-200 dark:hover:bg-blue-800/40 hover:scale-105 transition-all whitespace-nowrap"
-            >
-              <Landmark className="h-5 w-5" strokeWidth={2} />
-              <span className="hidden sm:inline">Assemblée</span>
-            </a>
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:scale-105 transition-transform"
-              aria-label="Changer de thème"
-            >
-              {isDark ? (
-                <Sun className="h-5 w-5 text-white" />
-              ) : (
-                <Moon className="h-5 w-5 text-slate-600" />
-              )}
-            </button>
-
-            {(showProfile || showMentions || showChiffres || showQuiz) && (
-              <button
-                onClick={goHome}
-                className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-xl font-bold text-sm shadow-lg hover:opacity-90 transition-all"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <span className="hidden sm:inline">Retour</span>
-              </button>
-            )}
-          </div>
-        </div>
-
+      <main>
         {showList && (
-          <div className="md:hidden px-4 pb-4">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Rechercher..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-base"
-              />
-            </div>
-          </div>
+          <>
+            <HomeHero />
+            <HomePersonalities
+              politicians={politiciansData}
+              onSelect={handleSelectPolitician}
+              searchTerm={searchTerm}
+            />
+            <HomeQuizCTA />
+            <HomeDerniersVotes />
+          </>
         )}
-      </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {showMentions && <MentionsLegales />}
-
+        {showProfile && (
+          <ProfileView
+            politician={selectedPolitician}
+            allPoliticians={politiciansData}
+            onSelectPolitician={handleSelectPolitician}
+          />
+        )}
         {showChiffres && <ChiffresAssemblee onSelectPolitician={handleSelectPolitician} />}
-
         {showQuiz && <Quiz onSelectPolitician={handleSelectPolitician} />}
-
-        {showList && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-            {filteredPoliticians.map((p) => (
-              <div
-                key={p.id}
-                className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 transition-all duration-500 cursor-pointer"
-                onClick={() => handleSelectPolitician(p.id)}
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=random&size=400&bold=true`;
-                    }}
-                  />
-                  <div
-                    className="absolute bottom-4 left-4 px-4 py-1.5 rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-lg"
-                    style={{ backgroundColor: p.partyColor }}
-                  >
-                    {p.party}
-                  </div>
-                </div>
-                <div className="p-8">
-                  <div className="flex items-center gap-2 text-slate-400 text-[10px] font-bold mb-3 uppercase tracking-wider">
-                    <Clock className="h-3 w-3" />
-                    Mise à jour : {formatFrenchDate(p.lastUpdate)}
-                  </div>
-                  <h3 className="text-2xl font-black mb-2 group-hover:text-blue-600 transition-colors uppercase tracking-tight leading-tight">
-                    {p.name}
-                  </h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-8 italic">
-                    "{p.bio}"
-                  </p>
-                  <div className="flex items-center text-blue-600 dark:text-blue-400 font-black text-xs uppercase tracking-widest">
-                    Découvrir le profil{' '}
-                    <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-2 transition-all" />
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {filteredPoliticians.length === 0 && (
-              <div className="col-span-full py-32 text-center">
-                <Search className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                <p className="text-xl font-bold text-slate-400">
-                  Aucun profil ne correspond à votre recherche.
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {showProfile && <ProfileView politician={selectedPolitician} />}
+        {showMentions && <MentionsLegales />}
       </main>
 
-      <footer className="border-t border-slate-200 dark:border-slate-800 py-16 mt-32 bg-white/50 dark:bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-8 text-center">
-          <h4 className="text-xl font-black tracking-tighter mb-4 opacity-70">POLITISIMPLE.</h4>
-          <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-            L'information politique simplifiée — © 2026
-          </p>
-          <a
-            href="#mentions-legales"
-            className="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] transition-colors"
-          >
-            Mentions légales & droit de réponse
-          </a>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-function ProfileView({ politician }) {
-  const legalMeta = LEGAL_STATUS_META[politician.legal?.globalStatus] || LEGAL_STATUS_META.clean;
-  const LegalIcon = legalMeta.icon;
-  const amendmentsWritten = politician.stats?.amendmentsWritten ?? null;
-  const formattedAmendments =
-    amendmentsWritten !== null ? amendmentsWritten.toLocaleString('fr-FR') : null;
-
-  return (
-    <div className="max-w-4xl mx-auto space-y-16 animate-[fadeIn_0.5s_ease-out_forwards]">
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
-        <div className="relative shrink-0">
-          <img
-            src={politician.image}
-            alt={politician.name}
-            className="w-48 h-48 sm:w-64 sm:h-64 rounded-[3.5rem] object-cover ring-8 ring-white dark:ring-slate-900 shadow-2xl"
-            referrerPolicy="no-referrer"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(politician.name)}&background=random&size=400&bold=true`;
-            }}
-          />
-          <div
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-2xl text-white text-xs font-black uppercase tracking-widest shadow-2xl whitespace-nowrap"
-            style={{ backgroundColor: politician.partyColor }}
-          >
-            {politician.party}
-          </div>
-        </div>
-        <div className="text-center md:text-left flex-1 py-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-500 text-[10px] font-black uppercase tracking-wider mb-6">
-            <Clock className="h-3 w-3" />
-            Actualisé le {formatFrenchDate(politician.lastUpdate)}
-          </div>
-          <h2 className="text-5xl sm:text-7xl font-black mb-6 tracking-tighter leading-none uppercase">
-            {politician.name}
-          </h2>
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-            <span className="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-black rounded-xl uppercase tracking-widest border border-blue-100 dark:border-blue-900/50">
-              Dossier complet
-            </span>
-            {formattedAmendments !== null && (
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black rounded-xl uppercase tracking-widest border border-slate-200 dark:border-slate-700">
-                <ScrollText className="h-3.5 w-3.5" />
-                {formattedAmendments} amendements écrits
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-16">
-        <section>
-          <div className="flex items-center gap-4 mb-10">
-            <div className="p-4 bg-blue-600 text-white rounded-[1.5rem] shadow-xl shadow-blue-500/20">
-              <Info className="h-6 w-6" />
-            </div>
-            <h3 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase">
-              Le Programme
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {politician.program.map((cat, idx) => (
-              <div
-                key={idx}
-                className="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all"
-              >
-                <h4 className="text-xl font-black mb-8 text-blue-600 dark:text-blue-400 uppercase tracking-tight flex items-center gap-3">
-                  <span className="h-1.5 w-6 bg-blue-600 rounded-full" />
-                  {cat.category}
-                </h4>
-                <ul className="space-y-6">
-                  {cat.points.map((pt, i) => (
-                    <li
-                      key={i}
-                      className="flex gap-4 text-slate-600 dark:text-slate-400 font-semibold leading-relaxed group"
-                    >
-                      <ChevronRight className="h-5 w-5 shrink-0 text-blue-500 opacity-20 group-hover:opacity-100 transition-opacity" />
-                      <span className="text-[15px]">{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <VotesSection politician={politician} />
-
-        <section>
-          <div className="flex items-center gap-4 mb-10">
-            <div
-              className="p-4 text-white rounded-[1.5rem] shadow-xl"
-              style={{
-                backgroundColor: legalMeta.color,
-                boxShadow: `0 10px 25px -5px ${legalMeta.color}33`,
-              }}
-            >
-              <LegalIcon className="h-6 w-6" />
-            </div>
-            <h3 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase">
-              Justice & Légalité
-            </h3>
-          </div>
-
-          <div className={`border ${legalMeta.bgClass} p-8 sm:p-12 rounded-[3.5rem] shadow-sm`}>
-            <div className="pb-8 border-b border-current/10 mb-10 flex flex-wrap items-center gap-4">
-              <span
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-white text-xs font-black uppercase tracking-widest shadow-lg"
-                style={{ backgroundColor: legalMeta.color }}
-              >
-                <LegalIcon className="h-4 w-4" />
-                {legalMeta.label}
-              </span>
-              <p
-                className={`text-lg sm:text-xl font-black uppercase tracking-tighter ${legalMeta.textClass}`}
-              >
-                {politician.legal.status}
-              </p>
-            </div>
-
-            <div className="space-y-8 mb-12">
-              {politician.legal.details.map((detail, idx) => (
-                <div key={idx} className="flex gap-6 items-start group">
-                  <div
-                    className="h-10 w-1.5 rounded-full opacity-30 group-hover:opacity-100 transition-all duration-500"
-                    style={{ backgroundColor: legalMeta.color }}
-                  />
-                  <p className="text-slate-800 dark:text-slate-200 font-bold text-lg leading-snug">
-                    {detail}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-current/10">
-              <span
-                className={`text-[10px] font-black uppercase tracking-[0.2em] opacity-60 ${legalMeta.textClass}`}
-              >
-                Sources citées
-              </span>
-              {politician.legal.sources.map((s, i) => (
-                <SourceLink key={i} source={s} />
-              ))}
-            </div>
-
-            <p className="mt-8 text-[11px] text-slate-500 dark:text-slate-400 italic leading-relaxed">
-              Présomption d'innocence respectée. Les informations sont publiques et sourcées.{' '}
-              <a
-                href="#mentions-legales"
-                className="underline hover:text-blue-600 dark:hover:text-blue-400"
-              >
-                Droit de réponse
-              </a>
-              .
-            </p>
-          </div>
-        </section>
-
-        {politician.timeline && politician.timeline.length > 0 && (
-          <section>
-            <div className="flex items-center gap-4 mb-10">
-              <div
-                className="p-4 text-white rounded-[1.5rem] shadow-xl"
-                style={{
-                  backgroundColor: politician.partyColor,
-                  boxShadow: `0 10px 25px -5px ${politician.partyColor}33`,
-                }}
-              >
-                <Briefcase className="h-6 w-6" />
-              </div>
-              <h3 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase">
-                Parcours & Expérience
-              </h3>
-            </div>
-
-            <div className="relative pl-8 sm:pl-12 space-y-12 before:absolute before:left-[11px] sm:before:left-[15px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200 dark:before:bg-slate-800">
-              {politician.timeline.map((item, idx) => (
-                <div key={idx} className="relative group">
-                  <div
-                    className="absolute -left-[30px] sm:-left-[38px] top-1.5 h-4 w-4 rounded-full border-4 border-white dark:border-slate-900 group-hover:scale-150 transition-all duration-300"
-                    style={{ backgroundColor: politician.partyColor }}
-                  />
-                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
-                    <span
-                      className="font-black text-lg tracking-tighter uppercase shrink-0 min-w-[100px]"
-                      style={{ color: politician.partyColor }}
-                    >
-                      {item.year}
-                    </span>
-                    <div className="space-y-2">
-                      <h4 className="text-xl font-black uppercase tracking-tight leading-none group-hover:opacity-70 transition-opacity">
-                        {item.title}
-                      </h4>
-                      {item.description && (
-                        <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed italic text-sm">
-                          {item.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-      </div>
+      <Footer onGoHome={goHome} />
     </div>
   );
 }

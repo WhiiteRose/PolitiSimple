@@ -1,48 +1,54 @@
 <!doctype html>
-<html lang="fr" class="light">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
-    <script>
-      (function () {
-        var dark = localStorage.getItem('theme') === 'dark';
-        if (dark) {
-          document.documentElement.classList.add('dark');
-          document.querySelector('meta[name="theme-color"]').content = '#0f172a';
-        }
-      })();
-    </script>
-    <title>PolitiSimple - L'information politique claire</title>
-    
-    <!-- Polices Premium -->
+    <title>PolitiSimple — L'information politique simplifiée</title>
+
+    <!-- Polices : Funnel Display + Funnel Sans (UI/titres) + Caveat (annotations) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN - Solution de secours ultime pour un rendu garanti -->
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700;800&family=Funnel+Sans:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN — étendu avec les tokens du redesign éditorial -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
+            colors: {
+              ink: 'var(--ink)',
+              'ink-2': 'var(--ink-2)',
+              'ink-mute': 'var(--ink-mute)',
+              'ink-red': 'var(--ink-red)',
+              'ink-green': 'var(--ink-green)',
+              'ink-blue': 'var(--ink-blue)',
+              'ink-yellow': 'var(--ink-yellow)',
+              'ink-cream': 'var(--ink-cream)',
+              paper: 'var(--paper)',
+              'paper-2': 'var(--paper-2)',
+              rule: 'var(--rule)',
+              accent: 'var(--accent)',
+              'accent-soft': 'var(--accent-soft)',
+              highlight: 'var(--highlight)',
+            },
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              display: ['"Funnel Display"', 'system-ui', 'sans-serif'],
+              sans: ['"Funnel Sans"', 'system-ui', 'sans-serif'],
+              hand: ['Caveat', 'cursive'],
+            },
+            letterSpacing: {
+              tightest: '-0.05em',
+              tighter: '-0.04em',
             },
           }
         }
       }
     </script>
-    <style type="text/css">
-      /* Animations fluides */
-      .transition-all { transition: all 0.3s ease; }
-      [alpha-in] { animation: fadeIn 0.8s ease-out forwards; }
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
   </head>
-  <body class="bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
